@@ -7,7 +7,7 @@ Web app using Laravel that aim to create music collaboratively.
 ## Abstract
 
 CadExMus2 provides a music sequencer, each collaborator of a project can simultaneously add lines to the sequencer and edit notes.
-Lines contains notes, each note have a position and a length (duration). A line is bounded to a sound.
+Lines contains notes, each note have a position and a length (duration). A line is bound to a sound.
 A project is an arrangement of sequencers (or clips).
 
 The Wiki is in french
