@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadexmus2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script src="src/jquery-ui.js"></script>
+<!--
+<script src="src/jquery.min.js"></script>
+<script src="src/bootstrap.min.js"></script>
+<link rel="stylesheet" href="src/bootstrap.min.css">
+-->
+<link rel="stylesheet" href="src/jquery-ui.css">
+<link rel="stylesheet" href="src/style.css">
+<style>
+  </style>
+
+</head>
+<body>
+		<nav id="sidebar">
+			<div class="siderelement firstsiderelement">
+				<h1>Cadexmus2</h1>
+				<hr>
+				<h3>Mes projets</h3>
+				<ul class="nav nav-pills nav-stacked" >
+					<li class="active"><a href="">Projet Yolo</a></li>
+					<li><a href="">Les hommes crabes</a></li>
+					<li><a href="">René la taupe remix</a></li>
+					<li><a href="">DJ Pépé</a></li>
+					<li><a href="">Schnitzel mit pommes</a></li>
+					<li><a href="">Renaud 2.0</a></li>
+				</ul>
+				<hr>
+			</div>
+			<div class="siderelement">
+				<hr>
+				<h3>Inviter un collaborateur</h3>
+				<form>
+					<input type="text" >
+					<button class="btn btn-primary">></button>
+				</form>
+			</div>
+		  
+		</nav>
+		<main>
+			<div id="container">
+			
+				<div class="box projecthead">
+					<h1>Projet Yolo <span class="btnPausePlay" style="cursor:pointer">&#9654;</span><span class="btnPausePlay" style="cursor:pointer;display:none">&#9208;</span></h1>
+					<a href="" title="fouine">
+						<img alt="fouine" class="img-circle" src="src/fouine.jpg" style="border-color:rgba(255,235,59,1)" /></a>
+					<a href="" data-placement="top" data-toggle="tooltip" title="chameau">
+						<img class="img-circle" src="src/chameau.jpg"  style="border-color:rgba(255,152,0,1)"/></a>
+					<a href="" title="blaireau">
+						<img class="img-circle" src="src/blaireau.jpg" style="border-color:rgba(139,195,74,1)" /></a>
+					<div style="clear:both"></div>
+				</div>
+				<p style="cursor:pointer"><span id="btnZoom">&#128269;</span></p>
+				<div class="box">
+					<div>
+						<table id="grid">
+							<tr class="lineuser1">
+								<td>kick</td>
+								<td class="line">
+									<div class="note" style="left:0%;width:12.5%"></div>
+									<div class="note" style="left:25%;width:12.5%"></div>
+									<div class="note" style="left:50%;width:12.5%"></div>
+									<div class="note" style="left:75%;width:12.5%"></div>
+								</td>
+							</tr>
+							<tr class="lineuser1">
+								<td>snare</td>
+								<td class="line">
+									<div class="note" style="left:25%;width:6.25%"></div>
+									<div class="note" style="left:87.5%;width:6.25%"></div>
+									<div class="note" style="left:75%;width:6.25%"></div>
+								</td>
+							</tr>
+							<tr class="lineuser2">
+								<td>pad C3</td>
+								<td class="line">
+									<div class="note" style="left:6.25%;width:25%"></div>
+									<div class="note" style="left:56.25%;width:25%"></div>
+								</td>
+							</tr>
+							<tr class="lineuser1">
+								<td>hit hat</td>
+								<td class="line" id="hithat">
+								</td>
+									<script>
+									for(var i=0;i<1;i+=1/16){
+										document.getElementById("hithat").innerHTML+='<div class="note" style="left:'+(i*100)+'%;width:3.125%"></div>';
+									}
+									</script>
+								
+							</tr>
+							<tr class="lineuser2">
+								<td>pad D#2</td>
+								<td class="line">
+									<div class="note" style="left:0%;width:6.25%"></div>
+									<div class="note" style="left:31.25%;width:12.5%"></div>
+									<div class="note" style="left:87.5%;width:12.5%"></div>
+								</td>
+							</tr>
+							<tr class="lineuser3">
+								<td>yolo</td>
+								<td class="line">
+									<div class="note" style="left:0%;width:75%"></div>
+								</td>
+							</tr>
+							<!--
+							<tr>
+								<td colspan="2"><button type="button" class="btn btn-primary" style="width:100%;">Ajouter une ligne</button></td>
+							</tr>
+							-->
+						</table>
+					</div>
+					<button type="button" class="btn btn-primary" style="width:100%;border-radius:0" data-toggle="modal" data-target="#myModal">Ajouter une ligne</button>
+				</div>
+			</div>
+			<p id="debug"></p>
+		</main>
+		
+		<!-- Modal -->
+		<div id="myModal" class="modal" role="dialog">
+		  <div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+			  <div class="modal-body">
+				<p id="texteModal"></p>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+			  </div>
+			</div>
+
+		  </div>
+		</div>
+	</div>
+	<script>
+	$(document).ready(function(){
+		
+		$( ".note" ).draggable({
+			axis:"x",
+			//snap: true,	
+			start: function( event, ui ) {
+				//console.log($(this),ui);
+			},
+			drag: function( event, ui ) {
+				/*
+				console.log(event);
+				$("#debug").html("x:" + event.offsetX + " y:" + event.offsetY );
+				
+				*/
+				
+				//console.log(ui);
+				//$("#debug").html("x:" + ui.originalPosition.left + " y:" + ui.originalPosition.top);
+				//$("#debug").append(" ==> x:" + ui.position.left + " y:" + ui.position.top);
+				
+			},
+			stop:function(event,ui){
+				pw = $(this).parent().width();
+				rapport = ui.position.left/pw;
+				//console.log(rapport);
+				$(this).css("left",100*rapport +"%");
+				$(this).css("top","0px");
+			}
+		}).resizable({
+			handles: "e"
+		});
+		
+		$(".note").dblclick(function(){
+			$(this).remove();
+		});
+		
+		$("#resizable").resizable();
+	
+		var zooming=false;
+		$("#btnZoom").click(function(){
+			if(zooming){
+				$("#grid").css("width","100%");
+				zooming=false;
+			}else{
+				$("#grid").css("width","300%");
+				zooming=true;
+			}
+		});
+		
+		$(".btnPausePlay").click(function(){
+			$(".btnPausePlay").toggle();
+		});
+	});
+	</script>
+<body>
+</html>

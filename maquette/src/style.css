@@ -1,0 +1,142 @@
+html,body, .container-fluid, #sidebar{
+	margin:0;
+	padding:0;
+}
+
+body,html{
+/*
+	height:100vh;
+	width:100vw;
+*/
+	min-width:1000px;
+	background-color:#fff;
+}
+
+#sidebar{
+	height:100vh;
+	width:20%;
+	min-width:200px;
+	/*
+	background-image: linear-gradient(to right, #00a, #aaf);
+	background-color:aqua;
+	*/
+	background-color:#fafafa;
+	position:fixed;
+	top:0;
+	
+	display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+	flex-direction: column;
+	z-index: 1;
+}
+
+#sidebar .siderelement{
+	padding:10px;
+	/*
+	background-color:#bbb;
+    overflow-x: hidden;
+    overflow-y: auto;
+	*/
+}
+
+.firstsiderelement{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+main{
+	margin-left:20%;
+}
+
+#container{
+	width:80%;
+	margin:auto;
+}
+
+.projecthead{
+	padding-top:50px;
+	padding-bottom:50px;
+}
+
+.projecthead > h1{
+	float:left;
+	padding:0;
+	margin:0;
+}
+
+.projecthead .img-circle{
+	width:50px;
+	height:50px;
+	float:right;
+	margin-left:15px;
+	border: 4px solid;
+}
+
+.box > div{
+	
+	background-color:#fafafa;
+	overflow-x: auto;
+	
+}
+
+table{
+	width:100%;
+}
+
+table tr td:first-child{
+	/*
+	background-color:#eee;
+	background-color:rgba(120, 120, 120, 0.2);
+	*/
+	border-bottom: 1px solid #fff;
+	border-right: 1px solid #666;
+    width: 100px;
+}
+
+table tr td{
+	border-bottom: 1px solid #ccc;
+	padding:4px;
+	overflow: hidden;
+}
+
+
+table .lineuser1 td:first-child{
+	background-color:rgba(255,235,59,.7);
+}
+
+table .lineuser2 td:first-child{
+	background-color:rgba(255,152,0,.7);
+}
+
+table .lineuser3 td:first-child{
+	background-color:rgba(139,195,74,.7);
+}
+
+.line{
+	/*
+	background-color:#ddd;
+	*/
+    position: relative;
+	/*
+    width: 85%;
+	*/
+}
+
+.note{
+	background-color:#e44;
+	/*
+	background-color:#e44;
+	*/
+	/*
+	background-color:rgba(128, 128, 128, 0.8);
+	*/
+	border-right: 4px solid rgba(0, 0, 0, 0.3);
+    min-height: 100%;
+	position: absolute;
+    top: 0;
+	
+	cursor:pointer;/* col-resize */
+	
+}
