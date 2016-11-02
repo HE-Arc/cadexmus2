@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <title>Cadexmus2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-  <script src="src/jquery-ui.js"></script>
-<!--
+-->
 <script src="src/jquery.min.js"></script>
+  <script src="src/jquery-ui.js"></script>
 <script src="src/bootstrap.min.js"></script>
 <link rel="stylesheet" href="src/bootstrap.min.css">
--->
 <link rel="stylesheet" href="src/jquery-ui.css">
 <link rel="stylesheet" href="src/style.css">
 <style>
@@ -26,13 +27,14 @@
 				<h1>Cadexmus2</h1>
 				<hr>
 				<h3>Mes projets</h3>
-				<ul class="nav nav-pills nav-stacked" >
+				<ul class="nav  nav-stacked" >
 					<li class="active"><a href="">Projet Yolo</a></li>
 					<li><a href="">Les hommes crabes</a></li>
 					<li><a href="">René la taupe remix</a></li>
 					<li><a href="">DJ Pépé</a></li>
 					<li><a href="">Schnitzel mit pommes</a></li>
 					<li><a href="">Renaud 2.0</a></li>
+					<li><button class="btn btn-primary" style="width:100%">Créer un projet</button></li>
 				</ul>
 				<hr>
 			</div>
@@ -63,8 +65,17 @@
 				<div class="box">
 					<div>
 						<table id="grid">
+							<tr>
+								<td></td>
+								<td class="line barline">
+									<div id="timebar" class="gridbar"></div>
+									<div class="gridbar" style="left:25%"></div>
+									<div class="gridbar" style="left:50%"></div>
+									<div class="gridbar" style="left:75%"></div>
+								</td>
+							</tr>
 							<tr class="lineuser1">
-								<td>kick</td>
+								<td class="samplename">kick</td>
 								<td class="line">
 									<div class="note" style="left:0%;width:12.5%"></div>
 									<div class="note" style="left:25%;width:12.5%"></div>
@@ -73,7 +84,7 @@
 								</td>
 							</tr>
 							<tr class="lineuser1">
-								<td>snare</td>
+								<td class="samplename">snare</td>
 								<td class="line">
 									<div class="note" style="left:25%;width:6.25%"></div>
 									<div class="note" style="left:87.5%;width:6.25%"></div>
@@ -81,14 +92,14 @@
 								</td>
 							</tr>
 							<tr class="lineuser2">
-								<td>pad C3</td>
+								<td class="samplename">pad C3</td>
 								<td class="line">
 									<div class="note" style="left:6.25%;width:25%"></div>
 									<div class="note" style="left:56.25%;width:25%"></div>
 								</td>
 							</tr>
 							<tr class="lineuser1">
-								<td>hit hat</td>
+								<td class="samplename">hit hat</td>
 								<td class="line" id="hithat">
 								</td>
 									<script>
@@ -99,7 +110,7 @@
 								
 							</tr>
 							<tr class="lineuser2">
-								<td>pad D#2</td>
+								<td class="samplename">pad D#2</td>
 								<td class="line">
 									<div class="note" style="left:0%;width:6.25%"></div>
 									<div class="note" style="left:31.25%;width:12.5%"></div>
@@ -107,7 +118,7 @@
 								</td>
 							</tr>
 							<tr class="lineuser3">
-								<td>yolo</td>
+								<td class="samplename">yolo</td>
 								<td class="line">
 									<div class="note" style="left:0%;width:75%"></div>
 								</td>
@@ -119,7 +130,7 @@
 							-->
 						</table>
 					</div>
-					<button type="button" class="btn btn-primary" style="width:100%;border-radius:0" data-toggle="modal" data-target="#myModal">Ajouter une ligne</button>
+					<button type="button" class="btn btn-primary" style="width:100%;" data-toggle="modal" data-target="#myModal">Ajouter une ligne</button>
 				</div>
 			</div>
 			<p id="debug"></p>
@@ -144,41 +155,71 @@
 	</div>
 	<script>
 	$(document).ready(function(){
+		function makeDraggableAndResizable(){
+			$( ".note" ).draggable({
+				axis:"x",
+				//snap: true,
+				snap: ".gridbar",
+				snapTolerance: 5,
+				start: function( event, ui ) {
+					//console.log($(this),ui);
+				},
+				drag: function( event, ui ) {
+					/*
+					console.log(event);
+					$("#debug").html("x:" + event.offsetX + " y:" + event.offsetY );
+					
+					*/
+					
+					//console.log(ui.position.left);
+					//$("#debug").html("x:" + ui.originalPosition.left + " y:" + ui.originalPosition.top);
+					//$("#debug").append(" ==> x:" + ui.position.left + " y:" + ui.position.top);
+					
+					x=ui.position.left;
+					x=x%20;
+					$(this).css("left",x+"px");
+				},
+				stop:function(event,ui){
+					pw = $(this).parent().width();
+					x=ui.position.left;
+					rapport = x/pw;
+					//console.log(rapport);
+					$(this).css("left",100*rapport +"%");
+					$(this).css("top","0px");
+					if(x<0 || x>= pw)
+						$(this).remove();
+				}
+			}).resizable({
+				handles: "e", // ne prend en charge que le côté droit (east)
+				stop:function(event,ui){
+					pw = $(this).parent().width();
+					//console.log(ui);
+					rapport = ui.size.width/pw;
+					$(this).css("width",100*rapport +"%");
+					
+				}
+			});
+			
+			$("div.note").click(function(){
+				$(this).remove();
+			});
+		}
+		makeDraggableAndResizable();
 		
-		$( ".note" ).draggable({
-			axis:"x",
-			//snap: true,	
-			start: function( event, ui ) {
-				//console.log($(this),ui);
-			},
-			drag: function( event, ui ) {
-				/*
-				console.log(event);
-				$("#debug").html("x:" + event.offsetX + " y:" + event.offsetY );
-				
-				*/
-				
-				//console.log(ui);
-				//$("#debug").html("x:" + ui.originalPosition.left + " y:" + ui.originalPosition.top);
-				//$("#debug").append(" ==> x:" + ui.position.left + " y:" + ui.position.top);
-				
-			},
-			stop:function(event,ui){
-				pw = $(this).parent().width();
-				rapport = ui.position.left/pw;
-				//console.log(rapport);
-				$(this).css("left",100*rapport +"%");
-				$(this).css("top","0px");
-			}
-		}).resizable({
-			handles: "e"
+		for(var i=0;i<100;i+=100/16){
+			$(".barline").append('<div class="gridbar" style="left:'+i+'%"></div>')
+		}
+		
+		
+		$("td.line").dblclick(function(e){
+			
+			pw = $(this).width();
+			$(this).add("div");
+			
+			$(this).append('<div class="note" style="left:'+100*e.offsetX/pw+'%;width:6.25%"></div>');
+			makeDraggableAndResizable();
+			
 		});
-		
-		$(".note").dblclick(function(){
-			$(this).remove();
-		});
-		
-		$("#resizable").resizable();
 	
 		var zooming=false;
 		$("#btnZoom").click(function(){
@@ -191,9 +232,30 @@
 			}
 		});
 		
+		function loop(){
+			$("#timebar").css("left","0%");
+			$("#timebar").animate({left: '100%'},3000,"linear", function() {
+				loop();
+			});
+		}
+		
+		var paused=true;
 		$(".btnPausePlay").click(function(){
 			$(".btnPausePlay").toggle();
+			if(paused)
+				loop();
+			else{
+				$("#timebar").stop();
+				$("#timebar").css("left","0%");
+			}
+			paused = !paused;
 		});
+		
+		function resetTimebarSize(){
+			$(".gridbar").height($("#grid").height()-1);
+		}
+		
+		resetTimebarSize();
 	});
 	</script>
 <body>

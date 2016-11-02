@@ -16,6 +16,7 @@ body,html{
 	height:100vh;
 	width:20%;
 	min-width:200px;
+	padding-left:10px;
 	/*
 	background-image: linear-gradient(to right, #00a, #aaf);
 	background-color:aqua;
@@ -33,17 +34,20 @@ body,html{
 }
 
 #sidebar .siderelement{
-	padding:10px;
 	/*
+	padding:10px;
 	background-color:#bbb;
     overflow-x: hidden;
     overflow-y: auto;
 	*/
 }
 
-.firstsiderelement{
-    overflow-x: hidden;
-    overflow-y: auto;
+#sidebar .siderelement:first-child{
+    overflow: auto;
+}
+
+.siderelement form{
+	margin-bottom:10px;
 }
 
 main{
@@ -53,6 +57,32 @@ main{
 #container{
 	width:80%;
 	margin:auto;
+}
+
+@media screen and (max-width: 1000px) {
+    #sidebar {
+		height:200px;
+		width:100vw;
+		position:relative;
+		flex-direction: row;
+    }
+	
+	.nav>li {
+		float: left;
+	}
+
+	main{
+		margin-left:0;
+	}
+
+	#container{
+		width:100%;
+	}
+	body,html{
+		min-width:100%;
+	}
+	hr{display:none;}
+
 }
 
 .projecthead{
@@ -97,7 +127,9 @@ table tr td:first-child{
 
 table tr td{
 	border-bottom: 1px solid #ccc;
+	/*
 	padding:4px;
+	*/
 	overflow: hidden;
 }
 
@@ -125,13 +157,13 @@ table .lineuser3 td:first-child{
 }
 
 .note{
-	background-color:#e44;
 	/*
 	background-color:#e44;
 	*/
 	/*
 	background-color:rgba(128, 128, 128, 0.8);
 	*/
+	background-color:rgba(240, 32, 32, 0.9);
 	border-right: 4px solid rgba(0, 0, 0, 0.3);
     min-height: 100%;
 	position: absolute;
@@ -139,4 +171,41 @@ table .lineuser3 td:first-child{
 	
 	cursor:pointer;/* col-resize */
 	
+}
+.btn-primary{
+
+border-radius:0	
+}
+
+.active{
+	/*
+	border-right:10px solid #666;
+	*/
+	font-weight: bold;
+	background-color:rgba(0,0,0,0.1);
+	background-color:white;
+}
+
+
+
+.gridbar{
+	min-height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 1px;
+}
+
+#timebar{
+    z-index: 1;
+    background-color: black;
+}
+
+.barline{
+    overflow: visible;
+}
+
+.samplename{
+	padding:4px;
 }
