@@ -1,58 +1,44 @@
-html,body, .container-fluid, #sidebar{
+html,body, .container, #sidebar{
 	margin:0;
 	padding:0;
 }
 
-body,html{
-/*
-	height:100vh;
-	width:100vw;
-*/
-	min-width:1000px;
-	background-color:#fff;
-}
-
-#sidebar{
-	height:100vh;
-	width:20%;
-	min-width:200px;
-	padding-left:10px;
-	/*
-	background-image: linear-gradient(to right, #00a, #aaf);
-	background-color:aqua;
-	*/
-	background-color:#fafafa;
-	position:fixed;
-	top:0;
-	
-	display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-	flex-direction: column;
-	z-index: 1;
-}
-
-#sidebar .siderelement{
-	/*
-	padding:10px;
-	background-color:#bbb;
-    overflow-x: hidden;
-    overflow-y: auto;
-	*/
-}
-
-#sidebar .siderelement:first-child{
+.column{
+	float: left;
+    height: 100vh;
     overflow: auto;
 }
 
-.siderelement form{
-	margin-bottom:10px;
+.column-left{
+	width:20%;
 }
 
-main{
-	margin-left:20%;
+.column-center{
+	width:65%;
 }
+
+.column-right{
+	width:15%;
+	
+}
+
+.column-left, .column-right{
+	
+	background-color:#fafafa;
+	
+	display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    flex-direction: column;
+	
+	padding-left:10px;
+	padding-bottom:20px;
+}
+
+nav, #chatDisplayMessages{
+    overflow: auto;
+}
+
 
 #container{
 	width:80%;
@@ -60,27 +46,24 @@ main{
 }
 
 @media screen and (max-width: 1000px) {
-    #sidebar {
-		height:200px;
-		width:100vw;
-		position:relative;
-		flex-direction: row;
+	.column{
+	float: initial;
+    height: initial;
+		
+	}
+    .column-left, .column-right {
+		max-height:300px;
+		width:100%;
     }
 	
 	.nav>li {
 		float: left;
 	}
-
-	main{
-		margin-left:0;
-	}
-
-	#container{
+	
+	.column-center, #container{
 		width:100%;
 	}
-	body,html{
-		min-width:100%;
-	}
+	
 	hr{display:none;}
 
 }

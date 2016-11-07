@@ -22,8 +22,8 @@
 
 </head>
 <body>
-		<nav id="sidebar">
-			<div class="siderelement firstsiderelement">
+	<header class="column column-left">
+			<nav class="siderelement firstsiderelement">
 				<h1>Cadexmus2</h1>
 				<hr>
 				<h3>Mes projets</h3>
@@ -37,7 +37,7 @@
 					<li><button class="btn btn-primary" style="width:100%">Créer un projet</button></li>
 				</ul>
 				<hr>
-			</div>
+			</nav>
 			<div class="siderelement">
 				<hr>
 				<h3>Inviter un collaborateur</h3>
@@ -46,9 +46,8 @@
 					<button class="btn btn-primary">></button>
 				</form>
 			</div>
-		  
-		</nav>
-		<main>
+	</header>	  
+	<main class="column column-center">
 			<div id="container">
 			
 				<div class="box projecthead">
@@ -135,7 +134,21 @@
 			</div>
 			<p id="debug"></p>
 		</main>
-		
+	<aside class="column column-right">
+		<div id="chatDisplayMessages">
+		</div>
+		<div id="chatWriteMessage">
+		<hr>
+		<h2>Ecrire un message</h2>
+		</div>
+	</aside>
+	<script>
+	for(var i=0;i<20;i++){
+		document.getElementById("chatDisplayMessages").innerHTML+='<div class="chatMessage"><p class="sender">Joaquim</p><p class="message">'+("coucou "+i)+'</p></div>';
+	}
+	</script>
+
+	
 		<!-- Modal -->
 		<div id="myModal" class="modal" role="dialog">
 		  <div class="modal-dialog">
