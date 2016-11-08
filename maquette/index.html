@@ -23,27 +23,29 @@
 </head>
 <body>
 	<header class="column column-left">
-			<nav class="siderelement firstsiderelement">
+			<div>
 				<h1>Cadexmus2</h1>
 				<hr>
 				<h3>Mes projets</h3>
-				<ul class="nav  nav-stacked" >
-					<li class="active"><a href="">Projet Yolo</a></li>
-					<li><a href="">Les hommes crabes</a></li>
-					<li><a href="">René la taupe remix</a></li>
-					<li><a href="">DJ Pépé</a></li>
-					<li><a href="">Schnitzel mit pommes</a></li>
-					<li><a href="">Renaud 2.0</a></li>
-					<li><button class="btn btn-primary" style="width:100%">Créer un projet</button></li>
-				</ul>
+			</div>
+				<nav class="siderelement firstsiderelement">
+					<ul class="nav  nav-stacked" >
+						<li class="active"><a href="">Projet Yolo</a></li>
+						<li><a href="">Les hommes crabes</a></li>
+						<li><a href="">René la taupe remix</a></li>
+						<li><a href="">DJ Pépé</a></li>
+						<li><a href="">Schnitzel mit pommes</a></li>
+						<li><a href="">Renaud 2.0</a></li>
+					</ul>
+						<button class="btn btn-primary" style="width:100%">Créer un projet</button>
 				<hr>
-			</nav>
+				</nav>
 			<div class="siderelement">
 				<hr>
 				<h3>Inviter un collaborateur</h3>
-				<form>
-					<input type="text" >
-					<button class="btn btn-primary">></button>
+				<form    style="margin: 0 10px 0 0">
+					<input type="text"  class="form-control" placeholder="pseudo du collaborateur">
+					<!--<button class="btn btn-primary">></button> -->
 				</form>
 			</div>
 	</header>	  
@@ -60,7 +62,10 @@
 						<img class="img-circle" src="src/blaireau.jpg" style="border-color:rgba(139,195,74,1)" /></a>
 					<div style="clear:both"></div>
 				</div>
-				<p style="cursor:pointer"><span id="btnZoom">&#128269;</span></p>
+				<p>
+					<span id="btnZoom" style="cursor:pointer">&#128269;</span>
+					<span id="btnLock" style="cursor:pointer">&#128274;</span>
+				</p>
 				<div class="box">
 					<div>
 						<table id="grid">
@@ -75,31 +80,36 @@
 							</tr>
 							<tr class="lineuser1">
 								<td class="samplename">kick</td>
-								<td class="line">
+								<td class="line" id="line1">
+	<audio src="samples/drums/kick2.wav" id="audio0" preload="auto"></audio>
 									<div class="note" style="left:0%;width:12.5%"></div>
-									<div class="note" style="left:25%;width:12.5%"></div>
-									<div class="note" style="left:50%;width:12.5%"></div>
-									<div class="note" style="left:75%;width:12.5%"></div>
+									<div class="note" style="left:18.75%;width:12.5%"></div>
+									<div class="note" style="left:50%;width:3.125%"></div>
+									<div class="note" style="left:75%;width:6.25%"></div>
+									<div class="note" style="left:87.5%;width:6.25%"></div>
 								</td>
 							</tr>
 							<tr class="lineuser1">
 								<td class="samplename">snare</td>
 								<td class="line">
+	<audio src="samples/drums/snare1.wav" id="audio1" preload="auto"></audio>
 									<div class="note" style="left:25%;width:6.25%"></div>
-									<div class="note" style="left:87.5%;width:6.25%"></div>
-									<div class="note" style="left:75%;width:6.25%"></div>
+									<div class="note" style="left:75%;width:12.5%"></div>
 								</td>
 							</tr>
 							<tr class="lineuser2">
-								<td class="samplename">pad C3</td>
+								<td class="samplename">instrument</td>
 								<td class="line">
-									<div class="note" style="left:6.25%;width:25%"></div>
-									<div class="note" style="left:56.25%;width:25%"></div>
+	<audio src="samples/instrument.wav" id="audio2" preload="auto"></audio>
+									<div class="note" style="left:12.5%;width:5%"></div>
+									<div class="note" style="left:18.75%;width:5%"></div>
+									<div class="note" style="left:50%;width:50%"></div>
 								</td>
 							</tr>
 							<tr class="lineuser1">
 								<td class="samplename">hit hat</td>
 								<td class="line" id="hithat">
+	<audio src="samples/drums/hat1.wav" id="audio3" preload="auto"></audio>
 								</td>
 									<script>
 									for(var i=0;i<1;i+=1/16){
@@ -109,16 +119,16 @@
 								
 							</tr>
 							<tr class="lineuser2">
-								<td class="samplename">pad D#2</td>
+								<td class="samplename">bass1</td>
 								<td class="line">
-									<div class="note" style="left:0%;width:6.25%"></div>
-									<div class="note" style="left:31.25%;width:12.5%"></div>
+	<audio src="samples/bass1.wav" id="audio4" preload="auto"></audio>
 									<div class="note" style="left:87.5%;width:12.5%"></div>
 								</td>
 							</tr>
 							<tr class="lineuser3">
-								<td class="samplename">yolo</td>
+								<td class="samplename">goutte</td>
 								<td class="line">
+	<audio src="samples/fx/goutte.wav" id="audio5" preload="auto"></audio>
 									<div class="note" style="left:0%;width:75%"></div>
 								</td>
 							</tr>
@@ -133,20 +143,34 @@
 				</div>
 			</div>
 			<p id="debug"></p>
+			<span id="toggle_chat">close chat</span>
 		</main>
 	<aside class="column column-right">
 		<div id="chatDisplayMessages">
 		</div>
 		<div id="chatWriteMessage">
 		<hr>
-		<h2>Ecrire un message</h2>
+				<form style="margin:0 10px">
+					<input class="form-control" type="text" placeholder="message">
+				</form>
 		</div>
 	</aside>
 	<script>
-	for(var i=0;i<20;i++){
-		document.getElementById("chatDisplayMessages").innerHTML+='<div class="chatMessage"><p class="sender">Joaquim</p><p class="message">'+("coucou "+i)+'</p></div>';
+	noms = ["fouine","chameau","blaireau"];
+	couleurs = ["rgba(255,235,59,1)","rgba(255,152,0,1)","rgba(139,195,74,1)"];
+	for(var i=0;i<30;i++){
+		document.getElementById("chatDisplayMessages").innerHTML+='<div class="chatMessage" style=border-color:'+couleurs[i%3]+'><p class="sender">'+noms[i%3]+'</p><p class="message">'+("coucou "+i)+'</p></div>';
 	}
 	</script>
+	
+	<audio src="samples/drums/kick2.wav" id="audio0" preload="auto">
+	<!--
+		<source src="bass el contesto.ogg" type="audio/ogg">
+		<source src="bass el contesto.mp3" type="audio/mp3">
+		<source src="bass el contesto.wav" type="audio/wav">
+	-->
+	</audio>
+
 
 	
 		<!-- Modal -->
@@ -247,7 +271,7 @@
 		
 		function loop(){
 			$("#timebar").css("left","0%");
-			$("#timebar").animate({left: '100%'},3000,"linear", function() {
+			$("#timebar").animate({left: '100%'},240000/90,"linear", function() {
 				loop();
 			});
 		}
@@ -255,11 +279,13 @@
 		var paused=true;
 		$(".btnPausePlay").click(function(){
 			$(".btnPausePlay").toggle();
-			if(paused)
+			if(paused){
 				loop();
-			else{
+				play();
+			}else{
 				$("#timebar").stop();
 				$("#timebar").css("left","0%");
+				stop();
 			}
 			paused = !paused;
 		});
@@ -269,6 +295,86 @@
 		}
 		
 		resetTimebarSize();
+		
+		$("#toggle_chat").click(function(){
+			// pas top parce que la fonction css écrit dans le element.style et donc ça override les regles @media
+			
+			if($(this).html()=="close chat"){
+				$(this).html("open chat");
+				$(".column-right").hide();
+			}else{
+				$(this).html("close chat");
+				$(".column-right").show();
+			}
+			
+		});
+		
+		$(".samplename").hover(function(){
+			saved = $(this).html();
+			newContent=' \
+			<span style="cursor:pointer">&#10060;</span> \
+			<input type="range" value="0.8" min="0" max="1" step="0.05"/>  \
+			'
+			$(this).html(newContent);
+		},function(){
+			$(this).html(saved);
+		});
+		
+		
+		
+		
+		
+		
+		audios=[];
+		audios = $("audio").get();
+		
+		function playSound(note){
+			//console.log("play")
+			note.audio.currentTime=0;
+			note.audio.play();
+			setTimeout(function(){
+				note.audio.pause();
+			},note.duree*240000/90);
+		}
+		
+		function play(){
+			lectures=[];
+			notes=[];
+			$(".note").each(function() {
+				audio_elem = $(this).parent().children("audio")[0];
+				console.log(audio_elem);
+				duree = parseFloat(this.style.width)/100;
+				position = parseFloat(this.style.left)/100;
+				notes.push({
+					duree:duree,
+					position:position,
+					audio:audio_elem
+				});
+			});
+			notes.forEach(function(note){
+				setTimeout(function(){
+					if(!paused){
+						/*
+						playSound(note.duree*240000/90);
+						lecture = setInterval(function(){
+							playSound(note.duree*240000/90);
+						},240000/90);
+						lectures.push(lecture);
+						*/
+						playSound(note);
+						lecture = setInterval(function(){
+							playSound(note);
+						},240000/90);
+						lectures.push(lecture);
+					}
+				}, note.position*240000/90);
+			});
+		}
+		
+		function stop(){
+			lectures.map(clearInterval);
+		}
+		
 	});
 	</script>
 <body>

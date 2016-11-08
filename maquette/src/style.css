@@ -3,22 +3,32 @@ html,body, .container, #sidebar{
 	padding:0;
 }
 
+body{
+	height:100vh;
+	display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
 .column{
 	float: left;
-    height: 100vh;
+    height: 100%;
+	/*
     overflow: auto;
+	*/
 }
 
 .column-left{
-	width:20%;
+	padding-left:10px;
 }
 
 .column-center{
-	width:65%;
+	width:100%;
+	position:relative;
 }
 
 .column-right{
-	width:15%;
 	
 }
 
@@ -31,7 +41,7 @@ html,body, .container, #sidebar{
     justify-content: space-between;
     flex-direction: column;
 	
-	padding-left:10px;
+	width:20%;
 	padding-bottom:20px;
 }
 
@@ -39,20 +49,32 @@ nav, #chatDisplayMessages{
     overflow: auto;
 }
 
+nav{
+	height: 100%;
+}
+
 
 #container{
-	width:80%;
+	width:85%;
 	margin:auto;
 }
 
 @media screen and (max-width: 1000px) {
-	.column{
-	float: initial;
-    height: initial;
-		
+	body{
+		height: initial;
+		flex-direction: column;
 	}
+	.column{
+		height: initial;
+		padding:10px;
+	}
+	
+	#container{
+		width:100%;
+	}
+	
     .column-left, .column-right {
-		max-height:300px;
+		max-height:400px;
 		width:100%;
     }
 	
@@ -60,13 +82,13 @@ nav, #chatDisplayMessages{
 		float: left;
 	}
 	
-	.column-center, #container{
-		width:100%;
-	}
-	
 	hr{display:none;}
 
 }
+
+/*****
+Main
+*****/
 
 .projecthead{
 	padding-top:50px;
@@ -99,10 +121,6 @@ table{
 }
 
 table tr td:first-child{
-	/*
-	background-color:#eee;
-	background-color:rgba(120, 120, 120, 0.2);
-	*/
 	border-bottom: 1px solid #fff;
 	border-right: 1px solid #666;
     width: 100px;
@@ -117,7 +135,7 @@ table tr td{
 }
 
 
-table .lineuser1 td:first-child{
+table .lineuser1 .samplename{
 	background-color:rgba(255,235,59,.7);
 }
 
@@ -130,22 +148,10 @@ table .lineuser3 td:first-child{
 }
 
 .line{
-	/*
-	background-color:#ddd;
-	*/
     position: relative;
-	/*
-    width: 85%;
-	*/
 }
 
 .note{
-	/*
-	background-color:#e44;
-	*/
-	/*
-	background-color:rgba(128, 128, 128, 0.8);
-	*/
 	background-color:rgba(240, 32, 32, 0.9);
 	border-right: 4px solid rgba(0, 0, 0, 0.3);
     min-height: 100%;
@@ -155,21 +161,6 @@ table .lineuser3 td:first-child{
 	cursor:pointer;/* col-resize */
 	
 }
-.btn-primary{
-
-border-radius:0	
-}
-
-.active{
-	/*
-	border-right:10px solid #666;
-	*/
-	font-weight: bold;
-	background-color:rgba(0,0,0,0.1);
-	background-color:white;
-}
-
-
 
 .gridbar{
 	min-height: 100px;
@@ -191,4 +182,47 @@ border-radius:0
 
 .samplename{
 	padding:4px;
+}
+
+
+
+
+/****
+Divers
+*****/
+
+.btn-primary{
+	border-radius:0	
+}
+
+.active{
+	font-weight: bold;
+	background-color:rgba(0,0,0,0.1);
+	background-color:white;
+}
+
+.chatMessage{
+	font-size:small;
+	border-left:4px solid;
+	padding:5px;
+}
+
+p.sender{
+	font-size: smaller;
+    font-weight: bold;
+    margin: 0;
+}
+
+p.message{
+	margin:0;
+}
+
+#toggle_chat{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: small;
+    padding: 0 3px;
+    background-color: #ccc;
+	cursor:pointer;
 }
