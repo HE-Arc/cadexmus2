@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>Tenori-on</title>
+
+<h1>Tenori-on</h1>
+<script src="src/buffer-loader.js"></script>
+<script>
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+var context = new AudioContext();
+var bufferLoader = new BufferLoader(
+  context,
+  ['samples/instrument.wav',
+   'samples/pianonote.wav',
+   'samples/drums/kick1.wav'],
+  done
+)
+
+bufferLoader.load();
+
+var sheet = [
+ "xx  xx  ",
+ "x x x x ",
+ "  xx  xx"
+]
+var duration = 1/2; // sec
+
+function done(buffers, now) {
+    now = now || context.currentTime + .1;
+    for (var j=0; j < sheet.length; j++) {
+        var track = sheet[j],
+            s = sound(buffers[j]),
+            playing = false;
+        for (var i=0; i < track.length; i++) {
+            if (track[i] == 'x') {
+                if (!playing) {
+                    s.start(now + i * duration)
+                    playing = true
+                }
+            } else {
+                if (playing) {
+                    s.stop(now + i * duration)
+                    playing = false
+                    s = sound(buffers[j])
+                }
+            }
+        }
+    }
+    setTimeout(function(){ done(buffers, now + i * duration) }, (i - 1) * duration * 1000)
+}
+
+function sound(buffer) {
+    var source = context.createBufferSource()
+    source.buffer = buffer
+    source.connect(context.destination)
+    return source
+}
+</script>
