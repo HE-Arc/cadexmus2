@@ -40,17 +40,17 @@ eed82c
 75cb74  
 ![](http://placehold.it/50/75cb74/)  
 
-fd9e4e  
-![](http://placehold.it/50/fd9e4e/)  
+ff7328  
+![](http://placehold.it/50/ff7328/)  
 
 d10f6f  
 ![](http://placehold.it/50/d10f6f/)  
 
-ffa93a  
-![](http://placehold.it/50/ffa93a/)  
+ffca39  
+![](http://placehold.it/50/ffca39/)  
 
-ac8cff  
-![](http://placehold.it/50/ac8cff/)  
+8266c9  
+![](http://placehold.it/50/8266c9/)  
 
 
 ## Typographie
