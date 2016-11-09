@@ -31,29 +31,26 @@ A chaque utilisateur est attribuée une couleur
 f6aa48  
 ![](http://placehold.it/50/f6aa48/)
 
-e36ba2  
-![](http://placehold.it/50/e36ba2/)
-
-d7b5df  
-![](http://placehold.it/50/d7b5df/)
-
 79c1f5  
 ![](http://placehold.it/50/79c1f5/)
 
 eed82c  
 ![](http://placehold.it/50/eed82c/)
 
-dbc174  
-![](http://placehold.it/50/dbc174/)
-
 75cb74  
-![](http://placehold.it/50/75cb74/)
-
-e53ea7  
-![](http://placehold.it/50/e53ea7/)
+![](http://placehold.it/50/75cb74/)  
 
 fd9e4e  
-![](http://placehold.it/50/fd9e4e/)
+![](http://placehold.it/50/fd9e4e/)  
+
+d10f6f  
+![](http://placehold.it/50/d10f6f/)  
+
+ffa93a  
+![](http://placehold.it/50/ffa93a/)  
+
+ac8cff  
+![](http://placehold.it/50/ac8cff/)  
 
 
 ## Typographie
