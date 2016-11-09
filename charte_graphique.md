@@ -9,6 +9,7 @@ Autres exemples :
 * [Drive](https://www.google.ch/search?q=drive+movie&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj9x4bNlJzQAhXM0hoKHV9HA2gQ_AUICCgB&biw=1920&bih=911)
 * [Kung Fury](https://www.google.ch/search?q=kung+fury&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj1tO_QlJzQAhVLVxoKHch_AqMQ_AUICCgB&biw=1920&bih=911)
 * [Hotline Miami](https://www.google.ch/search?q=hotline+miami&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiUov_ZlJzQAhVEPBoKHXklArwQ_AUICCgB&biw=1920&bih=911)
+* [Far Cry Blood Dragon](https://www.google.ch/search?q=far+cry+blood+dragon&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjyuOHDsZzQAhWDmBoKHU7TBJEQ_AUICCgB&biw=1920&bih=911)
 
 ## Palette de couleur
 
