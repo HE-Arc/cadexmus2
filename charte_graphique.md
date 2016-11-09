@@ -28,26 +28,26 @@ ec0066
 
 A chaque utilisateur est attribuée une couleur
 
-f6aa48  
-![](http://placehold.it/50/f6aa48/)
+c88ae8  
+![](http://placehold.it/50/c88ae8/)  
 
-79c1f5  
-![](http://placehold.it/50/79c1f5/)
+ffd81f  
+![](http://placehold.it/50/ffd81f/)  
 
-eed82c  
-![](http://placehold.it/50/eed82c/)
+5cbef7  
+![](http://placehold.it/50/5cbef7/)  
 
-75cb74  
-![](http://placehold.it/50/75cb74/)  
+ef50b0  
+![](http://placehold.it/50/ef50b0/)  
+
+ff9e26  
+![](http://placehold.it/50/ff9e26/)  
 
 ff7328  
 ![](http://placehold.it/50/ff7328/)  
 
 d10f6f  
 ![](http://placehold.it/50/d10f6f/)  
-
-ffca39  
-![](http://placehold.it/50/ffca39/)  
 
 8266c9  
 ![](http://placehold.it/50/8266c9/)  
