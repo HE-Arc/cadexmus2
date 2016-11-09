@@ -159,16 +159,25 @@ table .lineuser3 td:first-child{
     top: 0;
 	
 	cursor:pointer;/* col-resize */
-	
 }
 
 .gridbar{
-	min-height: 100px;
     position: absolute;
     top: 0;
     left: 0%;
-    background-color: rgba(0, 0, 0, 0.1);
     width: 1px;
+}
+
+.gridbar4{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.gridbar8{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.gridbar32{
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 #timebar{

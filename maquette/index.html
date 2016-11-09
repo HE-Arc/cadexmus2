@@ -12,13 +12,11 @@
 
 -->
 <script src="src/jquery.min.js"></script>
-  <script src="src/jquery-ui.js"></script>
+<script src="src/jquery-ui.js"></script>
 <script src="src/bootstrap.min.js"></script>
 <link rel="stylesheet" href="src/bootstrap.min.css">
 <link rel="stylesheet" href="src/jquery-ui.css">
 <link rel="stylesheet" href="src/style.css">
-<style>
-  </style>
 
 </head>
 <body>
@@ -43,9 +41,8 @@
 			<div class="siderelement">
 				<hr>
 				<h3>Inviter un collaborateur</h3>
-				<form    style="margin: 0 10px 0 0">
+				<form style="margin: 0 10px 0 0">
 					<input type="text"  class="form-control" placeholder="pseudo du collaborateur">
-					<!--<button class="btn btn-primary">></button> -->
 				</form>
 			</div>
 	</header>	  
@@ -73,9 +70,6 @@
 								<td></td>
 								<td class="line barline">
 									<div id="timebar" class="gridbar"></div>
-									<div class="gridbar" style="left:25%"></div>
-									<div class="gridbar" style="left:50%"></div>
-									<div class="gridbar" style="left:75%"></div>
 								</td>
 							</tr>
 							<tr class="lineuser1">
@@ -132,11 +126,6 @@
 									<div class="note" style="left:0%;width:75%"></div>
 								</td>
 							</tr>
-							<!--
-							<tr>
-								<td colspan="2"><button type="button" class="btn btn-primary" style="width:100%;">Ajouter une ligne</button></td>
-							</tr>
-							-->
 						</table>
 					</div>
 					<button type="button" class="btn btn-primary" style="width:100%;" data-toggle="modal" data-target="#myModal">Ajouter une ligne</button>
@@ -162,16 +151,6 @@
 		document.getElementById("chatDisplayMessages").innerHTML+='<div class="chatMessage" style=border-color:'+couleurs[i%3]+'><p class="sender">'+noms[i%3]+'</p><p class="message">'+("coucou "+i)+'</p></div>';
 	}
 	</script>
-	
-	<audio src="samples/drums/kick2.wav" id="audio0" preload="auto">
-	<!--
-		<source src="bass el contesto.ogg" type="audio/ogg">
-		<source src="bass el contesto.mp3" type="audio/mp3">
-		<source src="bass el contesto.wav" type="audio/wav">
-	-->
-	</audio>
-
-
 	
 		<!-- Modal -->
 		<div id="myModal" class="modal" role="dialog">
@@ -237,14 +216,16 @@
 				}
 			});
 			
-			$("div.note").click(function(){
+			$("div.note").dblclick(function(e){
 				$(this).remove();
+				e.stopPropagation();
 			});
 		}
 		makeDraggableAndResizable();
 		
-		for(var i=0;i<100;i+=100/16){
-			$(".barline").append('<div class="gridbar" style="left:'+i+'%"></div>')
+		for(var i=0;i<100;i+=100/32){
+			type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
+			$(".barline").append('<div class="gridbar '+type+'" style="left:'+i+'%"></div>')
 		}
 		
 		
@@ -296,9 +277,7 @@
 		
 		resetTimebarSize();
 		
-		$("#toggle_chat").click(function(){
-			// pas top parce que la fonction css écrit dans le element.style et donc ça override les regles @media
-			
+		$("#toggle_chat").click(function(){			
 			if($(this).html()=="close chat"){
 				$(this).html("open chat");
 				$(".column-right").hide();
@@ -325,11 +304,8 @@
 		
 		
 		
-		audios=[];
-		audios = $("audio").get();
 		
 		function playSound(note){
-			//console.log("play")
 			note.audio.currentTime=0;
 			note.audio.play();
 			setTimeout(function(){
@@ -341,8 +317,8 @@
 			lectures=[];
 			notes=[];
 			$(".note").each(function() {
+				// sélectionne le premier enfant <audio> du parent (<td>) de la note
 				audio_elem = $(this).parent().children("audio")[0];
-				console.log(audio_elem);
 				duree = parseFloat(this.style.width)/100;
 				position = parseFloat(this.style.left)/100;
 				notes.push({
@@ -354,13 +330,6 @@
 			notes.forEach(function(note){
 				setTimeout(function(){
 					if(!paused){
-						/*
-						playSound(note.duree*240000/90);
-						lecture = setInterval(function(){
-							playSound(note.duree*240000/90);
-						},240000/90);
-						lectures.push(lecture);
-						*/
 						playSound(note);
 						lecture = setInterval(function(){
 							playSound(note);
