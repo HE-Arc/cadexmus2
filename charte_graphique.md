@@ -9,6 +9,7 @@ Autres exemples :
 * [Drive](https://www.google.ch/search?q=drive+movie&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj9x4bNlJzQAhXM0hoKHV9HA2gQ_AUICCgB&biw=1920&bih=911)
 * [Kung Fury](https://www.google.ch/search?q=kung+fury&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj1tO_QlJzQAhVLVxoKHch_AqMQ_AUICCgB&biw=1920&bih=911)
 * [Hotline Miami](https://www.google.ch/search?q=hotline+miami&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiUov_ZlJzQAhVEPBoKHXklArwQ_AUICCgB&biw=1920&bih=911)
+* [Far Cry Blood Dragon](https://www.google.ch/search?q=far+cry+blood+dragon&safe=off&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjyuOHDsZzQAhWDmBoKHU7TBJEQ_AUICCgB&biw=1920&bih=911)
 
 ## Palette de couleur
 
@@ -27,32 +28,29 @@ ec0066
 
 A chaque utilisateur est attribuée une couleur
 
-f6aa48  
-![](http://placehold.it/50/f6aa48/)
+c88ae8  
+![](http://placehold.it/50/c88ae8/)  
 
-e36ba2  
-![](http://placehold.it/50/e36ba2/)
+ffd81f  
+![](http://placehold.it/50/ffd81f/)  
 
-d7b5df  
-![](http://placehold.it/50/d7b5df/)
+5cbef7  
+![](http://placehold.it/50/5cbef7/)  
 
-79c1f5  
-![](http://placehold.it/50/79c1f5/)
+ef50b0  
+![](http://placehold.it/50/ef50b0/)  
 
-eed82c  
-![](http://placehold.it/50/eed82c/)
+ff9e26  
+![](http://placehold.it/50/ff9e26/)  
 
-dbc174  
-![](http://placehold.it/50/dbc174/)
+ff7328  
+![](http://placehold.it/50/ff7328/)  
 
-75cb74  
-![](http://placehold.it/50/75cb74/)
+d10f6f  
+![](http://placehold.it/50/d10f6f/)  
 
-e53ea7  
-![](http://placehold.it/50/e53ea7/)
-
-fd9e4e  
-![](http://placehold.it/50/fd9e4e/)
+8266c9  
+![](http://placehold.it/50/8266c9/)  
 
 
 ## Typographie
