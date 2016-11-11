@@ -13,10 +13,12 @@
 -->
 <script src="src/jquery.min.js"></script>
 <script src="src/jquery-ui.js"></script>
+<script src="src/jquery.ui.touch-punch.js"></script>
 <script src="src/bootstrap.min.js"></script>
 <link rel="stylesheet" href="src/bootstrap.min.css">
 <link rel="stylesheet" href="src/jquery-ui.css">
 <link rel="stylesheet" href="src/style.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster|Raleway:300,400,700,900" rel="stylesheet">
 
 </head>
 <body>
@@ -35,8 +37,7 @@
 						<li><a href="">Schnitzel mit pommes</a></li>
 						<li><a href="">Renaud 2.0</a></li>
 					</ul>
-						<button class="btn btn-primary" style="width:100%">Créer un projet</button>
-				<hr>
+					<button class="btn btn-primary" style="width:100%">Créer un projet</button>
 				</nav>
 			<div class="siderelement">
 				<hr>
@@ -61,7 +62,7 @@
 				</div>
 				<p>
 					<span id="btnZoom" style="cursor:pointer">&#128269;</span>
-					<span id="btnLock" style="cursor:pointer">&#128274;</span>
+					<span id="btnLock" style="cursor:pointer">&#128275;</span>
 				</p>
 				<div class="box">
 					<div>
@@ -94,7 +95,7 @@
 							<tr class="lineuser2">
 								<td class="samplename">instrument</td>
 								<td class="line">
-	<audio src="samples/instrument.wav" id="audio2" preload="auto"></audio>
+	<audio src="samples/pianonote.wav" id="audio2" preload="auto"></audio>
 									<div class="note" style="left:12.5%;width:5%"></div>
 									<div class="note" style="left:18.75%;width:5%"></div>
 									<div class="note" style="left:50%;width:50%"></div>
@@ -307,9 +308,11 @@
 		
 		function playSound(note){
 			note.audio.currentTime=0;
+			note.audio.volume=1;
 			note.audio.play();
 			setTimeout(function(){
-				note.audio.pause();
+				i=1;
+						note.audio.pause();
 			},note.duree*240000/90);
 		}
 		
