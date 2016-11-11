@@ -32,8 +32,9 @@ var data = {
 			"sample":"samples/drums/kick3.wav",
 			"notes":[
 				{"pos":0,"len":2},
-				{"pos":8,"len":2},
-				{"pos":16,"len":2},
+				{"pos":6,"len":2},
+				{"pos":12,"len":2},
+				{"pos":20,"len":2},
 				{"pos":24,"len":2}
 			]
 		},
@@ -46,12 +47,29 @@ var data = {
 			]
 		},
 		{
-			"sample":"samples/drums/hat1.wav",
+			"sample":"samples/drums/shaker.wav",
 			"notes":[
 				{"pos":2,"len":1},
 				{"pos":4,"len":1},
 				{"pos":6,"len":1},
-				{"pos":8,"len":1}
+				{"pos":8,"len":1},
+				{"pos":12,"len":1},
+				{"pos":16,"len":1},
+				{"pos":20,"len":1},
+				{"pos":24,"len":1},
+				{"pos":28,"len":1}
+			]
+		},
+		{
+			"sample":"samples/drums/hat1.wav",
+			"notes":[
+				{"pos":2,"len":1},
+				{"pos":6,"len":1},
+				{"pos":10,"len":1},
+				{"pos":14,"len":1},
+				{"pos":18,"len":1},
+				{"pos":24,"len":1},
+				{"pos":28,"len":1}
 			]
 		}
 	]
@@ -65,34 +83,44 @@ var unit = barLen/32; // ==beatLen/8
 var fade = 1/128; // arbitraire
 
 
-function loadSound(track) {
-  var request = new XMLHttpRequest();
-  request.open('GET', track.sample, true);
-  request.responseType = 'arraybuffer';
+function loadSound(track, callback) {
+	var request = new XMLHttpRequest();
+	request.open('GET', track.sample, true);
+	request.responseType = 'arraybuffer';
 
-  request.onload = function() {
-    // Asynchronously decode the audio file data in request.response
-    context.decodeAudioData(
-      request.response,
-      function(returnedBuffer) {
-        if (!returnedBuffer) {
-          alert('error decoding file data: ' + track.url);
-          return;
-        }
-        track.buffer = returnedBuffer;
-      },
-      function(error) {
-        console.error('decodeAudioData error', error);
-      }
-    );
-  }
-  request.send();
+	request.onload = function() {
+		// Asynchronously decode the audio file data in request.response
+		context.decodeAudioData(
+			request.response,
+			function(returnedBuffer) {
+				if (!returnedBuffer) {
+					alert('error decoding file data: ' + track.url);
+					return;
+				}
+				track.buffer = returnedBuffer;
+				callback();
+			},
+			function(error) {
+				console.error('decodeAudioData error', error);
+			}
+		);
+	}
+	request.send();
 }
 
 initBuffers();
 function initBuffers(){
-	data.tracks.map(loadSound);
-	// todo: mécanisme pour notifier une fois les sons chargés
+	nbSonsCharges=0;
+	data.tracks.forEach(function(track){
+		loadSound(track, function(){
+			nbSonsCharges++;
+			if(nbSonsCharges==data.tracks.length)
+				ready();
+		});
+	});
+}
+
+function ready(){
 	playbtn.disabled=false;
 }
 
@@ -101,7 +129,7 @@ function play(now){
 	
 	data.tracks.forEach(function(track){
 		track.notes.forEach(function(note){
-			// on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même ressource
+			// on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même source
 			s = sound(track.buffer);
 			s.source.start(now + unit*note.pos);
 			end = now + unit*note.pos + unit*note.len;
@@ -112,14 +140,12 @@ function play(now){
 	});
 	
 	avance = now - (context.currentTime);
-	console.log("avance : ", avance);
 	
     setTimeout(
 		function(){
 			if(playing)
 				play(now + barLen);
 		},
-        //(now - context.currentTime) + barLen * 1000 
 		1000*(barLen -(.1-avance)) // fait en sorte que l'avance reste autour de 100ms
     )
 }
