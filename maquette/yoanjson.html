@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>pas Tenori-on</title>
+
+<h1>pas Tenori-on</h1>
+<button id="playbtn" disabled>Play</button>
+<button id="stopbtn" disabled>Stop</button>
+<script>
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+var context = new AudioContext();
+
+var playing=false;
+
+playbtn =document.getElementById("playbtn");
+stopbtn =document.getElementById("stopbtn");
+
+playbtn.onclick=toggle;
+stopbtn.onclick=toggle;
+
+function toggle(){
+	if(playing) stop();
+	else play();
+	
+	stopbtn.disabled=!stopbtn.disabled;
+	playbtn.disabled=!playbtn.disabled;
+	playing=!playing;
+}
+
+var data = {
+	"tracks":[
+		{
+			"sample":"samples/drums/kick3.wav",
+			"notes":[
+				{"pos":0,"len":2},
+				{"pos":8,"len":2},
+				{"pos":16,"len":2},
+				{"pos":24,"len":2}
+			]
+		},
+		{
+			"sample":"samples/drums/snare2.wav",
+			"notes":[
+				{"pos":8,"len":2},
+				{"pos":24,"len":2},
+				{"pos":30,"len":2}
+			]
+		},
+		{
+			"sample":"samples/drums/hat1.wav",
+			"notes":[
+				{"pos":2,"len":1},
+				{"pos":4,"len":1},
+				{"pos":6,"len":1},
+				{"pos":8,"len":1}
+			]
+		}
+	]
+}
+
+// memento
+var bpm=120; // ==tempo
+var beatLen = 60.0 / bpm; // ==seconds per beat
+var barLen = 240/bpm; //sec // ==beatLen*4
+var unit = barLen/32; // ==beatLen/8
+var fade = 1/128; // arbitraire
+
+
+function loadSound(track) {
+  var request = new XMLHttpRequest();
+  request.open('GET', track.sample, true);
+  request.responseType = 'arraybuffer';
+
+  request.onload = function() {
+    // Asynchronously decode the audio file data in request.response
+    context.decodeAudioData(
+      request.response,
+      function(returnedBuffer) {
+        if (!returnedBuffer) {
+          alert('error decoding file data: ' + track.url);
+          return;
+        }
+        track.buffer = returnedBuffer;
+      },
+      function(error) {
+        console.error('decodeAudioData error', error);
+      }
+    );
+  }
+  request.send();
+}
+
+initBuffers();
+function initBuffers(){
+	data.tracks.map(loadSound);
+	// todo: mécanisme pour notifier une fois les sons chargés
+	playbtn.disabled=false;
+}
+
+function play(now){
+    now = now || context.currentTime + .1;
+	
+	data.tracks.forEach(function(track){
+		track.notes.forEach(function(note){
+			// on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même ressource
+			s = sound(track.buffer);
+			s.source.start(now + unit*note.pos);
+			end = now + unit*note.pos + unit*note.len;
+			s.source.stop(end);
+			s.gain.gain.linearRampToValueAtTime(1, end - fade)
+			s.gain.gain.linearRampToValueAtTime(0, end)
+		});
+	});
+	
+	avance = now - (context.currentTime);
+	console.log("avance : ", avance);
+	
+    setTimeout(
+		function(){
+			if(playing)
+				play(now + barLen);
+		},
+        //(now - context.currentTime) + barLen * 1000 
+		1000*(barLen -(.1-avance)) // fait en sorte que l'avance reste autour de 100ms
+    )
+}
+
+// todo
+function stop(){
+	//context.suspend()
+}
+
+function sound(buffer) {
+    var source = context.createBufferSource()
+    var gain = context.createGain()
+    source.buffer = buffer
+    source.connect(gain)
+    gain.connect(context.destination)
+    return {source: source, gain: gain}
+}
+</script>
