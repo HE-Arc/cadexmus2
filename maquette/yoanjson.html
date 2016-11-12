@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <meta charset=utf-8>
-<title>pas Tenori-on</title>
+<title>Tenori-off</title>
 
-<h1>pas Tenori-on</h1>
-<button id="playbtn" disabled>Play</button>
-<button id="stopbtn" disabled>Stop</button>
+<h1>Tenori-off</h1>
+<button disabled>Play</button>
 <script>
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new AudioContext();
 
-var playing=false;
+var timeout;
+var currentTime;
 
-playbtn =document.getElementById("playbtn");
-stopbtn =document.getElementById("stopbtn");
+var btn =document.querySelector("button");
 
-playbtn.onclick=toggle;
-stopbtn.onclick=toggle;
+btn.onclick=toggle;
 
 function toggle(){
-	if(playing) stop();
-	else play();
-	
-	stopbtn.disabled=!stopbtn.disabled;
-	playbtn.disabled=!playbtn.disabled;
-	playing=!playing;
+    if (context.state === "running") {
+        context.suspend().then(function() {
+            btn.innerHTML = "Play"
+            clearTimeout(timeout)
+        })
+    } else {
+        context.resume().then(function() {
+            btn.innerHTML = "Pause"
+            play(currentTime)
+        })
+    }
 }
 
 var data = {
@@ -83,50 +86,58 @@ var unit = barLen/32; // ==beatLen/8
 var fade = 1/128; // arbitraire
 
 
-function loadSound(track, callback) {
-	var request = new XMLHttpRequest();
-	request.open('GET', track.sample, true);
-	request.responseType = 'arraybuffer';
-
-	request.onload = function() {
-		// Asynchronously decode the audio file data in request.response
-		context.decodeAudioData(
-			request.response,
-			function(returnedBuffer) {
-				if (!returnedBuffer) {
-					alert('error decoding file data: ' + track.url);
-					return;
-				}
-				track.buffer = returnedBuffer;
-				callback();
-			},
-			function(error) {
-				console.error('decodeAudioData error', error);
-			}
-		);
-	}
-	request.send();
+function loadSound(url) {
+    return new Promise(function(resolve, reject){
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.responseType = 'arraybuffer';
+        request.onload = function() {
+            // Asynchronously decode the audio file data in request.response
+            context.decodeAudioData(
+                request.response,
+                function(buffer) {
+                    if (buffer) {
+                        resolve(buffer)
+                    } else {
+                        reject('error decoding file data: ' + url)
+                    }
+                },
+                function(error) {
+                    reject('decodeAudioData error: ' + error)
+                }
+            )
+        }
+        request.send()
+    })
 }
 
-initBuffers();
-function initBuffers(){
-	nbSonsCharges=0;
-	data.tracks.forEach(function(track){
-		loadSound(track, function(){
-			nbSonsCharges++;
-			if(nbSonsCharges==data.tracks.length)
-				ready();
-		});
-	});
+// init buffers
+(function(){
+    var nbSonsCharges=0;
+    data.tracks.forEach(function(track){
+        loadSound(track.sample).then(function(buffer){
+            console.log(track.sample, "is loaded")
+            track.buffer = buffer
+        }, function(error) {
+            console.error(track.sample, error)
+        }).then(function() {
+            nbSonsCharges++;
+            if(nbSonsCharges==data.tracks.length)
+                init();
+        })
+    })
+})()
+
+function init(){
+    btn.disabled=false;
+    context.suspend().then(function() {
+        currentTime = context.currentTime
+    })
 }
 
-function ready(){
-	playbtn.disabled=false;
-}
+function play(){
+    var now = currentTime
 
-function play(now){
-    now = now || context.currentTime + .1;
-	
 	data.tracks.forEach(function(track){
 		track.notes.forEach(function(note){
 			// on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même source
@@ -138,16 +149,15 @@ function play(now){
 			s.gain.gain.linearRampToValueAtTime(0, end)
 		});
 	});
-	
-	avance = now - (context.currentTime);
-	
-    setTimeout(
-		function(){
-			if(playing)
-				play(now + barLen);
-		},
-		1000*(barLen -(.1-avance)) // fait en sorte que l'avance reste autour de 100ms
-    )
+
+
+    if (context.state === "running") {
+        var avance = now - (context.currentTime);
+
+        // fait en sorte que l'avance reste autour de 100ms
+        currentTime = now + barLen
+        timeout = setTimeout(play, (barLen - (.1 - avance)) * 1000)
+    }
 }
 
 // todo
