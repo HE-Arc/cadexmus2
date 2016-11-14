@@ -25,21 +25,21 @@
 	<header class="column column-left">
 			<div>
 				<h1>Cadexmus2</h1>
-				<hr>
-				<h3>Mes projets</h3>
+				<button id="toggle_nav" class="btn">Projets</button>
 			</div>
-				<nav class="siderelement firstsiderelement">
-					<ul class="nav  nav-stacked" >
-						<li class="active"><a href="">Projet Yolo</a></li>
-						<li><a href="">Les hommes crabes</a></li>
-						<li><a href="">René la taupe remix</a></li>
-						<li><a href="">DJ Pépé</a></li>
-						<li><a href="">Schnitzel mit pommes</a></li>
-						<li><a href="">Renaud 2.0</a></li>
-					</ul>
-					<button class="btn btn-primary" style="width:100%">Créer un projet</button>
-				</nav>
-			<div class="siderelement">
+			<nav class="hideable">
+				<h3>Mes projets</h3>
+				<ul class="nav  nav-stacked" >
+					<li class="active"><a href="">Projet Yolo</a></li>
+					<li><a href="">Les hommes crabes</a></li>
+					<li><a href="">René la taupe remix</a></li>
+					<li><a href="">DJ Pépé</a></li>
+					<li><a href="">Schnitzel mit pommes</a></li>
+					<li><a href="">Renaud 2.0</a></li>
+				</ul>
+				<button class="btn btn-primary">Créer un projet</button>
+			</nav>
+			<div>
 				<hr>
 				<h3>Inviter un collaborateur</h3>
 				<form style="margin: 0 10px 0 0">
@@ -286,7 +286,14 @@
 				$(this).html("close chat");
 				$(".column-right").show();
 			}
-			
+		});
+		
+		$("#toggle_nav").click(function(){
+			if($("nav").hasClass("hideable")){
+				$("nav").removeClass("hideable");
+			}else{
+				$("nav").addClass("hideable");
+			}
 		});
 		
 		$(".samplename").hover(function(){

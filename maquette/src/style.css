@@ -12,8 +12,18 @@ body{
 	font-family: 'Raleway', sans-serif;
 }
 
+h1{
+	margin:0;padding:0;
+}
+
 header h1{
 	font-family: 'Lobster', cursive;
+	float:left;
+}
+
+#toggle_nav{
+	float:right;
+	display:none;
 }
 
 .column{
@@ -81,18 +91,22 @@ nav > ul{
 		flex-direction: column;
 	}
 	.column{
-		height: initial;
 		padding:10px;
 	}
-	
-	#container{
-		width:100%;
+	#toggle_nav{
+		display:initial;
+	}
+	.hideable, hr, #toggle_chat{
+		display:none;
 	}
 	
-    .column-left, .column-right {
-		max-height:400px;
+    #container, .column-left, .column-right {
 		width:100%;
     }
+	
+	.column-right{
+		max-height:400px;
+	}
 	
 	nav{
 		min-height:0px;
@@ -101,9 +115,6 @@ nav > ul{
 	.nav>li {
 		float: left;
 	}
-	
-	hr{display:none;}
-
 }
 
 /*****
@@ -227,7 +238,7 @@ table .lineuser3 td:first-child{
 Divers
 *****/
 
-.btn-primary{
+.btn{
 	border-radius:0	
 }
 
