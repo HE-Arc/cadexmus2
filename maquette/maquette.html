@@ -25,6 +25,7 @@
 	<header class="column column-left">
 			<div>
 				<h1>Cadexmus2</h1>
+				<hr>
 				<button id="toggle_nav" class="btn">Projets</button>
 			</div>
 			<nav class="hideable">
@@ -39,6 +40,7 @@
 				</ul>
 				<button class="btn btn-primary">Créer un projet</button>
 			</nav>
+				
 			<div>
 				<hr>
 				<h3>Inviter un collaborateur</h3>
@@ -50,26 +52,28 @@
 	<main class="column column-center">
 			<div id="container">
 			
-				<div class="box projecthead">
+				<div class="projecthead">
 					<h1>Projet Yolo <span class="btnPausePlay" style="cursor:pointer">&#9654;</span><span class="btnPausePlay" style="cursor:pointer;display:none">&#9208;</span></h1>
-					<a href="" title="fouine">
-						<img alt="fouine" class="img-circle" src="src/fouine.jpg" style="border-color:rgba(255,235,59,1)" /></a>
-					<a href="" data-placement="top" data-toggle="tooltip" title="chameau">
-						<img class="img-circle" src="src/chameau.jpg"  style="border-color:rgba(255,152,0,1)"/></a>
-					<a href="" title="blaireau">
-						<img class="img-circle" src="src/blaireau.jpg" style="border-color:rgba(139,195,74,1)" /></a>
+					<div style="float:right">
+						<a href="" title="fouine">
+							<img alt="fouine" class="img-circle img-user1" src="src/fouine.jpg" style="border-color:var(--u1)" /></a>
+						<a href="" data-placement="top" data-toggle="tooltip" title="chameau">
+							<img class="img-circle img-user2" src="src/chameau.jpg"  style="border-color:var(--u2)"/></a>
+						<a href="" title="blaireau">
+							<img class="img-circle img-user3" src="src/blaireau.jpg" style="border-color:var(--u3)" /></a>
+					</div>
 					<div style="clear:both"></div>
 				</div>
 				<p>
 					<span id="btnZoom" style="cursor:pointer">&#128269;</span>
 					<span id="btnLock" style="cursor:pointer">&#128275;</span>
 				</p>
-				<div class="box">
+				<div id="box">
 					<div>
 						<table id="grid">
 							<tr>
 								<td></td>
-								<td class="line barline">
+								<td class="barline">
 									<div id="timebar" class="gridbar"></div>
 								</td>
 							</tr>
@@ -147,7 +151,7 @@
 	</aside>
 	<script>
 	noms = ["fouine","chameau","blaireau"];
-	couleurs = ["rgba(255,235,59,1)","rgba(255,152,0,1)","rgba(139,195,74,1)"];
+	couleurs = ["var(--u1)","var(--u2)","var(--u3)"];
 	for(var i=0;i<30;i++){
 		document.getElementById("chatDisplayMessages").innerHTML+='<div class="chatMessage" style=border-color:'+couleurs[i%3]+'><p class="sender">'+noms[i%3]+'</p><p class="message">'+("coucou "+i)+'</p></div>';
 	}
