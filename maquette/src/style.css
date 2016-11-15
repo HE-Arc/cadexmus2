@@ -1,14 +1,22 @@
 :root{
 	/* rose */
-	--c1: #ec0066;
+	--c1: #F41F61;
 	/* bleu */
-	--c2: #100a42;
+	--c2: #191163;
 	/* cyan */
 	--c3: #15eded;
-	/*users*/
-	--u1: #F3EF82;
-	--u2: #284C85;
-	--u3: #A91C87;
+    /* mauve */
+    --c4: #6433BB;
+
+    /*users*/
+	--u1: #190573;
+	--u2: #EFE583;
+	--u3: #B22985;
+    --u4: #611484;
+    --u5: #B48684;
+    --u6: #355486;
+    --u7: #2532C8;
+    --u8: #4CA0F6;
 
 	--lighter:rgba(255,255,255,.3);
 	--darker:rgba(0,0,0,.4);
@@ -27,7 +35,7 @@
 }
 
 .btn-primary{
-	background-color:var(--c1);
+	background-color:var(--c4);
 	border:none;
 }
 
@@ -62,7 +70,7 @@ h1{
 
 @font-face {
     font-family: "lazer84";
-    src: url('/src/lazer84.ttf');
+    src: url('lazer84.ttf');
 }
 
 header h1{
@@ -201,7 +209,7 @@ Main
 }
 
 table{
-	background-color:var(--darker);
+	background-color:#1b1b1b;
 	overflow-x: auto;
 	width:100%;
 }
@@ -233,15 +241,15 @@ td.samplename:hover{
 
 
 table .lineuser1 .samplename{
-	background-color:var(--u1);
+	border-left: 6px solid var(--u1);
 }
 
 table .lineuser2 td:first-child{
-	background-color:var(--u2);
+	border-left: 6px solid var(--u2);
 }
 
 table .lineuser3 td:first-child{
-	background-color:var(--u3);
+	border-left: 6px solid var(--u3);
 }
 
 .barline, .line{
@@ -303,7 +311,7 @@ table .lineuser3 td:first-child{
 Divers
 *****/
 
-.btn{
+.btn {
 	border-radius:0;
 	min-height: 32px;
 }
@@ -312,11 +320,16 @@ Divers
 	font-weight: bold;
 	background-color:var(--darker);
 }
-.nav>li>a:focus, .nav>li>a:hover, .btn:hover, .btn:focus{
-	background-color:white;
-	color:var(--c2);
+.nav>li>a:focus, .nav>li>a:hover{
+	background-color:var(--darker);
+	color:white;
 }
 
+.btn:hover,.btn:active, .btn:focus{
+    background-color:#361b64;
+    border-color:#361b64;
+	color:white;
+}
 .chatMessage{
 	font-size:small;
 	border-left:4px solid;
@@ -360,4 +373,8 @@ p.message{
 	border-radius:0;
 	color:white;
 	border-color:white;
+}
+
+.form-control:focus {
+    border-color: #ffffff;
 }
