@@ -62,7 +62,7 @@ h1{
 
 @font-face {
     font-family: "lazer84";
-    src: url('/src/lazer84.ttf');
+    src: url('./lazer84.ttf');
 }
 
 header h1{
