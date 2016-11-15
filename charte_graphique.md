@@ -15,11 +15,11 @@ Autres exemples :
 
 ### UI
 
-ec0066  
+F41F61  
 ![](http://placehold.it/50/ec0066/)
 
-100a42  
-![](http://placehold.it/50/100a42/)
+191163  
+![](http://placehold.it/50/191163/)
 
 15eded  
 ![](http://placehold.it/50/15eded/)
@@ -28,33 +28,33 @@ ec0066
 
 A chaque utilisateur est attribuée une couleur
 
-190573 
+190573  
 ![](http://placehold.it/50/190573/)  
 
-611484 
+611484  
 ![](http://placehold.it/50/611484/)  
 
-B22985 
+B22985  
 ![](http://placehold.it/50/B22985/)  
 
-EFE583 
+EFE583  
 ![](http://placehold.it/50/EFE583/)  
 
-B48684 
+B48684  
 ![](http://placehold.it/50/B48684/)  
 
-355486 
+355486  
 ![](http://placehold.it/50/355486/)  
 
-2532C8 
+2532C8  
 ![](http://placehold.it/50/2532C8/)  
 
-4CA0F6 
+4CA0F6  
 ![](http://placehold.it/50/4CA0F6/)  
 
 
 ## Typographie
 
-Titrage : [Lobster](https://fonts.google.com/specimen/Lobster) ? [Shrikhand](https://fonts.google.com/specimen/Shrikhand) ?
+Titrage : [Lobster](https://fonts.google.com/specimen/Lobster) ? [Shrikhand](https://fonts.google.com/specimen/Shrikhand) ? [Laze84] (https://www.behance.net/gallery/31261857/LAZER-84-Free-Font)
 
 Texte : [Raleway](https://fonts.google.com/specimen/Raleway) ?
