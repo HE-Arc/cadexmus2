@@ -4,23 +4,23 @@
 	/* bleu */
 	--c2: #100a42;
 	/* cyan */
-	--c3: #15eded; 
+	--c3: #15eded;
 	/*users*/
-	--u1: #c88ae8;
-	--u2: #ffd81f;
-	--u3: #5cbef7;
-	
+	--u1: #F3EF82;
+	--u2: #284C85;
+	--u3: #A91C87;
+
 	--lighter:rgba(255,255,255,.3);
 	--darker:rgba(0,0,0,.4);
-	
+
 	--c1a:rgba(236, 0, 102, 1);
 	--c1b:rgba(236, 0, 102, .85);
 	--c1c:rgba(236, 0, 102, .7);
-	
+
 	--c2a:rgba(16, 10, 66, 1);
 	--c2b:rgba(16, 10, 66, .75);
 	--c2c:rgba(16, 10, 66, .5);
-	
+
 	--c3a:rgba(21, 237, 237, 1);
 	--c3b:rgba(21, 237, 237, .75);
 	--c3c:rgba(21, 237, 237, .5);
@@ -47,11 +47,11 @@ body{
     justify-content: space-between;
     flex-direction: row;
 	font-family: 'Raleway', sans-serif;
-	
-	color:white;	
-	background-color:var(--c2);	
+
+	color:white;
+	background-color:var(--c2);
 	background: linear-gradient(10deg,var(--c2),var(--c1));
-	
+
 	background-image: url(bg2.jpg);
 	background-size:cover;
 }
@@ -60,8 +60,13 @@ h1{
 	margin:0;padding:0;
 }
 
+@font-face {
+    font-family: "lazer84";
+    src: url('/src/lazer84.ttf');
+}
+
 header h1{
-	font-family: 'Lobster', cursive;
+	font-family: "lazer84";
 	padding-top:10px;
 }
 
@@ -98,16 +103,16 @@ header h1, header h3, header form{
 
 .column-left, .column-right{
 	background-color:var(--darker);
-	
-	
+
+
 	display: flex;
     -webkit-justify-content: space-between;
     justify-content: space-between;
     flex-direction: column;
-	
+
 	width:20%;
 	padding-bottom:20px;
-	
+
 	overflow-x: hidden;
 	min-width: 180px;
 }
@@ -119,7 +124,7 @@ header h1, header h3, header form{
 nav{
 	height: 100%;
 	min-height: 150px;
-	
+
 	display: flex;
     -webkit-justify-content: space-between;
     justify-content: space-between;
@@ -151,22 +156,22 @@ nav > ul{
 	.hideable, hr, #toggle_chat{
 		display:none;
 	}
-	
+
     #container, .column-left, .column-right {
 		width:100%;
     }
-	
+
 	.column-right{
 		max-height:400px;
 	}
 	header h1{
 		float:left;
 	}
-	
+
 	nav{
 		min-height:0px;
 	}
-	
+
 	.nav>li {
 		float: left;
 	}
@@ -249,7 +254,7 @@ table .lineuser3 td:first-child{
     min-height: 100%;
 	position: absolute;
     top: 0;
-	
+
 	cursor:pointer;/* col-resize */
 }
 .note:hover{
