@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<a href="{{ route('sample.create')}}">create</a>
+
+@foreach ($samples as $s)
+    <p>{{ $s->id }} : {{ $s->nom }}</p>
+@endforeach
+
+<a href="{{ route('sample.create')}}">upload sample</a>
 @endsection
