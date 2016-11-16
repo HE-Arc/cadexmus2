@@ -325,11 +325,13 @@ Divers
 	color:white;
 }
 
-.btn:hover,.btn:active, .btn:focus{
+.btn:hover,.btn:active:hover,.btn:active:focus, .btn:focus{
     background-color:#361b64;
     border-color:#361b64;
 	color:white;
+    border:none;
 }
+
 .chatMessage{
 	font-size:small;
 	border-left:4px solid;
