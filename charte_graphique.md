@@ -15,11 +15,14 @@ Autres exemples :
 
 ### UI
 
-ec0066  
+F41F61  
 ![](http://placehold.it/50/ec0066/)
 
-100a42  
-![](http://placehold.it/50/100a42/)
+191163  
+![](http://placehold.it/50/191163/)
+
+6433BB  
+![](http://placehold.it/50/6433BB/)
 
 15eded  
 ![](http://placehold.it/50/15eded/)
@@ -28,33 +31,33 @@ ec0066
 
 A chaque utilisateur est attribuée une couleur
 
-c88ae8  
-![](http://placehold.it/50/c88ae8/)  
+190573  
+![](http://placehold.it/50/190573/)  
 
-ffd81f  
-![](http://placehold.it/50/ffd81f/)  
+611484  
+![](http://placehold.it/50/611484/)  
 
-5cbef7  
-![](http://placehold.it/50/5cbef7/)  
+B22985  
+![](http://placehold.it/50/B22985/)  
 
-ef50b0  
-![](http://placehold.it/50/ef50b0/)  
+EFE583  
+![](http://placehold.it/50/EFE583/)  
 
-ff9e26  
-![](http://placehold.it/50/ff9e26/)  
+B48684  
+![](http://placehold.it/50/B48684/)  
 
-ff7328  
-![](http://placehold.it/50/ff7328/)  
+355486  
+![](http://placehold.it/50/355486/)  
 
-d10f6f  
-![](http://placehold.it/50/d10f6f/)  
+2532C8  
+![](http://placehold.it/50/2532C8/)  
 
-8266c9  
-![](http://placehold.it/50/8266c9/)  
+4CA0F6  
+![](http://placehold.it/50/4CA0F6/)  
 
 
 ## Typographie
 
-Titrage : [Lobster](https://fonts.google.com/specimen/Lobster) ? [Shrikhand](https://fonts.google.com/specimen/Shrikhand) ?
+Titrage : [Lobster](https://fonts.google.com/specimen/Lobster) ? [Shrikhand](https://fonts.google.com/specimen/Shrikhand) ? [Laze84] (https://www.behance.net/gallery/31261857/LAZER-84-Free-Font)
 
 Texte : [Raleway](https://fonts.google.com/specimen/Raleway) ?
