@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::resource('sample', 'SampleController');  
+Route::resource('sample', 'SampleController');
+Route::resource('projet', 'ProjetController'); 
