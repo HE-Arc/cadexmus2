@@ -10,7 +10,15 @@ class SampleController extends Controller
 {
     public function index()
     {
-        return view('sample.index');
+		
+		$samples = Sample::all();
+		/*
+		foreach ($samples as $s) {
+			echo $s;
+		}
+		*/
+		//dd($samples);
+        return view('sample.index',compact("samples"));
     }
 
     public function create()
@@ -28,7 +36,8 @@ class SampleController extends Controller
                     $url = $request->url->storeAs("samples/$request->type", $request->nom . "_" . time());
                     echo("stocké dans : $url");
                     $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
-                    return redirect()->route('sample.show', $s->id);
+                    //return redirect()->route('sample.show', $s->id);
+					return redirect()->route("sample.index");
                 }
             }
         }
