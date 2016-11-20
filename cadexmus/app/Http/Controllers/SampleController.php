@@ -10,7 +10,6 @@ class SampleController extends Controller
 {
     public function index()
     {
-		
 		$samples = Sample::all();
 		/*
 		foreach ($samples as $s) {
@@ -28,12 +27,13 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
+		debug($request);
+		
         if ($request->hasFile('url')) {
             if ($request->url->isValid()) {
                 $mime=$request->url->getMimeType();
 				
                 if($mime=="audio/mpeg"||$mime=="audio/x-wav"){
-                    $nom = $request->nom;
                     $url = $request->url->storeAs("samples/$request->type", $request->nom . "_" . time() .".". $request->url->extension());
                     echo("stocké dans : $url");
                     $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
