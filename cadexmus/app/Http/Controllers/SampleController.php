@@ -39,7 +39,7 @@ class SampleController extends Controller
         ]);
 
         if ($request->url->isValid()) {
-            $url = $request->url->storeAs("samples/users/$request->type", $request->nom . "_" . time() .".". $request->url->extension());
+            $url = $request->url->storeAs("samples/users/$request->type", $request->nom . "_" . uniqid() .".". $request->url->extension());
             echo("stocké dans : $url");
             $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
             //return redirect()->route('sample.show', $s->id);
