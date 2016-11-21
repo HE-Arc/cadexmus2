@@ -32,21 +32,19 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
-        ("coucou");
+        // redirect automatique à la page précédente si la validation échoue
+        $this->validate($request, [
+            'url' => 'mimetypes:audio/mpeg,audio/x-wav',
+            'nom' => 'required',
+        ]);
 
-        if ($request->hasFile('url')) {
-            if ($request->url->isValid()) {
-                $mime=$request->url->getMimeType();
-                if($mime=="audio/mpeg"||$mime=="audio/x-wav"){
-                    $url = $request->url->storeAs("samples/$request->type", $request->nom . "_" . time() .".". $request->url->extension());
-                    echo("stocké dans : $url");
-                    $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
-                    //return redirect()->route('sample.show', $s->id);
-					return redirect()->route("sample.index");
-                }
-            }
+        if ($request->url->isValid()) {
+            $url = $request->url->storeAs("samples/$request->type", $request->nom . "_" . time() .".". $request->url->extension());
+            echo("stocké dans : $url");
+            $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
+            //return redirect()->route('sample.show', $s->id);
+            return redirect()->route("sample.index");
         }
-        
     }
 
     public function show($sample) {

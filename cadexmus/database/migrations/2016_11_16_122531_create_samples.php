@@ -17,7 +17,7 @@ class CreateSamples extends Migration
 		    $table->increments('id');
             $table->string('nom');
             $table->string('type');
-            $table->string('url');
+            $table->string('url')->unique();
             $table->timestamps();
         });
     }
