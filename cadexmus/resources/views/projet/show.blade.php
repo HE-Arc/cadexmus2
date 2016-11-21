@@ -7,12 +7,13 @@
     <p>tempo : {{$version->repr["tempo"]}}</p>
     <ul>
         @foreach ($version->repr["tracks"] as $track)
-            <li>{{ $track["sample"]["name"] }}</li>
+            <li>{{ $track["sample"]["name"] }}
             <ul>
                 @foreach($track["notes"] as $note)
                     <li>pos:{{$note["pos"]}}, len:{{$note["len"]}}</li>
                 @endforeach
             </ul>
+            </li>
         @endforeach
     </ul>
 @endsection

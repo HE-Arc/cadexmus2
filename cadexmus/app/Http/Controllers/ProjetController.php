@@ -39,7 +39,7 @@ class ProjetController extends Controller
     {
         $project = Projet::create($request->only('nom'));
         $repr=[
-            'tempo' => $request->tempo,
+            'tempo' => 120,
             'tracks' => [],
         ];
         Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>$repr]);
