@@ -17,7 +17,12 @@ class SampleController extends Controller
 		}
 		*/
 		//dd($samples);
-        return view('sample.index',compact("samples"));
+
+
+        //return view('sample.index',compact("samples"));
+        //return view('sample.index',['samples' => $samples]);
+        //return view('sample.index')->with('samples',$samples);
+        return view('sample.index')->withSamples($samples);
     }
 
     public function create()
@@ -27,12 +32,9 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
-		debug($request);
-		
         if ($request->hasFile('url')) {
             if ($request->url->isValid()) {
                 $mime=$request->url->getMimeType();
-				
                 if($mime=="audio/mpeg"||$mime=="audio/x-wav"){
                     $url = $request->url->storeAs("samples/$request->type", $request->nom . "_" . time() .".". $request->url->extension());
                     echo("stocké dans : $url");
