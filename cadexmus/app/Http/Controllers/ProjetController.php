@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Version;
 use Illuminate\Http\Request;
 use App\Projet;
 
@@ -36,7 +37,8 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-        Projet::create($request->only('nom','tempo'));
+        $project=Projet::create($request->only('nom','tempo'));
+        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>"{}"]);
         return redirect()->route('projet.index');
     }
 
