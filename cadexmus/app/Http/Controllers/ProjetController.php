@@ -50,7 +50,12 @@ class ProjetController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('projet.show',[
+            'projet' => Projet::where('id', $id)->first(),
+            'version' => Version::where('project_id',$id)
+                ->orderBy('numero', 'desc')
+                ->first()
+        ]);
     }
 
     /**
