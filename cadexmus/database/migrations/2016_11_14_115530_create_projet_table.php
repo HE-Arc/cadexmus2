@@ -16,7 +16,6 @@ class CreateProjetTable extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom');
-			$table->float('tempo');
             $table->timestamps();
         });
     }

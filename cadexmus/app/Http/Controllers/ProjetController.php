@@ -37,8 +37,12 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-        $project=Projet::create($request->only('nom','tempo'));
-        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>"{}"]);
+        $project = Projet::create($request->only('nom'));
+        $repr=[
+            'tempo' => $request->tempo,
+            'tracks' => [],
+        ];
+        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>json_encode($repr)]);
         return redirect()->route('projet.index');
     }
 
