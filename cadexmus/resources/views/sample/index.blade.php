@@ -2,7 +2,6 @@
 
 
 @section('content')
-<example></example>
 
 @foreach ($samples as $s)
     <p>{{ $s->id }} : {{ $s->nom }}</p>

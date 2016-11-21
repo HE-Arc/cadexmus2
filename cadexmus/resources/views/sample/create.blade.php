@@ -4,7 +4,7 @@
 <form class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
     {{ csrf_field() }}
 
-	<input type="file" id="fileInput" accept="audio/*" style="display:none">
+	<input type="file" id="fileInput" accept="audio/*" style="display:none" name="url">
 	<label for="fileInput">Select file</label><br>
 	
     <label for="name">nom : </label>

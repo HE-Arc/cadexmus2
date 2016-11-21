@@ -32,6 +32,8 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
+        ("coucou");
+
         if ($request->hasFile('url')) {
             if ($request->url->isValid()) {
                 $mime=$request->url->getMimeType();
@@ -44,6 +46,7 @@ class SampleController extends Controller
                 }
             }
         }
+        
     }
 
     public function show($sample) {
