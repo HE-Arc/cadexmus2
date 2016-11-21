@@ -42,7 +42,7 @@ class ProjetController extends Controller
             'tempo' => $request->tempo,
             'tracks' => [],
         ];
-        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>json_encode($repr)]);
+        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>$repr]);
         return redirect()->route('projet.index');
     }
 
