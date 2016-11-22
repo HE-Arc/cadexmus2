@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <?php $version = $projet->versions->first() ?>
     <h1>Projet {{ $projet->nom }}</h1>
     <h2>Version {{$version->numero}}</h2>
 
