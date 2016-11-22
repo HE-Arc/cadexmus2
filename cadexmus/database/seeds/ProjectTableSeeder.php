@@ -49,6 +49,6 @@ class ProjectTableSeeder extends Seeder
                 ],
             ],
         ];
-        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>$repr]);
+        Version::create(['projet_id'=>$project->id, "numero"=>0, "repr"=>$repr]);
     }
 }

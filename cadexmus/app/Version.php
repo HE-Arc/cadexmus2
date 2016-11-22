@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Version extends Model
 {
-     protected $fillable = ['project_id', 'numero', 'repr'];
+     protected $fillable = ['projet_id', 'numero', 'repr'];
 
     // https://www.laravel.com/docs/5.3/eloquent-mutators#array-and-json-casting
     protected $casts = [

@@ -42,7 +42,8 @@ class ProjetController extends Controller
             'tempo' => 120,
             'tracks' => [],
         ];
-        Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>$repr]);
+        $project->versions()->create(["numero" => 0, "repr" => $repr]);
+        //Version::create(['project_id'=>$project->id, "numero"=>0, "repr"=>$repr]);
         return redirect()->route('projet.index');
     }
 
@@ -56,7 +57,7 @@ class ProjetController extends Controller
     {
         return view('projet.show',[
             'projet' => Projet::where('id', $id)->first(),
-            'version' => Version::where('project_id',$id)
+            'version' => Version::where('projet_id',$id)
                 ->orderBy('numero', 'desc')
                 ->first()
         ]);

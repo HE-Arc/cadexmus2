@@ -15,8 +15,8 @@ class CreateVersionsTable extends Migration
     {
         Schema::create('versions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projets');
+            $table->integer('projet_id')->unsigned();
+            $table->foreign('projet_id')->references('id')->on('projets');
             $table->timestamps();
             $table->integer('numero');
             $table->json('repr');
