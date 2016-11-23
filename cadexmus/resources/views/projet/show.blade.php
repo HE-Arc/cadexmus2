@@ -26,16 +26,15 @@
             </ul>
         </li>
     @endforeach
-        <li>
-            <p>
-                Sample name :
-                <input type="text" id="samplename">
-                URL :
-                <input type="text" id="sampleurl" value="samples/native/kick1.wav">
-                <button class="addtrack">add track</button>
-            </p>
-        </li>
     </ul>
+    <p>
+        New track : Sample name :
+        <input type="text" id="samplename">
+        URL :
+        <input type="text" id="sampleurl" value="samples/native/kick1.wav">
+        <button class="addtrack">add track</button>
+    </p>
+
 
     <button class="save">Save</button>
 
@@ -57,7 +56,7 @@
                             '<li><button class="addnote">add note</button></li>'+
                         '</ul>'+
                     '</li>';
-                $(".track:last").after(newTrack);
+                $("#tracks").append(newTrack);
             });
 
             // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
