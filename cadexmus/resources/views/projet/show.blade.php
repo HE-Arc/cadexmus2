@@ -104,6 +104,24 @@
                     repr.tracks.push(track);
                 });
                 console.log(repr);
+
+                /* marche pas car POST sur une route PUT
+                $.post("{{ route('projet.update',$projet->id)}}",repr)
+                    .done(function(data) {
+                        console.log("done",data, status)
+                    })
+                    .fail(function() {
+                        console.log("request failed")
+                    });
+                */
+
+                $.ajax({
+                    type: "PUT",
+                    url: "{{ route('projet.update',$projet->id)}}",
+                    data: {repr:repr,_token:"{{csrf_token()}}"},
+                    success: function(data){alert(data)}
+                });
+                //location.reload();
             });
 
 

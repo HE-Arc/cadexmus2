@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Version;
 use Illuminate\Http\Request;
 use App\Projet;
+use Illuminate\Support\Facades\Log;
 
 class ProjetController extends Controller
 {
@@ -78,7 +79,7 @@ class ProjetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return "hello from ProjetController";
     }
 
     /**
