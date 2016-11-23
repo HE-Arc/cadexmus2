@@ -15,13 +15,15 @@
             <audio controls src="{{asset("uploads")}}/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
             <button class="removetrack">remove track</button>
             <ul>
-                @foreach($track["notes"] as $note)
-                <li class="note">
-                    pos:<input class="note_pos" type="number" value="{{$note["pos"]}}">,
-                    len:<input class="note_len" type="number" value="{{$note["len"]}}">
-                    <button class="removenote">remove note</button>
-                </li>
-                @endforeach
+                @if (isset($track["notes"]))
+                    @foreach($track["notes"] as $note)
+                        <li class="note">
+                            pos:<input class="note_pos" type="number" value="{{$note["pos"]}}">,
+                            len:<input class="note_len" type="number" value="{{$note["len"]}}">
+                            <button class="removenote">remove note</button>
+                        </li>
+                    @endforeach
+                @endif
                 <li><button class="addnote">add note</button></li>
             </ul>
         </li>
