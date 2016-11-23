@@ -19,7 +19,7 @@ class CreateVersionsTable extends Migration
             $table->foreign('projet_id')->references('id')->on('projets');
             $table->timestamps();
             $table->integer('numero');
-            $table->json('repr');
+            $table->text('repr');
         });
     }
 
