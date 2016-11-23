@@ -1,6 +1,5 @@
-@extends('layouts.app')
 
-@section('content')
+
 <form class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
     {{ csrf_field() }}
 
@@ -43,5 +42,3 @@
 		}
 	}
 </script>
-
-@endsection
