@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <?php $version = $projet->versions->first() ?>
+    <?php $version = $projet->versions->last() ?>
     <h1>Projet {{ $projet->nom }}</h1>
     <h2>Version {{$version->numero}}</h2>
 
@@ -105,21 +105,20 @@
                 });
                 console.log(repr);
 
-                /* marche pas car POST sur une route PUT
-                $.post("{{ route('projet.update',$projet->id)}}",repr)
-                    .done(function(data) {
-                        console.log("done",data, status)
-                    })
-                    .fail(function() {
-                        console.log("request failed")
-                    });
-                */
-
                 $.ajax({
                     type: "PUT",
                     url: "{{ route('projet.update',$projet->id)}}",
-                    data: {repr:repr,_token:"{{csrf_token()}}"},
-                    success: function(data){alert(data)}
+                    data: {
+                        repr:repr,
+                        _token:"{{csrf_token()}}",
+                        version:"{{$version->numero}}"
+                    }
+                })
+                .done(function(data) {
+                    console.log(data)
+                })
+                .fail(function() {
+                    console.log("request failed")
                 });
                 //location.reload();
             });

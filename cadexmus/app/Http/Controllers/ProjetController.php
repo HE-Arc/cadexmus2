@@ -79,7 +79,12 @@ class ProjetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return "hello from ProjetController";
+        $version = Version::create([
+            'projet_id' => $id+0,
+            'numero' => $request->version+1,
+            'repr' => $request->repr
+        ]);
+        return "nouvelle version sauvegardée";
     }
 
     /**
