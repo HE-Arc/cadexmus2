@@ -21,7 +21,7 @@
     </script>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/all.js')}}"></script>
+    <script src="{{ asset('js/app.js')}}"></script>
 </head>
 <body>
     <div id="app">

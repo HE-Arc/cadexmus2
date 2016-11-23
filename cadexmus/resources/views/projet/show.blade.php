@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <?php $version = $projet->versions->last() ?>
+    <?php $version = $projet->versions[0] ?>
     <h1>Projet {{ $projet->nom }}</h1>
     <h2>Version {{$version->numero}}</h2>
 
@@ -109,7 +109,6 @@
                     url: "{{ route('projet.update',$projet->id)}}",
                     data: {
                         repr:repr,
-                        _token:"{{csrf_token()}}",
                         version:"{{$version->numero}}"
                     }
                 })
@@ -121,7 +120,6 @@
                 });
                 //location.reload();
             });
-
 
         });
     </script>
