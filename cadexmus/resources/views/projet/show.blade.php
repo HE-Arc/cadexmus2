@@ -30,23 +30,39 @@
     @endforeach
     </ul>
     <p>
-        New track : Sample name :
-        <input type="text" id="samplename">
-        URL :
-        <input type="text" id="sampleurl" value="samples/native/kick1.wav">
-        <button class="addtrack">add track</button>
+        New track :
+        <input type="hidden" id="samplename">
+        <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
+        <button data-toggle="modal" data-target="#myModal">choose sample</button>
     </p>
 
 
     <button class="save">Save</button>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Choose sample</h4>
+                </div>
+                <div class="modal-body" style="max-height:50vh;overflow: auto">
+                    liste de samples ici
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
     <script>
         $(function() {
-
-            $(".addtrack").click(function () {
-                var sampleName = $("#samplename").val();
-                var sampleUrl = $("#sampleurl").val();
+            function addSample(sampleName,sampleUrl){
                 var newTrack =
                     '<li class="track">'+
                         sampleName +
@@ -59,7 +75,7 @@
                         '</ul>'+
                     '</li>';
                 $("#tracks").append(newTrack);
-            });
+            }
 
             // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
             $("#tracks").on("click",".addnote",function () {
@@ -121,6 +137,16 @@
                     console.log("request failed")
                 });
                 //location.reload();
+            });
+
+            // charge le contenu de la boîte modale
+            $.get("{{ route('sample.index') }}").done(function(data){
+                $(".modal-body").html(data);
+            });
+
+            $(".modal-body").on("click",".sample",function () {
+                addSample($(this).attr("sampleName"),$(this).attr("sampleUrl"));
+                $("#myModal").modal("hide");
             });
 
         });
