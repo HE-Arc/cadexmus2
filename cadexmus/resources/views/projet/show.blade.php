@@ -10,7 +10,7 @@
     @foreach ($version->repr["tracks"] as $track)
         <li class="track">
             {{ $track["sample"]["name"] }}
-            <audio controls src="../uploads/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
+            <audio controls src="{{asset("uploads")}}/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
             <button>remove</button>
             <ul>
                 @foreach($track["notes"] as $note)
