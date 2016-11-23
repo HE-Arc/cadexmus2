@@ -31,8 +31,6 @@
     </ul>
     <p>
         New track :
-        <input type="hidden" id="samplename">
-        <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
         <button data-toggle="modal" data-target="#myModal">choose sample</button>
     </p>
 
@@ -66,8 +64,6 @@
                 var newTrack =
                     '<li class="track">'+
                         sampleName +
-                        '<input type="hidden" class="sample_url" value="'+sampleUrl+'">'+
-                        '<input type="hidden" class="sample_name" value="'+sampleName+'">'+
                         '<audio controls src="{{asset("uploads")}}/'+sampleUrl+'" style="vertical-align: middle"></audio>'+
                         '<button class="removetrack">remove track</button>'+
                         '<ul>'+
