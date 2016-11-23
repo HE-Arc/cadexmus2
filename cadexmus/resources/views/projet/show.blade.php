@@ -5,18 +5,20 @@
     <h1>Projet {{ $projet->nom }}</h1>
     <h2>Version {{$version->numero}}</h2>
 
-    <p>tempo : <input type="number" value="{{$version->repr["tempo"]}}"></p>
+    <p>tempo : <input id="tempo" type="number" value="{{$version->repr["tempo"]}}"></p>
     <ul id="tracks">
     @foreach ($version->repr["tracks"] as $track)
         <li class="track">
             {{ $track["sample"]["name"] }}
+            <input type="hidden" class="sample_url" value="{{$track["sample"]["url"]}}">
+            <input type="hidden" class="sample_name" value="{{$track["sample"]["name"]}}">
             <audio controls src="{{asset("uploads")}}/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
             <button class="removetrack">remove track</button>
             <ul>
                 @foreach($track["notes"] as $note)
                 <li class="note">
-                    pos:<input type="number" value="{{$note["pos"]}}">,
-                    len:<input type="number" value="{{$note["len"]}}">
+                    pos:<input class="note_pos" type="number" value="{{$note["pos"]}}">,
+                    len:<input class="note_len" type="number" value="{{$note["len"]}}">
                     <button class="removenote">remove note</button>
                 </li>
                 @endforeach
@@ -41,16 +43,14 @@
     <script>
         $(function() {
 
-            $(".save").click(function () {
-                console.log("saving");
-            });
-
             $(".addtrack").click(function () {
                 var sampleName = $("#samplename").val();
                 var sampleUrl = $("#sampleurl").val();
                 var newTrack =
                     '<li class="track">'+
                         sampleName +
+                        '<input type="hidden" class="sample_url" value="'+sampleUrl+'">'+
+                        '<input type="hidden" class="sample_name" value="'+sampleName+'">'+
                         '<audio controls src="{{asset("uploads")}}/'+sampleUrl+'" style="vertical-align: middle"></audio>'+
                         '<button class="removetrack">remove track</button>'+
                         '<ul>'+
@@ -62,15 +62,50 @@
 
             // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
             $("#tracks").on("click",".addnote",function () {
-                var newNote='<li class="note">pos:<input type="number" value="0">, len:<input type="number" value="1"><button class="removenote">remove note</button></li>'
+                var newNote=
+                    '<li class="note">'+
+                        'pos:<input class="note_pos" type="number" value="0">,'+
+                        'len:<input class="note_len" type="number" value="1">'+
+                        '<button class="removenote">remove note</button>'+
+                    '</li>';
                 $(this).before(newNote);
             });
 
             // pareil pour $(".removetrack, .removenote").click()
+            // on trigger l'évènement sur l'élément #tracks, et on descend jusqu'à un élément .remove*
             $("#tracks").on("click",".removetrack, .removenote",function () {
-                console.log("yo")
                 $(this).parent().remove();
             });
+
+
+
+            $(".save").click(function () {
+                var repr ={
+                    tempo: $("#tempo").val(),
+                    tracks:[]
+                };
+                $(".track").each(function(i) {
+                    var track = {
+                        sample:{
+                            url:$(this).children(".sample_url").val(),
+                            name:$(this).children(".sample_name").val()
+                        },
+                        notes:[]
+                    };
+
+                    $(this).find(".note").each(function(j){
+                        var note = {
+                            pos: $(this).children(".note_pos").val(),
+                            len: $(this).children(".note_len").val()
+                        };
+                        track.notes.push(note);
+                    });
+
+                    repr.tracks.push(track);
+                });
+                console.log(repr);
+            });
+
 
         });
     </script>
