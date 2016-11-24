@@ -15,55 +15,41 @@
             <audio controls src="{{asset("uploads")}}/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
             <button class="removetrack">remove track</button>
             <ul>
-                @if (isset($track["notes"]))
-                    @foreach($track["notes"] as $note)
-                        <li class="note">
-                            pos:<input class="note_pos" type="number" value="{{$note["pos"]}}">,
-                            len:<input class="note_len" type="number" value="{{$note["len"]}}">
-                            <button class="removenote">remove note</button>
-                        </li>
-                    @endforeach
-                @endif
+                @foreach($track["notes"] as $note)
+                <li class="note">
+                    pos:<input class="note_pos" type="number" value="{{$note["pos"]}}">,
+                    len:<input class="note_len" type="number" value="{{$note["len"]}}">
+                    <button class="removenote">remove note</button>
+                </li>
+                @endforeach
                 <li><button class="addnote">add note</button></li>
             </ul>
         </li>
     @endforeach
     </ul>
     <p>
-        New track :
-        <button data-toggle="modal" data-target="#myModal">choose sample</button>
+        New track : Sample name :
+        <input type="text" id="samplename">
+        URL :
+        <input type="text" id="sampleurl" value="samples/native/kick1.wav">
+        <button class="addtrack">add track</button>
     </p>
 
 
     <button class="save">Save</button>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Choose sample</h4>
-                </div>
-                <div class="modal-body" style="max-height:50vh;overflow: auto">
-                    liste de samples ici
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-
     <script>
         $(function() {
-            function addSample(sampleName,sampleUrl){
+
+            $(".addtrack").click(function () {
+                var sampleName = $("#samplename").val();
+                var sampleUrl = $("#sampleurl").val();
                 var newTrack =
                     '<li class="track">'+
                         sampleName +
+                        '<input type="hidden" class="sample_url" value="'+sampleUrl+'">'+
+                        '<input type="hidden" class="sample_name" value="'+sampleName+'">'+
                         '<audio controls src="{{asset("uploads")}}/'+sampleUrl+'" style="vertical-align: middle"></audio>'+
                         '<button class="removetrack">remove track</button>'+
                         '<ul>'+
@@ -71,7 +57,7 @@
                         '</ul>'+
                     '</li>';
                 $("#tracks").append(newTrack);
-            }
+            });
 
             // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
             $("#tracks").on("click",".addnote",function () {
@@ -133,16 +119,6 @@
                     console.log("request failed")
                 });
                 //location.reload();
-            });
-
-            // charge le contenu de la boîte modale
-            $.get("{{ route('sample.index') }}").done(function(data){
-                $(".modal-body").html(data);
-            });
-
-            $(".modal-body").on("click",".sample",function () {
-                addSample($(this).attr("sampleName"),$(this).attr("sampleUrl"));
-                $("#myModal").modal("hide");
             });
 
         });
