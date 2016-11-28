@@ -8,25 +8,7 @@
     <p>tempo : <input id="tempo" type="number" value="{{$version->repr["tempo"]}}"></p>
     <ul id="tracks">
     @foreach ($version->repr["tracks"] as $track)
-        <li class="track">
-            {{ $track["sample"]["name"] }}
-            <input type="hidden" class="sample_url" value="{{$track["sample"]["url"]}}">
-            <input type="hidden" class="sample_name" value="{{$track["sample"]["name"]}}">
-            <audio controls src="{{asset("uploads")}}/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
-            <button class="removetrack">remove track</button>
-            <ul>
-                @if (isset($track["notes"]))
-                    @foreach($track["notes"] as $note)
-                        <li class="note">
-                            pos:<input class="note_pos" type="number" value="{{$note["pos"]}}">,
-                            len:<input class="note_len" type="number" value="{{$note["len"]}}">
-                            <button class="removenote">remove note</button>
-                        </li>
-                    @endforeach
-                @endif
-                <li><button class="addnote">add note</button></li>
-            </ul>
-        </li>
+        @include("projet.track", $track)
     @endforeach
     </ul>
     <p>
@@ -58,43 +40,13 @@
         </div>
     </div>
 
-
-
     <script>
-        $(function() {
-            function addSample(sampleName,sampleUrl){
-                var newTrack =
-                    '<li class="track">'+
-                        sampleName +
-                        '<input type="hidden" class="sample_url" value="'+sampleUrl+'">'+
-                        '<input type="hidden" class="sample_name" value="'+sampleName+'">'+
-                        '<audio controls src="{{asset("uploads")}}/'+sampleUrl+'" style="vertical-align: middle"></audio>'+
-                        '<button class="removetrack">remove track</button>'+
-                        '<ul>'+
-                            '<li><button class="addnote">add note</button></li>'+
-                        '</ul>'+
-                    '</li>';
-                $("#tracks").append(newTrack);
-            }
+        $(function () {
 
-            // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
-            $("#tracks").on("click",".addnote",function () {
-                var newNote=
-                    '<li class="note">'+
-                        'pos:<input class="note_pos" type="number" value="0">,'+
-                        'len:<input class="note_len" type="number" value="1">'+
-                        '<button class="removenote">remove note</button>'+
-                    '</li>';
-                $(this).before(newNote);
+            // charge le contenu de la boîte modale
+            $.get("{{ route('sample.index') }}").done(function(data){
+                $(".modal-body").html(data);
             });
-
-            // pareil pour $(".removetrack, .removenote").click()
-            // on trigger l'évènement sur l'élément #tracks, et on descend jusqu'à un élément .remove*
-            $("#tracks").on("click",".removetrack, .removenote",function () {
-                $(this).parent().remove();
-            });
-
-
 
             $(".save").click(function () {
                 var repr ={
@@ -130,25 +82,15 @@
                         version:"{{$version->numero}}"
                     }
                 })
-                .done(function(data) {
-                    console.log(data)
-                })
-                .fail(function() {
-                    console.log("request failed")
-                });
+                        .done(function(data) {
+                            console.log(data)
+                        })
+                        .fail(function() {
+                            console.log("request failed")
+                        });
                 //location.reload();
             });
-
-            // charge le contenu de la boîte modale
-            $.get("{{ route('sample.index') }}").done(function(data){
-                $(".modal-body").html(data);
-            });
-
-            $(".modal-body").on("click",".sample",function () {
-                addSample($(this).attr("sampleName"),$(this).attr("sampleUrl"));
-                $("#myModal").modal("hide");
-            });
-
         });
     </script>
+
 @endsection
