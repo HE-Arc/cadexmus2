@@ -8,21 +8,7 @@
     <p>tempo : <input id="tempo" type="number" value="{{$version->repr["tempo"]}}"></p>
     <ul id="tracks">
     @foreach ($version->repr["tracks"] as $track)
-        <li class="track">
-            {{ $track["sample"]["name"] }}
-            <input type="hidden" class="sample_url" value="{{$track["sample"]["url"]}}">
-            <input type="hidden" class="sample_name" value="{{$track["sample"]["name"]}}">
-            <audio controls src="{{asset("uploads")}}/{{$track["sample"]["url"]}}" style="vertical-align: middle"></audio>
-            <button class="removetrack">remove track</button>
-            <ul>
-                @if (isset($track["notes"]))
-                    @foreach($track["notes"] as $note)
-                        @include("note_template", ["pos" => $note["pos"], "len" => $note["len"]])
-                    @endforeach
-                @endif
-                <li><button class="addnote">add note</button></li>
-            </ul>
-        </li>
+        @include("projet.track", $track)
     @endforeach
     </ul>
     <p>

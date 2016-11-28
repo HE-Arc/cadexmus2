@@ -14,13 +14,15 @@ $(function () {
         }
     });
 
-    var track_template = require("../../views/track_template.hbs");
-    var note_template = require("../../views/note_template.hbs");
+    var track_template = require("../../views/projet/track.hbs");
+    var note_template = require("../../views/projet/note.hbs");
 
-    function addSample(sampleName,sampleUrl){
+    function addSample(name, url){
         var newTrack = track_template({
-            sampleName:sampleName,
-            sampleUrl:sampleUrl
+            sample: {
+                name: name,
+                url: url
+            }
         });
         $("#tracks").append(newTrack);
     }

@@ -10,7 +10,7 @@ return [
     | for more information.
     |
     */
-    'flags' => LightnCandy::FLAG_HANDLEBARSJS | LightnCandy::FLAG_ERROR_EXCEPTION,
+    'flags' => LightnCandy::FLAG_HANDLEBARSJS | LightnCandy::FLAG_ERROR_EXCEPTION | LightnCandy::FLAG_RUNTIMEPARTIAL,
     /*
     |--------------------------------------------------------------------------
     | File Extensions
