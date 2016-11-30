@@ -3,7 +3,7 @@
 @section('content')
     <?php $version = $projet->versions[0] ?>
     <h1>Projet {{ $projet->nom }}</h1>
-    <h2>Version {{$version->numero}}</h2>
+    <h2>Version <span id="version">{{$version->numero}}</span></h2>
 
     <div id="repr">
         @include("projet.repr", $version->repr)
@@ -44,56 +44,6 @@
                 $(".modal-body").html(data);
             });
 
-            $(".chat").html("données récupérées");
-
-
-            $(".save").click(function () {
-                var repr ={
-                    tempo: $("#tempo").val(),
-                    tracks:[]
-                };
-                $(".track").each(function(i) {
-                    var track = {
-                        sample:{
-                            url:$(this).children(".sample_url").val(),
-                            name:$(this).children(".sample_name").val()
-                        },
-                        notes:[]
-                    };
-
-                    $(this).find(".note").each(function(j){
-                        var note = {
-                            pos: $(this).children(".note_pos").val(),
-                            len: $(this).children(".note_len").val()
-                        };
-                        track.notes.push(note);
-                    });
-
-                    repr.tracks.push(track);
-                });
-                console.log(repr);
-
-                $.ajax({
-                    type: "PUT",
-                    url: "{{ route('projet.update',$projet->id)}}",
-                    data: {
-                        repr:repr,
-                        version:"{{$version->numero}}"
-                    }
-                }).done(function(data) {
-                    console.log(data);
-                    info(data);
-                }).fail(function() {
-                    console.log("request failed")
-                });
-                //location.reload();
-            });
-
-            function info(data){
-                $("#infos").text(data);
-                $("#infos").show();
-                $("#infos").fadeOut(3000);
-            }
         });
     </script>
 

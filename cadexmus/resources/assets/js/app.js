@@ -51,15 +51,63 @@ $(function () {
         $("#repr").html(repr_template(repr));
     }
 
+
+    $(".save").click(function () {
+        var repr ={
+            tempo: $("#tempo").val(),
+            tracks:[]
+        };
+        $(".track").each(function(i) {
+            var track = {
+                sample:{
+                    url:$(this).children(".sample_url").val(),
+                    name:$(this).children(".sample_name").val()
+                },
+                notes:[]
+            };
+
+            $(this).find(".note").each(function(j){
+                var note = {
+                    pos: $(this).children(".note_pos").val(),
+                    len: $(this).children(".note_len").val()
+                };
+                track.notes.push(note);
+            });
+
+            repr.tracks.push(track);
+        });
+
+        $.ajax({
+            type: "PUT",
+            url: projectUrl,
+            data: {
+                repr:repr,
+                version:versionActuelle
+            }
+        }).done(function(data) {
+            if(data.version != "undefined"){
+                versionActuelle=data.version;
+                $("#version").html(versionActuelle);
+            }
+            console.log(data.message);
+            info(data.message);
+        }).fail(function() {
+            console.log("request failed")
+        });
+        //location.reload();
+    });
+
     $(".refresh").click(function(){
         $.ajax({
             type: "GET",
-            url: getUpdateUrl
+            url: projectUrl +"/"+ versionActuelle
         }).done(function(data) {
-            if(data=="ok"){
+            if(data==0){
                 info("déjà à jour");
             }else{
-                replaceTracks(data);
+                versionActuelle=data.numero;
+                replaceTracks(data.repr);
+                $("#version").html(versionActuelle);
             }
         }).fail(function() {
             console.log("request failed");

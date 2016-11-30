@@ -15,8 +15,8 @@
 
     <!-- Scripts -->
     <script>
-
-        var getUpdateUrl = "{{ route('projet.getUpdates',['projet'=>$projet->id, 'version'=>$version->numero]) }}";
+        var versionActuelle = {{$version->numero}};
+        var projectUrl = "{{ route('projet.show',$projet->id) }}";
     </script>
 
     <!-- Scripts -->
