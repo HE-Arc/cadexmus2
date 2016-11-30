@@ -106,4 +106,8 @@ class ProjetController extends Controller
     {
         //
     }
+
+    public function getChat($id){
+        return view('chat.index')->withMessages(Projet::find($id)->messages);
+    }
 }
