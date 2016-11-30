@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Version;
 use Illuminate\Http\Request;
 use App\Projet;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ProjetController extends Controller
@@ -16,7 +17,7 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        $projets = Projet::all();
+        $projets = Auth::user()->projets;
         return view('projet.index',compact('projets'));
     }
 
@@ -38,12 +39,13 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-        $project = Projet::create($request->only('nom'));
+        $projet = Projet::create($request->only('nom'));
         $repr=[
             'tempo' => 120,
             'tracks' => [],
         ];
-        $project->versions()->create(["numero" => 0, "repr" => $repr]);
+        $projet->versions()->create(["numero" => 0, "repr" => $repr]);
+        $projet->users()->attach(Auth::user());
         return redirect()->route('projet.index');
     }
 
@@ -109,5 +111,16 @@ class ProjetController extends Controller
 
     public function getChat($id){
         return view('chat.index')->withMessages(Projet::find($id)->messages);
+    }
+
+    public function getUpdate($idProjet, $numVersion){
+        $lastVersion = Version::where('projet_id',$idProjet)->orderBy('numero', 'desc')->first();
+        //dd($lastVersion, $numVersion);
+
+        if($lastVersion->numero == $numVersion){
+            return "à jour";
+        }else{
+            return "pas à jour";
+        }
     }
 }

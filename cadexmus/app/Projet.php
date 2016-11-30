@@ -12,9 +12,14 @@ class Projet extends Model
     {
         return $this->hasMany('App\Version');
     }
-
     public function messages()
     {
     	return $this->hasMany('App\Message','projet_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
 }
