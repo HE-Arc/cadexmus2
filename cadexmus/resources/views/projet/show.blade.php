@@ -5,19 +5,9 @@
     <h1>Projet {{ $projet->nom }}</h1>
     <h2>Version {{$version->numero}}</h2>
 
-    <p>tempo : <input id="tempo" type="number" value="{{$version->repr["tempo"]}}"></p>
-    <ul id="tracks">
-    @foreach ($version->repr["tracks"] as $track)
-        @include("projet.track", $track)
-    @endforeach
-    </ul>
-    <p>
-        New track :
-        <input type="hidden" id="samplename">
-        <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
-        <button data-toggle="modal" data-target="#myModal">choose sample</button>
-    </p>
-
+    <div id="repr">
+        @include("projet.repr", $version->repr)
+    </div>
 
     <button class="save">Save</button>
     <button class="refresh">Refresh</button>
@@ -97,25 +87,6 @@
                     console.log("request failed")
                 });
                 //location.reload();
-            });
-
-            $(".refresh").click(function(){
-                /*
-                $.get("{{ route('projet.getUpdates',['projet'=>$projet->id, 'version'=>$version->numero])}}",function(data){
-                    alert(data);
-                })
-                */
-
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('projet.getUpdates',['projet'=>$projet->id, 'version'=>$version->numero]) }}"
-                }).done(function(data) {
-                    //console.log(data);
-                    info(data);
-                }).fail(function() {
-                    console.log("request failed")
-                });
-
             });
 
             function info(data){
