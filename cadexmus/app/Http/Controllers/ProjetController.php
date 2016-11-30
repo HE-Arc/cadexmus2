@@ -109,6 +109,10 @@ class ProjetController extends Controller
         //
     }
 
+    public function getChat($id){
+        return view('chat.index')->withMessages(Projet::find($id)->messages);
+    }
+
     public function getUpdate($idProjet, $numVersion){
         $lastVersion = Version::where('projet_id',$idProjet)->orderBy('numero', 'desc')->first();
         //dd($lastVersion, $numVersion);

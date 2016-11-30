@@ -42,6 +42,9 @@
 
         </div>
     </div>
+    <div class="chat">
+        chat ici
+    </div>
 
     <script>
         $(function () {
@@ -50,6 +53,9 @@
             $.get("{{ route('sample.index') }}").done(function(data){
                 $(".modal-body").html(data);
             });
+
+            $(".chat").html("données récupérées");
+
 
             $(".save").click(function () {
                 var repr ={
