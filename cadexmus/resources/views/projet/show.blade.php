@@ -20,6 +20,7 @@
 
 
     <button class="save">Save</button>
+    <p id="infos"></p>
 
 
     <!-- Modal -->
@@ -81,13 +82,14 @@
                         repr:repr,
                         version:"{{$version->numero}}"
                     }
-                })
-                        .done(function(data) {
-                            console.log(data)
-                        })
-                        .fail(function() {
-                            console.log("request failed")
-                        });
+                }).done(function(data) {
+                    console.log(data);
+                    $("#infos").text(data);
+                    $("#infos").show();
+                    $("#infos").fadeOut(3000);
+                }).fail(function() {
+                    console.log("request failed")
+                });
                 //location.reload();
             });
         });
