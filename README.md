@@ -11,3 +11,14 @@ Lines contains notes, each note have a position and a length (duration). A line 
 A project is an arrangement of sequencers (or clips).
 
 The Wiki is in french
+
+## Install
+
+* `composer install`
+* `.env.example` to `.env`
+* créer ou vider la bdd
+* `php artisan key:generate`
+* `php artisan migrate:refresh --seed`
+* `npm install`
+* `npm install --global gulp`
+* `gulp`
