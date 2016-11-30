@@ -3,6 +3,7 @@
 use App\Projet;
 use App\Sample;
 use App\Version;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class ProjectTableSeeder extends Seeder
@@ -15,6 +16,7 @@ class ProjectTableSeeder extends Seeder
     public function run()
     {
         $project = Projet::create(["nom"=>"Premier Projet"]);
+        $project->users()->attach(User::first());
         $sample1=Sample::all()[0];
         $sample2=Sample::all()[1];
         $repr=[
