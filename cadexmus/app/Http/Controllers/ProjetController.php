@@ -106,4 +106,15 @@ class ProjetController extends Controller
     {
         //
     }
+
+    public function getUpdate($idProjet, $numVersion){
+        $lastVersion = Version::where('projet_id',$idProjet)->orderBy('numero', 'desc')->first();
+        //dd($lastVersion, $numVersion);
+
+        if($lastVersion->numero == $numVersion){
+            return "à jour";
+        }else{
+            return "pas à jour";
+        }
+    }
 }
