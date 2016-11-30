@@ -98,28 +98,34 @@ $(function () {
     });
 
     $(".refresh").click(function(){
-        $.ajax({
-            type: "GET",
-            url: projectUrl +"/"+ versionActuelle
-        }).done(function(data) {
-            if(data==0){
-                info("déjà à jour");
-            }else{
-                versionActuelle=data.numero;
-                replaceTracks(data.repr);
-                $("#version").html(versionActuelle);
-            }
-        }).fail(function() {
-            console.log("request failed");
-        });
+        refresh();
     });
 
 
     function info(data){
         $("#infos").text(data);
         $("#infos").show();
-        $("#infos").fadeOut(3000);
+        $("#infos").fadeOut(1500);
     }
+
+    function refresh() {
+        $.ajax({
+            type: "GET",
+            url: projectUrl + "/" + versionActuelle
+        }).done(function (data) {
+            if (data == 0) {
+                info("déjà à jour");
+            } else {
+                versionActuelle = data.numero;
+                replaceTracks(data.repr);
+                $("#version").html(versionActuelle);
+            }
+        }).fail(function () {
+            console.log("request failed");
+        });
+    }
+
+    var interval = setInterval(refresh, 2000);
 
 });
 
