@@ -82,12 +82,18 @@ class ProjetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $version = Version::create([
-            'projet_id' => $id+0,
-            'numero' => $request->version+1,
-            'repr' => $request->repr
-        ]);
-        return "nouvelle version sauvegardée";
+        $retard = Version::where('numero','>',$request->version)
+            ->where('projet_id',$id)->count();
+        if($retard==0){
+            $version = Version::create([
+                'projet_id' => $id+0,
+                'numero' => $request->version+1,
+                'repr' => $request->repr
+            ]);
+            return "nouvelle version sauvegardée";
+        }else{
+            return "modifications refusées, vous avez $retard versions de retard";
+        }
     }
 
     /**
