@@ -16,6 +16,7 @@ $(function () {
 
     var track_template = require("../../views/projet/track.hbs");
     var note_template = require("../../views/projet/note.hbs");
+    var repr_template = require("../../views/projet/repr.hbs");
 
     function addSample(name, url){
         var newTrack = track_template({
@@ -45,6 +46,32 @@ $(function () {
         addSample($(this).attr("sampleName"),$(this).attr("sampleUrl"));
         $("#myModal").modal("hide");
     });
+
+    function replaceTracks(repr){
+        $("#repr").html(repr_template(repr));
+    }
+
+    $(".refresh").click(function(){
+        $.ajax({
+            type: "GET",
+            url: getUpdateUrl
+        }).done(function(data) {
+            if(data=="ok"){
+                info("déjà à jour");
+            }else{
+                replaceTracks(data);
+            }
+        }).fail(function() {
+            console.log("request failed");
+        });
+    });
+
+
+    function info(data){
+        $("#infos").text(data);
+        $("#infos").show();
+        $("#infos").fadeOut(3000);
+    }
 
 });
 

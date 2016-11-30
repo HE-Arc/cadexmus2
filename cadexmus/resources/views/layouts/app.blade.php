@@ -15,9 +15,8 @@
 
     <!-- Scripts -->
     <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
+
+        var getUpdateUrl = "{{ route('projet.getUpdates',['projet'=>$projet->id, 'version'=>$version->numero]) }}";
     </script>
 
     <!-- Scripts -->

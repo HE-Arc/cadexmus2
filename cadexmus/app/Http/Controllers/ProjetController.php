@@ -118,9 +118,9 @@ class ProjetController extends Controller
         //dd($lastVersion, $numVersion);
 
         if($lastVersion->numero == $numVersion){
-            return "à jour";
+            return "ok";
         }else{
-            return "pas à jour";
+            return $lastVersion->repr;
         }
     }
 }
