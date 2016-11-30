@@ -20,7 +20,9 @@
 
 
     <button class="save">Save</button>
+    <button class="refresh">Refresh</button>
     <p id="infos"></p>
+    <p id="debug"></p>
 
 
     <!-- Modal -->
@@ -84,14 +86,37 @@
                     }
                 }).done(function(data) {
                     console.log(data);
-                    $("#infos").text(data);
-                    $("#infos").show();
-                    $("#infos").fadeOut(3000);
+                    info(data);
                 }).fail(function() {
                     console.log("request failed")
                 });
                 //location.reload();
             });
+
+            $(".refresh").click(function(){
+                /*
+                $.get("{{ route('projet.getUpdates',['projet'=>$projet->id, 'version'=>$version->numero])}}",function(data){
+                    alert(data);
+                })
+                */
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('projet.getUpdates',['projet'=>$projet->id, 'version'=>$version->numero]) }}"
+                }).done(function(data) {
+                    //console.log(data);
+                    info(data);
+                }).fail(function() {
+                    console.log("request failed")
+                });
+
+            });
+
+            function info(data){
+                $("#infos").text(data);
+                $("#infos").show();
+                $("#infos").fadeOut(3000);
+            }
         });
     </script>
 

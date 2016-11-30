@@ -21,3 +21,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::resource('sample', 'SampleController');
 Route::resource('projet', 'ProjetController');
+
+Route::get('projet/{projet}/{version}', 'ProjetController@getUpdate')->name('projet.getUpdates');
