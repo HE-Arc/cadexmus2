@@ -112,6 +112,13 @@ $(function () {
         });
     }
 
-    var interval = setInterval(refresh, 2000);
+    var interval;
 
+    $("#autoRefresh").change(function(){
+        if($(this).prop('checked')){
+            interval = setInterval(refresh, 2000);
+        }else{
+            clearInterval(interval);
+        }
+    })
 });

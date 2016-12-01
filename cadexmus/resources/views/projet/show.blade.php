@@ -10,8 +10,10 @@
     </div>
 
     <button class="save">Save</button>
-    <button class="refresh">Refresh</button>
-    <p id="infos"></p>
+    <button class="refresh">Refresh</button> <span id="infos"></span>
+    <br>
+    <input type="checkbox" id="autoRefresh"> automatic refresh
+
     <p id="debug"></p>
 
 
