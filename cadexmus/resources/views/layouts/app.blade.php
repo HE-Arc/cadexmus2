@@ -15,13 +15,10 @@
 
     <!-- Scripts -->
     <script>
-        var versionActuelle = {{$version->numero}};
-        var projectUrl = "{{ route('projet.show',$projet->id) }}";
     </script>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js')}}"></script>
-    <script src="{{ asset('js/perso.js')}}"></script>
 </head>
 <body>
     <div id="app">

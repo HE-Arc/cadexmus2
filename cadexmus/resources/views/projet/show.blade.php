@@ -37,6 +37,9 @@
     </div>
 
     <script>
+        var versionActuelle = {{$version->numero}};
+        var projectUrl = "{{ route('projet.show',$projet->id) }}";
+
         $(function () {
 
             // charge le contenu de la boîte modale
@@ -46,5 +49,7 @@
 
         });
     </script>
+
+    <script src="{{ asset('js/projet.show.js')}}"></script>
 
 @endsection
