@@ -16,7 +16,7 @@ class ProjectTableSeeder extends Seeder
     public function run()
     {
         $project = Projet::create(["nom"=>"Premier Projet"]);
-        $project->users()->attach(User::first());
+        $project->users()->attach(User::all());
         $sample1=Sample::all()[0];
         $sample2=Sample::all()[1];
         $repr=[
