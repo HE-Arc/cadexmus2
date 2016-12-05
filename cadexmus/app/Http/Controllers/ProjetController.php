@@ -95,9 +95,9 @@ class ProjetController extends Controller
                 'numero' => $request->version+1,
                 'repr' => $request->repr
             ]);
-            return "nouvelle version sauvegardée";
+            return ["message"=>"nouvelle version sauvegardée","version"=>$version->numero];
         }else{
-            return "modifications refusées, vous avez $retard versions de retard";
+            return ["message"=>"modifications refusées, vous avez $retard versions de retard"];
         }
     }
 
@@ -121,9 +121,9 @@ class ProjetController extends Controller
         //dd($lastVersion, $numVersion);
 
         if($lastVersion->numero == $numVersion){
-            return "à jour";
+            return 0;
         }else{
-            return "pas à jour";
+            return $lastVersion;
         }
     }
 

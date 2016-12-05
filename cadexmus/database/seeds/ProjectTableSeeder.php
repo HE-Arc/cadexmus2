@@ -16,16 +16,15 @@ class ProjectTableSeeder extends Seeder
     public function run()
     {
         $project = Projet::create(["nom"=>"Premier Projet"]);
-        $project->users()->attach(User::first());
-        $sample1=Sample::all()[0];
-        $sample2=Sample::all()[1];
+        $project->users()->attach(User::all());
+        $samples = Sample::take(2)->get();
         $repr=[
             'tempo' => 120,
             'tracks' =>[
                 [
                     "sample"=> [
-                        "url" => $sample1->url,
-                        "name" => $sample1->nom
+                        "url" => $samples[0]->url,
+                        "name" => $samples[0]->nom
                     ],
                     "notes"=>[
                         [
@@ -39,8 +38,8 @@ class ProjectTableSeeder extends Seeder
                 ],
                 [
                     "sample"=> [
-                        "url" => $sample2->url,
-                        "name" => $sample2->nom
+                        "url" => $samples[1]->url,
+                        "name" => $samples[1]->nom
                     ],
                     "notes"=>[
                         [

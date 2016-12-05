@@ -1,0 +1,12 @@
+<p>tempo : <input id="tempo" type="number" value="{{tempo}}"></p>
+<ul id="tracks">
+    {{#each tracks }}
+        {{> track }}
+    {{/each }}
+</ul>
+<p>
+    New track :
+    <input type="hidden" id="samplename">
+    <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
+    <button data-toggle="modal" data-target="#myModal">choose sample</button>
+</p>

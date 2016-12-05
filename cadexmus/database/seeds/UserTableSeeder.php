@@ -16,5 +16,17 @@ class UserTableSeeder extends Seeder
             "email"=>"asd.asd@asd.asd",
             "password"=>bcrypt("toot"),
         ]);
+
+        $emails=["arnaud"=>"arnaud.droxler@he-arc.ch",
+            "joaquim"=>"joaquim.perez@he-arc.ch",
+            "bastien"=>"bastien.burri@he-arc.ch"];
+
+        foreach ($emails as $user => $email){
+            User::create([
+                "name"=>$user,
+                "email"=>$email,
+                "password"=>bcrypt($user),
+            ]);
+        }
     }
 }
