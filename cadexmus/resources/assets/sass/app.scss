@@ -25,6 +25,9 @@ html,body, .container, #sidebar{
 body{
   background-color:$c2;
   background-image: url('../images/bg2.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
 }
 
 #app{
