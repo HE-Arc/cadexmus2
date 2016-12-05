@@ -1,6 +1,6 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Lobster|Raleway:300,400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,700,900);
 
 // Variables
 @import "variables";
@@ -8,14 +8,6 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-
-.btn-primary{
-  border:none;
-}
-
-a{
-  color:white;
-}
 
 html,body, .container, #sidebar{
   margin:0;
@@ -56,46 +48,11 @@ body{
   -webkit-justify-content: space-between;
   justify-content: space-between;
   flex-direction: row;
-
-  background-size:cover;
-  background-position:center;
-}
-
-h1{
-  margin:0;padding:0;
-}
-
-@font-face {
-  font-family: "lazer84";
-  src: url('../lazer84.ttf');
-}
-
-header h1{
-  font-family: "lazer84";
-  padding-top:10px;
-}
-
-header h1, header h3, header form{
-  padding-left:10px;
-}
-
-#toggle_nav{
-  float:right;
-  display:none;
 }
 
 .column{
   height: 100%;
-  /*
-  float: left;
-  */
   overflow: auto;
-}
-
-.column-left{
-  /*
-  padding:10px 0 0 10px;
-  */
 }
 
 .column-center{
@@ -109,7 +66,6 @@ header h1, header h3, header form{
 .column-left, .column-right{
   background-color:$darker;
 
-
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
@@ -120,6 +76,15 @@ header h1, header h3, header form{
 
   overflow-x: hidden;
   min-width: 180px;
+}
+
+header h1, header h3, header form{
+  padding-left:10px;
+}
+
+#toggle_nav{
+  float:right;
+  display:none;
 }
 
 #chatDisplayMessages{
@@ -140,7 +105,6 @@ nav > ul{
   height: 100%;
   overflow-y: auto;
 }
-
 
 #container{
   width:85%;
@@ -271,10 +235,6 @@ table .lineuser3 td:first-child{
 }
 */
 
-input, button{
-  background-color: $c2;
-}
-
 .gridbar{
   position: absolute;
   top: 0;
@@ -313,6 +273,16 @@ input, button{
 /****
 Divers
 *****/
+
+
+
+.btn-primary{
+  border:none;
+}
+
+a{
+  color:white;
+}
 
 .btn {
   border-radius:0;
@@ -382,4 +352,8 @@ p.message{
 
 .form-control:focus {
   border-color: #ffffff;
+}
+
+input, button{
+  color: #555;
 }
