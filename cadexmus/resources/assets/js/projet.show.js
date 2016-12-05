@@ -79,7 +79,7 @@ $(function () {
             console.log(data.message);
             info(data.message);
         }).fail(function() {
-            console.log("request failed")
+            console.log("request failed");
         });
         //location.reload();
     });
@@ -100,7 +100,7 @@ $(function () {
             type: "GET",
             url: projectUrl + "/" + versionActuelle
         }).done(function (data) {
-            if (data == 0) {
+            if (data === 0) {
                 info("déjà à jour");
             } else {
                 versionActuelle = data.numero;
@@ -120,5 +120,5 @@ $(function () {
         }else{
             clearInterval(interval);
         }
-    })
+    });
 });
