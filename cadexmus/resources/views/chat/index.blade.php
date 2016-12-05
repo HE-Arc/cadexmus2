@@ -65,7 +65,6 @@ function retrieveChatMessages()
       type: 'GET',
       cache: false,
       success: function(data){
-        //console.log(data+ "DATA");
             $('#chat-window').html("");
         for (var k in data) {
             $('#chat-window').append('<br><div><li>'+data[k]['name'] +'</li></div><br>');
@@ -73,17 +72,6 @@ function retrieveChatMessages()
 
         }
       }});
-  /*  $.post('http://localhost/cadexmus2/cadexmus/public/retrieveChatMessages/projet/', {username: username}, function(data)
-    {
-        $('#chat-window').html("");
-        for (var k in data) {
-            $('#chat-window').append('<br><div><li>'+data[k]['sender_username'] +'</li></div><br>');
-            $('#chat-window').append('<br><div>'+data[k]['message'] +'</div><br>');
-        }*/
-
-       /* if (data.length > 0)
-            $('#chat-window').append('<br><div>'+data+'</div><br>');
-    });*/
 }
 
 
@@ -153,14 +141,6 @@ function retrieveTypingStatus()
         });
       }});
 
-/*
-    $.post('http://localhost/cadexmus2/cadexmus/public/retrieveTypingStatus', {username: username}, function(username)
-    {
-        if (username.length > 0)
-            $('#typingStatus').html(username+' is typing');
-        else
-            $('#typingStatus').html('');
-    });*/
 }
 
 function sendMessage()
@@ -180,25 +160,12 @@ function sendMessage()
 
 function isTyping()
 {
-    /*username = $.post('http://localhost/cadexmus2/cadexmus/public/getUserName');
-    console.log(username);*/
-   // $.post('http://localhost/Laravel-Ajax/public/projet/'+projet.id+'/isTyping/', {username: username});
-
-	 /*   $.ajax({
-	    type: 'POST',
-	    url: 'http://localhost/Laravel-Ajax/public/isTyping',
-	    data: { 
-	        username: username
-	    }
-	});*/
 
       $.ajax({
       url: "{{ route('projet.isTyping',$projet) }}",
-      type: 'GET',
+      type: 'POST',
       cache: false,
-      success: function(text){
-       //  console.log(text);
-      }});
+      });
 }
 
 
@@ -207,10 +174,8 @@ function notTyping()
 {
        $.ajax({
       url: "{{ route('projet.notTyping',$projet) }}",
-      type: 'GET',
+      type: 'POST',
       cache: false,
-      success: function(text){
-       //  console.log(text);
-      }});
+      });
 }
     </script>

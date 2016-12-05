@@ -112,13 +112,12 @@ class ProjetController extends Controller
         //
     }
 
-    public function getChat($id){
-        return view('chat.index')->withMessages(Projet::find($id)->messages);
+    public function getChat($projet){
+        return view('chat.index')->with('projet',$projet);
     }
 
     public function getUpdate($idProjet, $numVersion){
         $lastVersion = Version::where('projet_id',$idProjet)->orderBy('numero', 'desc')->first();
-        //dd($lastVersion, $numVersion);
 
         if($lastVersion->numero == $numVersion){
             return 0;
@@ -154,28 +153,10 @@ class ProjetController extends Controller
         ->where('projet_user.isTyping','=',false)
         ->update(['projet_user.isTyping' => true]);
 
-
-       /*  $test = DB::table('users')
-        ->select('users.name')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('projet_user.isTyping','=',true)
-        ->get();*/
-        return "isTyping";
+     //  return "isTyping";
 
     }
 
-    public function test()
-    {
-    /*    $users = DB::table('users')->where([
-    ['status', '=', '1'],
-    ['subscribed', '<>', '1'],
-    ])->get();*/
-        $username = Input::get('username');
-
-        return $username;
-    }
 
     public function notTyping($id)
     {
@@ -188,7 +169,7 @@ class ProjetController extends Controller
         ->where('projet_user.isTyping','=',true)
         ->update(['projet_user.isTyping' => false]);
 
-        return "notTyping";
+     //   return "notTyping";
     }
 
     public function retrieveChatMessages($id)
@@ -200,7 +181,6 @@ class ProjetController extends Controller
         ->where('messages.projet_id', '=', $id)->get();
 
         //$messages = Message::where('projet_id','=',$id)->get(); 
-
 
         return $messages;
     }
