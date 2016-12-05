@@ -101,7 +101,6 @@ $(function () {
             url: projectUrl + "/" + versionActuelle
         }).done(function (data) {
             if (data == 0) {
-                alert(typeof data);
                 info("déjà à jour");
             } else {
                 versionActuelle = data.numero;
