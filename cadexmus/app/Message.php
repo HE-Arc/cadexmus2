@@ -24,11 +24,11 @@ class Message extends Model
 
     public function Projet()
     {
-    	return $this->belongsTo('Projet', 'id');
+    	return $this->belongsTo('App\Projet', 'id');
     }
 
-    public function user()
+    public function User()
     {
-    	return $this->belongsTo('User','id');
+    	return $this->belongsTo('App\User','id');
     }
 }

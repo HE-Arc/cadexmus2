@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Projet;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use App\Message;
 
 class ProjetController extends Controller
 {
@@ -122,5 +125,105 @@ class ProjetController extends Controller
         }else{
             return "pas à jour";
         }
+    }
+
+
+
+       public function sendMessage($id)
+    {
+        $username = Auth::user()->name;
+        $text = Input::get('text');
+        $text = htmlentities($text);
+
+        $message = new Message();
+        $message->user_id = Auth::user()->id;
+        $message->projet_id = $id;
+        $message->body = $text;
+        $message->save();
+    }
+
+    public function isTyping($id)
+    {
+
+        $tabTyping = DB::table('users')
+        ->select('projet_user.user_id','projet_user.projet_id','projet_user.isTyping')
+        ->join('projet_user','projet_user.user_id', '=', 'users.id')
+        ->join('projets','projets.id', '=', 'projet_user.projet_id')
+        ->where('projets.id', '=', $id)
+        ->where('users.name','=',Auth::user()->name)
+        ->where('projet_user.isTyping','=',false)
+        ->update(['projet_user.isTyping' => true]);
+
+
+       /*  $test = DB::table('users')
+        ->select('users.name')
+        ->join('projet_user','projet_user.user_id', '=', 'users.id')
+        ->join('projets','projets.id', '=', 'projet_user.projet_id')
+        ->where('projets.id', '=', $id)
+        ->where('projet_user.isTyping','=',true)
+        ->get();*/
+        return "isTyping";
+
+    }
+
+    public function test()
+    {
+    /*    $users = DB::table('users')->where([
+    ['status', '=', '1'],
+    ['subscribed', '<>', '1'],
+    ])->get();*/
+        $username = Input::get('username');
+
+        return $username;
+    }
+
+    public function notTyping($id)
+    {
+        $tabTyping = DB::table('users')
+        ->select('projet_user.user_id','projet_user.projet_id','projet_user.isTyping')
+        ->join('projet_user','projet_user.user_id', '=', 'users.id')
+        ->join('projets','projets.id', '=', 'projet_user.projet_id')
+        ->where('projets.id', '=', $id)
+        ->where('users.name','=',Auth::user()->name)
+        ->where('projet_user.isTyping','=',true)
+        ->update(['projet_user.isTyping' => false]);
+
+        return "notTyping";
+    }
+
+    public function retrieveChatMessages($id)
+    {
+
+         $messages = DB::table('messages')
+        ->select('messages.body','users.name')
+        ->join('users','users.id', '=', 'messages.user_id')
+        ->where('messages.projet_id', '=', $id)->get();
+
+        //$messages = Message::where('projet_id','=',$id)->get(); 
+
+
+        return $messages;
+    }
+
+    public function retrieveTypingStatus($id)
+    {
+
+         $tabTyping = DB::table('users')
+        ->select('users.name')
+        ->join('projet_user','projet_user.user_id', '=', 'users.id')
+        ->join('projets','projets.id', '=', 'projet_user.projet_id')
+        ->where('projets.id', '=', $id)
+        ->where('projet_user.isTyping','=',true)
+        ->get();
+
+        return $tabTyping;
+
+
+    }
+
+    public function getUserName()
+    {
+     //return json_encode(Auth::user->name); 
+        return Auth::user()->name;
     }
 }
