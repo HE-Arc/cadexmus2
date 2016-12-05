@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
 <p>
     <a href="{{ route('projet.create')}}">create</a>
 
@@ -10,4 +8,3 @@
     @endforeach
     </ul>
 </p>
-@endsection

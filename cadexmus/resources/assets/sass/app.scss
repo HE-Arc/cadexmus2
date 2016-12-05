@@ -1,53 +1,15 @@
 
 // Fonts
-//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Lobster|Raleway:300,400,700,900);
 
 // Variables
-//@import "variables";
+@import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 
-
-:root{
-  /* rose */
-  --c1: #F41F61;
-  /* bleu */
-  --c2: #191163;
-  /* cyan */
-  --c3: #15eded;
-  /* mauve */
-  --c4: #6433BB;
-
-  /*users*/
-  --u1: #190573;
-  --u2: #EFE583;
-  --u3: #B22985;
-  --u4: #611484;
-  --u5: #B48684;
-  --u6: #355486;
-  --u7: #2532C8;
-  --u8: #4CA0F6;
-
-  --lighter:rgba(255,255,255,.3);
-  --darker:rgba(0,0,0,.4);
-
-  --c1a:rgba(236, 0, 102, 1);
-  --c1b:rgba(236, 0, 102, .85);
-  --c1c:rgba(236, 0, 102, .7);
-
-  --c2a:rgba(16, 10, 66, 1);
-  --c2b:rgba(16, 10, 66, .75);
-  --c2c:rgba(16, 10, 66, .5);
-
-  --c3a:rgba(21, 237, 237, 1);
-  --c3b:rgba(21, 237, 237, .75);
-  --c3c:rgba(21, 237, 237, .5);
-}
-
 .btn-primary{
-  background-color:var(--c4);
   border:none;
 }
 
@@ -61,6 +23,11 @@ html,body, .container, #sidebar{
 }
 
 body{
+  background-color:$c2;
+  background-image: url('../images/bg2.jpg');
+}
+
+#app{
   display: flex;
   height:100vh;
   flex-direction: column;
@@ -72,19 +39,13 @@ body{
   height: 20px;
 }
 
-#app{
+.content{
   height:100%;
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
   flex-direction: row;
-  font-family: 'Raleway', sans-serif;
 
-  color:white;
-  background-color:var(--c2);
-  background: linear-gradient(10deg,var(--c2),var(--c1));
-
-  background-image: url('../images/bg2.jpg');
   background-size:cover;
   background-position:center;
 }
@@ -135,7 +96,7 @@ header h1, header h3, header form{
 }
 
 .column-left, .column-right{
-  background-color:var(--darker);
+  background-color:$darker;
 
 
   display: flex;
@@ -176,7 +137,7 @@ nav > ul{
 }
 
 @media screen and (max-width: 1000px) {
-  #app{
+  .content{
     height: initial;
     flex-direction: column;
   }
@@ -248,7 +209,7 @@ table tr{
 }
 
 .line{
-  border-bottom: 1px solid var(--c3);
+  border-bottom: 1px solid $c3;
 }
 
 
@@ -266,15 +227,15 @@ td.samplename:hover{
 
 
 table .lineuser1 .samplename{
-  border-left: 6px solid var(--u1);
+  border-left: 6px solid $u1;
 }
 
 table .lineuser2 td:first-child{
-  border-left: 6px solid var(--u2);
+  border-left: 6px solid $u2;
 }
 
 table .lineuser3 td:first-child{
-  border-left: 6px solid var(--u3);
+  border-left: 6px solid $u3;
 }
 
 .barline, .line{
@@ -282,22 +243,22 @@ table .lineuser3 td:first-child{
 }
 /*
 .note{
-  background-color:var(--c1b);
-  border-right: 4px solid var(--darker);
+  background-color: $c1b;
+  border-right: 4px solid $darker;
   min-height: 100%;
   position: absolute;
   top: 0;
 }
 .note:hover{
-  background-color:var(--c1a);
+  background-color: $c1a;
 }
 .note:active{
-  background-color:var(--c1c);
+  background-color:$c1c;
 }
 */
 
 input, button{
-  background-color: var(--c2);
+  background-color: $c2;
 }
 
 .gridbar{
@@ -308,15 +269,15 @@ input, button{
 }
 
 .gridbar4{
-  background-color: var(--c3a);
+  background-color: $c3a;
 }
 
 .gridbar8{
-  background-color: var(--c3b);
+  background-color: $c3b;
 }
 
 .gridbar32{
-  background-color: var(--c3c);
+  background-color: $c3c;
 }
 
 #timebar{
@@ -346,10 +307,10 @@ Divers
 
 .active{
   font-weight: bold;
-  background-color:var(--darker);
+  background-color:$darker;
 }
 .nav>li>a:focus, .nav>li>a:hover{
-  background-color:var(--darker);
+  background-color:$darker;
   color:white;
 }
 
@@ -382,12 +343,12 @@ p.message{
   top: 0;
   font-size: small;
   padding: 0 3px;
-  background-color: var(--darker);
+  background-color: $darker;
   cursor:pointer;
 }
 
 #toggle_nav{
-  background-color: var(--darker);
+  background-color: $darker;
 }
 
 #box, .column{
@@ -399,7 +360,7 @@ p.message{
 }
 
 .form-control{
-  background-color: var(--darker);
+  background-color: $darker;
   border-radius:0;
   color:white;
   border-color:white;
