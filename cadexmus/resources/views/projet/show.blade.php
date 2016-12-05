@@ -45,4 +45,26 @@
         </div>
     </aside>
 
+    <script>
+        $(document).ready(function(){
+            $("#toggle_chat").click(function(){
+                if($(this).html()=="close chat"){
+                    $(this).html("open chat");
+                    $(".column-right").hide();
+                }else{
+                    $(this).html("close chat");
+                    $(".column-right").show();
+                }
+            });
+
+            $("#toggle_nav").click(function(){
+                if($("header > nav").hasClass("hideable")){
+                    $("header > nav").removeClass("hideable");
+                }else{
+                    $("header > nav").addClass("hideable");
+                }
+            });
+        });
+    </script>
+
 @endsection
