@@ -16,7 +16,7 @@ class ProjetUser extends Migration
         Schema::create('projet_user', function (Blueprint $table) {
             $table->integer('user_id');
             $table->integer('projet_id');
-            $table->booleean('isTyping');
+            $table->boolean('isTyping')->default(false);
         });
     }
 
