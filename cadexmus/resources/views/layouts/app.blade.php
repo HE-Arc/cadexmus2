@@ -44,10 +44,8 @@
 
             <div>
                 <hr>
-                <h3>Inviter un collaborateur</h3>
-                <form style="margin: 0 10px 0 0">
-                    <input type="text"  class="form-control" placeholder="pseudo du collaborateur">
-                </form>
+                <h3>Ajouter un collaborateur</h3>
+                @yield('invite')
             </div>
         </header>
         <main class="column column-center">
@@ -84,8 +82,10 @@
         <script>
             noms = ["fouine","chameau","blaireau"];
             couleurs = ["var(--u1)","var(--u2)","var(--u3)"];
+            var element = document.getElementById("chatDisplayMessages");
             for(var i=0;i<30;i++){
-                document.getElementById("chatDisplayMessages").innerHTML+='<div class="chatMessage" style=border-color:'+couleurs[i%3]+'><p class="sender">'+noms[i%3]+'</p><p class="message">'+("coucou "+i)+'</p></div>';
+                element.innerHTML+='<div class="chatMessage" style=border-color:'+couleurs[i%3]+'><p class="sender">'+noms[i%3]+'</p><p class="message">'+("coucou "+i)+'</p></div>';
+                element.scrollTop = element.scrollHeight;
             }
         </script>
 

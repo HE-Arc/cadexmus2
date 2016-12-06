@@ -11,3 +11,10 @@
     </ul>
 </p>
 @endsection
+
+
+@section('invite')
+                <form style="margin: 0 10px 0 0">
+                    <input type="text"  class="form-control" placeholder="Email du collaborateur">
+                </form>
+@endsection
