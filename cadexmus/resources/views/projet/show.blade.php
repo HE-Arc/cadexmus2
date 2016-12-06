@@ -26,6 +26,7 @@
             </form>
         </div>
     </header>
+
     <main class="column column-center">
         <div id="container">
             @include('projet.edit')
@@ -33,16 +34,9 @@
         <p id="debug"></p>
         <span id="toggle_chat">close chat</span>
     </main>
+
     <aside class="column column-right">
-        <div id="chatDisplayMessages">
-            messages ici
-        </div>
-        <div id="chatWriteMessage">
-            <hr>
-            <form style="margin:0 10px">
-                <input class="form-control" type="text" placeholder="message">
-            </form>
-        </div>
+            @include('chat.index')
     </aside>
 
     <script>
@@ -58,11 +52,7 @@
             });
 
             $("#toggle_nav").click(function(){
-                if($("header > nav").hasClass("hideable")){
-                    $("header > nav").removeClass("hideable");
-                }else{
-                    $("header > nav").addClass("hideable");
-                }
+                $("header > nav").toggleClass("hideable");
             });
         });
     </script>
