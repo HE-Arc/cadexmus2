@@ -33,10 +33,13 @@ function retrieveChatMessages()
       type: 'GET',
       cache: false,
       success: function(data){
-            $('#chat-window').html("");
+            $('#chatDisplayMessages').html("");
         for (var k in data) {
-            $('#chat-window').append('<br><div><li>'+data[k]['name'] +'</li></div><br>');
-            $('#chat-window').append('<br><div>'+data[k]['body'] +'</div><br>');
+            var messageElement = '<div class="chatMessage">'+
+                '<p class="sender">'+data[k]['name']+'</p>'+
+                '<p class="message">'+data[k]['body']+'</p>'+
+              '</div>';
+            $('#chatDisplayMessages').append(messageElement);
 
         }
       }});
@@ -109,14 +112,15 @@ function retrieveTypingStatus()
 function sendMessage()
 {
     var text = $('#text').val();
+    $('#text').prop("disabled",true);        
 
     if (text.length > 0)
     {
         $.post(urlSendMessage, {text: text}, function()
         {
-            $('#chat-window').append('<br><div>'+text+'</div><br>');
-            $('#text').val('');
+           $('#text').val('').prop("disabled",false);   
             notTyping();
+            retrieveChatMessages();
         });
     }
 }
