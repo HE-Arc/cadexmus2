@@ -1,57 +1,70 @@
 @extends('layouts.app')
 
 @section('content')
-    <?php $version = $projet->versions[0] ?>
-    <h1>Projet {{ $projet->nom }}</h1>
-    <h2>Version <span id="version">{{$version->numero}}</span></h2>
-
-    <div id="repr">
-        @include("projet.repr", $version->repr)
-    </div>
-
-    <button class="save">Save</button>
-    <button class="refresh">Refresh</button> <span id="infos"></span>
-    <br>
-    <input type="checkbox" id="autoRefresh"> automatic refresh
-
-    <p id="debug"></p>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+    <header class="column column-left">
+        <button id="toggle_nav" class="btn">Projets</button>
+        <nav class="hideable">
+            <h3>Mes projets</h3>
+            <ul class="nav  nav-stacked" >
+                <li class="active"><a href="">Projet Yolo</a></li>
+                <li><a href="">Les hommes crabes</a></li>
+                <li><a href="">René la taupe remix</a></li>
+                <li><a href="">DJ Pépé</a></li>
+                <li><a href="">Schnitzel mit pommes</a></li>
+                <li><a href="">Renaud 2.0</a></li>
+            </ul>
+            <button class="btn btn-primary">Créer un projet</button>
+        </nav>
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Choose sample</h4>
-                </div>
-                <div class="modal-body" style="max-height:50vh;overflow: auto">
-                    liste de samples ici
-                </div>
-            </div>
-
+        <div>
+            <hr>
+            <h3>Inviter un collaborateur</h3>
+            <form style="margin: 0 10px 0 0">
+                <input type="text"  class="form-control" placeholder="pseudo du collaborateur">
+            </form>
         </div>
-    </div>
-    <div class="chat">
-        chat ici
-    </div>
+    </header>
+    <main class="column column-center">
+        <div id="container">
+            @include('projet.edit')
+        </div>
+        <p id="debug"></p>
+        <span id="toggle_chat">close chat</span>
+    </main>
+    <aside class="column column-right">
+        <div id="chatDisplayMessages">
+            messages ici
+        </div>
+        <div id="chatWriteMessage">
+            <hr>
+            <form style="margin:0 10px">
+                <input class="form-control" type="text" placeholder="message">
+            </form>
+        </div>
+    </aside>
 
     <script>
-        var versionActuelle = {{$version->numero}};
-        var projectUrl = "{{ route('projet.show',$projet->id) }}";
-
-        $(function () {
-
-            // charge le contenu de la boîte modale
-            $.get("{{ route('sample.index') }}").done(function(data){
-                $(".modal-body").html(data);
+        $(document).ready(function(){
+            $("#toggle_chat").click(function(){
+                if($(this).html()=="close chat"){
+                    $(this).html("open chat");
+                    $(".column-right").hide();
+                }else{
+                    $(this).html("close chat");
+                    $(".column-right").show();
+                }
             });
 
+            $("#toggle_nav").click(function(){
+                if($("header > nav").hasClass("hideable")){
+                    $("header > nav").removeClass("hideable");
+                }else{
+                    $("header > nav").addClass("hideable");
+                }
+            });
         });
     </script>
-
-    <script src="{{ asset('js/projet.show.js')}}"></script>
 
 @endsection

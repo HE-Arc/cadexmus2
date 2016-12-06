@@ -1,59 +1,13 @@
 
 // Fonts
-//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,700,900);
 
 // Variables
-//@import "variables";
+@import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-
-
-:root{
-  /* rose */
-  --c1: #F41F61;
-  /* bleu */
-  --c2: #191163;
-  /* cyan */
-  --c3: #15eded;
-  /* mauve */
-  --c4: #6433BB;
-
-  /*users*/
-  --u1: #190573;
-  --u2: #EFE583;
-  --u3: #B22985;
-  --u4: #611484;
-  --u5: #B48684;
-  --u6: #355486;
-  --u7: #2532C8;
-  --u8: #4CA0F6;
-
-  --lighter:rgba(255,255,255,.3);
-  --darker:rgba(0,0,0,.4);
-
-  --c1a:rgba(236, 0, 102, 1);
-  --c1b:rgba(236, 0, 102, .85);
-  --c1c:rgba(236, 0, 102, .7);
-
-  --c2a:rgba(16, 10, 66, 1);
-  --c2b:rgba(16, 10, 66, .75);
-  --c2c:rgba(16, 10, 66, .5);
-
-  --c3a:rgba(21, 237, 237, 1);
-  --c3b:rgba(21, 237, 237, .75);
-  --c3c:rgba(21, 237, 237, .5);
-}
-
-.btn-primary{
-  background-color:var(--c4);
-  border:none;
-}
-
-a{
-  color:white;
-}
 
 html,body, .container, #sidebar{
   margin:0;
@@ -61,69 +15,44 @@ html,body, .container, #sidebar{
 }
 
 body{
+  background-color:$c2;
+  background-image: url('../images/bg2.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+#app{
   display: flex;
   height:100vh;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.navbar-header, .navbar{
+.top-navbar{
   margin:0;
-  height: 20px;
+  background-color: rgba(0,0,0,0.9);
+  padding:5px;
+  font-size: 0.8em;
+}
+.top-navbar > div:first-child{
+  float:left;
+}
+.top-navbar > div:nth-child(2){
+  float:right;
 }
 
-#app{
+.content{
   height:100%;
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
   flex-direction: row;
-  font-family: 'Raleway', sans-serif;
-
-  color:white;
-  background-color:var(--c2);
-  background: linear-gradient(10deg,var(--c2),var(--c1));
-
-  background-image: url('../images/bg2.jpg');
-  background-size:cover;
-  background-position:center;
-}
-
-h1{
-  margin:0;padding:0;
-}
-
-@font-face {
-  font-family: "lazer84";
-  src: url('../lazer84.ttf');
-}
-
-header h1{
-  font-family: "lazer84";
-  padding-top:10px;
-}
-
-header h1, header h3, header form{
-  padding-left:10px;
-}
-
-#toggle_nav{
-  float:right;
-  display:none;
 }
 
 .column{
   height: 100%;
-  /*
-  float: left;
-  */
   overflow: auto;
-}
-
-.column-left{
-  /*
-  padding:10px 0 0 10px;
-  */
 }
 
 .column-center{
@@ -135,8 +64,7 @@ header h1, header h3, header form{
 }
 
 .column-left, .column-right{
-  background-color:var(--darker);
-
+  background-color:$darker;
 
   display: flex;
   -webkit-justify-content: space-between;
@@ -150,11 +78,20 @@ header h1, header h3, header form{
   min-width: 180px;
 }
 
+header h1, header h3, header form{
+  padding-left:10px;
+}
+
+#toggle_nav{
+  float:right;
+  display:none;
+}
+
 #chatDisplayMessages{
   overflow: auto;
 }
 
-nav{
+header > nav{
   height: 100%;
   min-height: 150px;
 
@@ -169,17 +106,19 @@ nav > ul{
   overflow-y: auto;
 }
 
-
 #container{
   width:85%;
   margin:auto;
 }
 
 @media screen and (max-width: 1000px) {
-  #app{
-    height: initial;
+  .content{
     flex-direction: column;
   }
+  #app{
+    height: initial;
+  }
+
   .column{
     padding:10px;
   }
@@ -248,7 +187,7 @@ table tr{
 }
 
 .line{
-  border-bottom: 1px solid var(--c3);
+  border-bottom: 1px solid $c3;
 }
 
 
@@ -266,15 +205,15 @@ td.samplename:hover{
 
 
 table .lineuser1 .samplename{
-  border-left: 6px solid var(--u1);
+  border-left: 6px solid $u1;
 }
 
 table .lineuser2 td:first-child{
-  border-left: 6px solid var(--u2);
+  border-left: 6px solid $u2;
 }
 
 table .lineuser3 td:first-child{
-  border-left: 6px solid var(--u3);
+  border-left: 6px solid $u3;
 }
 
 .barline, .line{
@@ -282,23 +221,19 @@ table .lineuser3 td:first-child{
 }
 /*
 .note{
-  background-color:var(--c1b);
-  border-right: 4px solid var(--darker);
+  background-color: $c1b;
+  border-right: 4px solid $darker;
   min-height: 100%;
   position: absolute;
   top: 0;
 }
 .note:hover{
-  background-color:var(--c1a);
+  background-color: $c1a;
 }
 .note:active{
-  background-color:var(--c1c);
+  background-color:$c1c;
 }
 */
-
-input, button{
-  background-color: var(--c2);
-}
 
 .gridbar{
   position: absolute;
@@ -308,15 +243,15 @@ input, button{
 }
 
 .gridbar4{
-  background-color: var(--c3a);
+  background-color: $c3a;
 }
 
 .gridbar8{
-  background-color: var(--c3b);
+  background-color: $c3b;
 }
 
 .gridbar32{
-  background-color: var(--c3c);
+  background-color: $c3c;
 }
 
 #timebar{
@@ -339,6 +274,16 @@ input, button{
 Divers
 *****/
 
+
+
+.btn-primary{
+  border:none;
+}
+
+a{
+  color:white;
+}
+
 .btn {
   border-radius:0;
   min-height: 32px;
@@ -346,10 +291,10 @@ Divers
 
 .active{
   font-weight: bold;
-  background-color:var(--darker);
+  background-color:$darker;
 }
 .nav>li>a:focus, .nav>li>a:hover{
-  background-color:var(--darker);
+  background-color:$darker;
   color:white;
 }
 
@@ -382,12 +327,12 @@ p.message{
   top: 0;
   font-size: small;
   padding: 0 3px;
-  background-color: var(--darker);
+  background-color: $darker;
   cursor:pointer;
 }
 
 #toggle_nav{
-  background-color: var(--darker);
+  background-color: $darker;
 }
 
 #box, .column{
@@ -399,7 +344,7 @@ p.message{
 }
 
 .form-control{
-  background-color: var(--darker);
+  background-color: $darker;
   border-radius:0;
   color:white;
   border-color:white;
@@ -407,4 +352,8 @@ p.message{
 
 .form-control:focus {
   border-color: #ffffff;
+}
+
+input, button{
+  color: #555;
 }
