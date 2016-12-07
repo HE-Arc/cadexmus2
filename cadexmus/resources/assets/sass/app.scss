@@ -196,6 +196,10 @@ td.track_header{
   border-bottom-width: 1px;
   border-right-width: 1px;
   width: 100px;
+  /* empèche la cellule de s'aggrandir verticalement */
+  max-width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 td.track_header:hover{
