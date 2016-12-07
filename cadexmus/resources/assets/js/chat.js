@@ -14,7 +14,6 @@ $(document).ready(function()
         sendMessage();
     });
 
-    $("#text").blur(notTyping);
 
 function pullData()
 {

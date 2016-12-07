@@ -17,5 +17,6 @@ elixir(mix => {
     mix.sass('app.scss')
         .webpack('app.js')
         .webpack('projet.show.js')
-        .webpack('chat.js');
+        .webpack('chat.js')
+        .webpack('invite.js');
 });
