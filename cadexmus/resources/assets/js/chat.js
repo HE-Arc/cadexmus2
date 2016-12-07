@@ -5,7 +5,7 @@ $(document).ready(function()
 
     username = $('#username').html();
 
-    //pullData();
+    pullData();
     retrieveChatMessages();
     var isTypingSent = false;
 
@@ -19,7 +19,6 @@ $(document).ready(function()
 function pullData()
 {
     retrieveChatMessages();
-    retrieveTypingStatus();
     setTimeout(pullData,5000);
 }
 
@@ -27,90 +26,40 @@ function retrieveChatMessages()
 {
 
       $.ajax({
-      //url: $("#retrieveChatMessages").html(),
       url: urlRetrieveChatMessages,
       type: 'GET',
       cache: false,
       success: function(data){
             $('#chatDisplayMessages').html("");
-        for (var k in data) {
-            var messageElement = '<div class="chatMessage">'+
-                '<p class="sender">'+data[k]['name']+'</p>'+
-                '<p class="message">'+data[k]['body']+'</p>'+
-              '</div>';
-            $('#chatDisplayMessages').append(messageElement);
-
-        }
+            for (i = 0; i < data.length; i++) {
+                var messageElement = '<div class="chatMessage">'+
+                '<p class="sender">'+data[i].user.name+'</p>'+
+                '<p class="message">'+data[i].body+'</p>'+
+                '</div>';
+                $('#chatDisplayMessages').append(messageElement);
+              }
+              scrollBotChat();
       }});
 }
 
-
-
-function retrieveTypingStatus()
+function scrollBotChat()
 {
-    /*
-      $.ajax({
-      url: urlGetUserName,
-      type: 'GET',
-      cache: false,
-      success: function(text){
-        // console.log(text);
-        $.get(urlRetrieveTypingStatus, {username: text}, function(data)
-        {
-
-          isMeTyping = false;
-            if (data.length > 0)
-            {
-                for (var i = 0; i < data.length; i++) {
-
-                    if(text == data[i]['name'])
-                    {
-                        isMeTyping = true;
-                    }
-                    else
-                    {
-                        if(i==data.length-1)
-                        {
-                            typingStatus += data[i]['name'];
-                        }
-                        else
-                        {
-                           typingStatus += data[i]['name'] + ', '; 
-                        }   
-                    }
-                                    
-                }
-            }
-            else
-            {
-                typingStatus = "";
-            }
-
-            dataLengh = data.length;
-            if(isMeTyping&&dataLengh>0) dataLengh--;
-
-            switch(dataLengh) {
-             case 0:
-                typingStatus = '';
-             break;
-             case 1:
-                typingStatus += ' is typing';
-             break;
-             default:
-                typingStatus +=' are typing';
-
-            } 
-            $('#typingStatus').html(typingStatus);
-            typingStatus = '';
-
-        
-        });
-      }});
-    */
+  var chatDisplayMessages = $('#chatDisplayMessages'); 
+  var height = chatDisplayMessages[0].scrollHeight;
+   chatDisplayMessages.scrollTop(height);
 }
+
 
 function sendMessage()
 {
+  message = $('#text').val();
+  var messageElement = '<div class="ChatMessage">'+
+                       '<p class="sender">'+username+'</p>'+
+                       '<p class="message">'+message+'</p>'+
+                       '</div>';
+
+  $('#chatDisplayMessages').append(messageElement);
+  scrollBotChat();
     var text = $('#text').val();
     $('#text').prop("disabled",true);        
 
@@ -119,34 +68,11 @@ function sendMessage()
         $.post(urlSendMessage, {text: text}, function()
         {
            $('#text').val('').prop("disabled",false);   
-            notTyping();
             retrieveChatMessages();
         });
     }
 }
 
-function isTyping()
-{
-  isTypingSent = true;
-
-      $.ajax({
-      url: urlIsTyping,
-      type: 'POST',
-      cache: false,
-      });
-}
-
-
-
-function notTyping()
-{
-  isTypingSent = false;
-       $.ajax({
-      url: urlNotTyping,
-      type: 'POST',
-      cache: false,
-      });
-}
 
 
 });

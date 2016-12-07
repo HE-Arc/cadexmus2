@@ -141,64 +141,23 @@ class ProjetController extends Controller
         $message->save();
     }
 
-    public function isTyping($id)
-    {
-
-        $tabTyping = DB::table('users')
-        ->select('projet_user.user_id','projet_user.projet_id','projet_user.isTyping')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('users.name','=',Auth::user()->name)
-        ->where('projet_user.isTyping','=',false)
-        ->update(['projet_user.isTyping' => true]);
-
-     //  return "isTyping";
-
-    }
-
-
-    public function notTyping($id)
-    {
-        $tabTyping = DB::table('users')
-        ->select('projet_user.user_id','projet_user.projet_id','projet_user.isTyping')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('users.name','=',Auth::user()->name)
-        ->where('projet_user.isTyping','=',true)
-        ->update(['projet_user.isTyping' => false]);
-
-     //   return "notTyping";
-    }
 
     public function retrieveChatMessages($id)
     {
 
-         $messages = DB::table('messages')
+       /*  $messages = DB::table('messages')
         ->select('messages.body','users.name')
         ->join('users','users.id', '=', 'messages.user_id')
-        ->where('messages.projet_id', '=', $id)->get();
+        ->where('messages.projet_id', '=', $id)->get();*/
 
-        //$messages = Message::where('projet_id','=',$id)->get(); 
+
+        $messages = Message::with(['user'])
+           ->where('messages.projet_id','=',$id)
+           ->orderBy('messages.created_at','ASC') 
+           ->get();
+
 
         return $messages;
-    }
-
-    public function retrieveTypingStatus($id)
-    {
-
-         $tabTyping = DB::table('users')
-        ->select('users.name')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('projet_user.isTyping','=',true)
-        ->get();
-
-        return $tabTyping;
-
-
     }
 
     public function getUserName()
