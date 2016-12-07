@@ -1,9 +1,11 @@
 
 <tr class="track">
-    <td class="samplename">{{ sample.name }}</td>
+    <td class="track_header">
+        <span class="sample_name">{{ sample.name }}</span>
+        <span class="remove_track" style="display: none;cursor:pointer">&#10060;</span>
+    </td>
     <td class="line" id="line1">
-        <span class="sampleurl" style="display: none">{{ sample.url }}</span>
-        <audio src="../uploads/{{sample.url}}" preload="auto"></audio>
+        <audio src="../uploads/{{sample.url}}" data-url="{{sample.url}}" preload="auto"></audio>
         {{#each notes }}
             {{> note }}
         {{/each }}

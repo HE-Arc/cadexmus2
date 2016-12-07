@@ -17,8 +17,8 @@ $(function () {
         $(".track").each(function(i) {
             var track = {
                 sample:{
-                    url:$(this).find(".sampleurl").text(),
-                    name:$(this).children(".samplename").text()
+                    name:$(this).find(".sample_name").text(),
+                    url:$(this).find("audio").attr('data-url')
                 },
                 notes:[]
             };
@@ -163,14 +163,16 @@ $(function () {
         resetTimebarSize();
     }
 
-    $("#tracks").on("click",".removetrack, .removenote",function () {
-        $(this).parent().remove();
+    $("#grid").on("click",".remove_track",function () {
+        $(this).parent().parent().remove();
+        resetTimebarSize();
     });
 
     $(".modal-body").on("click",".sample",function () {
         addTrack($(this).attr("sampleName"),$(this).attr("sampleUrl"));
         $("#myModal").modal("hide");
     });
+
 
 
     /* jquery.ui draggable and resisable */
@@ -204,6 +206,15 @@ $(function () {
     makeDraggableAndResizable();
 
 
+    /* UI */
 
+    // au survol du nom du sample, afficher le bouton de suppression de la ligne
+    $("td.track_header").hover(function(){
+        // la propriété display:none est inversée sur les 2 enfants
+        $(this).children().toggle();
+    },function(){
+        // pareil à la sortie du hover
+        $(this).children().toggle();
+    });
 
 });

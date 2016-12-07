@@ -192,20 +192,20 @@ table tr{
 }
 
 
-td.samplename{
+td.track_header{
   border-bottom-width: 1px;
   border-right-width: 1px;
   width: 100px;
 }
 
-td.samplename:hover{
+td.track_header:hover{
   /*
   width:200px;
   */
 }
 
 
-table .lineuser1 .samplename{
+table .lineuser1 .track_header{
   border-left: 6px solid $u1;
 }
 
@@ -264,7 +264,7 @@ table .lineuser3 td:first-child{
   overflow: visible;
 }
 
-.samplename{
+.track_header{
   padding:4px;
 }
 
