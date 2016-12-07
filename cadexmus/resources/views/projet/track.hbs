@@ -2,7 +2,8 @@
 <tr class="track">
     <td class="samplename">{{ sample.name }}</td>
     <td class="line" id="line1">
-        <audio src="../uploads/{{sample.url}}" id="audio0" preload="auto"></audio>
+        <span class="sampleurl" style="display: none">{{ sample.url }}</span>
+        <audio src="../uploads/{{sample.url}}" preload="auto"></audio>
         {{#each notes }}
             {{> note }}
         {{/each }}

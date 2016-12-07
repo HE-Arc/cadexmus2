@@ -5,32 +5,9 @@ $(function () {
     var note_template = require("../../views/projet/note.hbs");
     var repr_template = require("../../views/projet/repr.hbs");
 
-    function addTrack(name, url){
-        var newTrack = track_template({
-            sample: {
-                name: name,
-                url: url
-            }
-        });
-        $("#grid").append(newTrack);
-        resetTimebarSize();
-    }
 
-    // pareil pour $(".removetrack, .removenote").click()
-    // on trigger l'évènement sur l'élément #tracks, et on descend jusqu'à un élément .remove*
-    $("#tracks").on("click",".removetrack, .removenote",function () {
-        $(this).parent().remove();
-    });
 
-    $(".modal-body").on("click",".sample",function () {
-        addTrack($(this).attr("sampleName"),$(this).attr("sampleUrl"));
-        $("#myModal").modal("hide");
-    });
-
-    function replaceTracks(repr){
-        $("#repr").html(repr_template(repr));
-    }
-
+    /* persistance */
 
     $(".save").click(function () {
         var repr ={
@@ -40,16 +17,16 @@ $(function () {
         $(".track").each(function(i) {
             var track = {
                 sample:{
-                    url:$(this).children(".sample_url").val(),
-                    name:$(this).children(".sample_name").val()
+                    url:$(this).find(".sampleurl").text(),
+                    name:$(this).children(".samplename").text()
                 },
                 notes:[]
             };
 
             $(this).find(".note").each(function(j){
                 var note = {
-                    pos: $(this).children(".note_pos").val(),
-                    len: $(this).children(".note_len").val()
+                    pos: $(this).attr("pos"),
+                    len: $(this).attr("len")
                 };
                 track.notes.push(note);
             });
@@ -79,13 +56,6 @@ $(function () {
 
     $(".refresh").click(refresh);
 
-
-    function info(data){
-        $("#infos").text(data);
-        $("#infos").show();
-        $("#infos").fadeOut(1500);
-    }
-
     function refresh() {
         $.ajax({
             type: "GET",
@@ -113,22 +83,38 @@ $(function () {
         }
     });
 
+    function info(data){
+        $("#infos").text(data);
+        $("#infos").show();
+        $("#infos").fadeOut(1500);
+    }
+
+    function replaceTracks(repr){
+        $("#repr").html(repr_template(repr));
+        placeNotes();
+        drawTimeBars();
+    }
+
 
 
 
 
 
     /* Time bars */
-    for(var i=0;i<100;i+=100/32){
-        type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
-        $(".barline").append('<div class="gridbar '+type+'" style="left:'+i+'%"></div>')
+
+    function drawTimeBars() {
+        for(var i=0;i<100;i+=100/32){
+            var type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
+            $(".barline").append('<div class="gridbar '+type+'" style="left:'+i+'%"></div>')
+        }
+        resetTimebarSize();
     }
 
     function resetTimebarSize(){
         $(".gridbar").height($("#grid").height()-1);
     }
 
-    resetTimebarSize();
+    drawTimeBars();
 
 
     /* Notes positions */
@@ -145,7 +131,8 @@ $(function () {
     }
     placeNotes();
 
-    /* create and remove notes */
+
+    /* create and remove tracks and notes */
 
     $("#grid").on("dblclick",".line",function(e){
         var pw = $(this).width();
@@ -163,6 +150,26 @@ $(function () {
     $("#grid").on("dblclick",".note",function(e){
         $(this).remove();
         e.stopPropagation();
+    });
+
+    function addTrack(name, url){
+        var newTrack = track_template({
+            sample: {
+                name: name,
+                url: url
+            }
+        });
+        $("#grid").append(newTrack);
+        resetTimebarSize();
+    }
+
+    $("#tracks").on("click",".removetrack, .removenote",function () {
+        $(this).parent().remove();
+    });
+
+    $(".modal-body").on("click",".sample",function () {
+        addTrack($(this).attr("sampleName"),$(this).attr("sampleUrl"));
+        $("#myModal").modal("hide");
     });
 
 
@@ -195,4 +202,8 @@ $(function () {
         });
     }
     makeDraggableAndResizable();
+
+
+
+
 });
