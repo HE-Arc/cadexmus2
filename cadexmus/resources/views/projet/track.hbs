@@ -1,13 +1,13 @@
-<li class="track">
-    {{ sample.name }}
-    <input type="hidden" class="sample_url" value="{{sample.url}}">
-    <input type="hidden" class="sample_name" value="{{sample.name}}">
-    <audio controls src="../uploads/{{sample.url}}" style="vertical-align: middle"></audio>
-    <button class="removetrack">remove track</button>
-    <ul>
-    {{#each notes }}
-        {{> note }}
-    {{/each }}
-        <li><button class="addnote">add note</button></li>
-    </ul>
-</li>
+
+<tr class="track">
+    <td class="track_header">
+        <span class="sample_name">{{ sample.name }}</span>
+        <span class="remove_track" style="display: none;cursor:pointer">&#10060;</span>
+    </td>
+    <td class="line" id="line1">
+        <audio src="../uploads/{{sample.url}}" data-url="{{sample.url}}" preload="auto"></audio>
+        {{#each notes }}
+            {{> note }}
+        {{/each }}
+    </td>
+</tr>

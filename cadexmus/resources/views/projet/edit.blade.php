@@ -1,13 +1,13 @@
 <?php $version = $projet->versions[0] ?>
-<h1>Projet {{ $projet->nom }}</h1>
+<h1>{{ $projet->nom }}</h1>
 <h2>Version <span id="version">{{$version->numero}}</span></h2>
 
 <div id="repr">
     @include("projet.repr", $version->repr)
 </div>
-
-<button class="save">Save</button>
-<button class="refresh">Refresh</button> <span id="infos"></span>
+<hr>
+<button class="save btn">Save</button>
+<button class="refresh btn">Refresh</button> <span id="infos"></span>
 <br>
 <input type="checkbox" id="autoRefresh"> automatic refresh
 
