@@ -5,9 +5,9 @@
 <div id="repr">
     @include("projet.repr", $version->repr)
 </div>
-
-<button class="save">Save</button>
-<button class="refresh">Refresh</button> <span id="infos"></span>
+<hr>
+<button class="save btn">Save</button>
+<button class="refresh btn">Refresh</button> <span id="infos"></span>
 <br>
 <input type="checkbox" id="autoRefresh"> automatic refresh
 

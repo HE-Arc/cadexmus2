@@ -16,14 +16,6 @@ $(function () {
         resetTimebarSize();
     }
 
-    // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
-    $("#tracks").on("click",".addnote",function () {
-        var newNote= note_template({
-            pos:0,len:1
-        });
-        $(this).before(newNote);
-    });
-
     // pareil pour $(".removetrack, .removenote").click()
     // on trigger l'évènement sur l'élément #tracks, et on descend jusqu'à un élément .remove*
     $("#tracks").on("click",".removetrack, .removenote",function () {
@@ -85,9 +77,7 @@ $(function () {
         //location.reload();
     });
 
-    $(".refresh").click(function(){
-        refresh();
-    });
+    $(".refresh").click(refresh);
 
 
     function info(data){
@@ -126,6 +116,8 @@ $(function () {
 
 
 
+    
+
     /* Time bars */
     for(var i=0;i<100;i+=100/32){
         type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
@@ -153,4 +145,16 @@ $(function () {
     }
     placeNotes();
 
+    /* create notes */
+
+    $("#grid").on("dblclick","td.line",function(e){
+        var pw = $(this).width();
+        var pos = parseInt(32*e.offsetX/pw);
+        var newNote= note_template({
+            pos:pos,len:1
+        });
+        $(this).append(newNote);
+        // todo: placeNote(newNote) avec newNote un élément dom
+        placeNotes();
+    });
 });
