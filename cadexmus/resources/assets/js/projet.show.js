@@ -121,4 +121,19 @@ $(function () {
             clearInterval(interval);
         }
     });
+
+
+
+
+    /* Time bars */
+    for(var i=0;i<100;i+=100/32){
+        type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
+        $(".barline").append('<div class="gridbar '+type+'" style="left:'+i+'%"></div>')
+    }
+
+    function resetTimebarSize(){
+        $(".gridbar").height($("#grid").height()-1);
+    }
+
+    resetTimebarSize();
 });

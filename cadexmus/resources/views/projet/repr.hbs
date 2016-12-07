@@ -1,12 +1,29 @@
 <p>tempo : <input id="tempo" type="number" value="{{tempo}}"></p>
-<ul id="tracks">
-    {{#each tracks }}
-        {{> track }}
-    {{/each }}
-</ul>
+
 <p>
-    New track :
-    <input type="hidden" id="samplename">
-    <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
-    <button data-toggle="modal" data-target="#myModal">choose sample</button>
+    <span class="btnPausePlay" style="cursor:pointer"><img alt="play" src="../images/playButton.png"/></span><span class="btnPausePlay" style="cursor:pointer;display:none"><img alt="play" src="images/pauseButton.png"/></span>
+    <span id="btnZoom" style="cursor:pointer"><img alt="zoom" src="../images/zoomButton.png" /></span>
+    <span id="btnLock" style="cursor:pointer"><img alt="lock" src="../images/lockCloseButton.png" /></span>
 </p>
+<div id="box">
+    <div>
+        <table id="grid">
+            <tr>
+                <td></td>
+                <td class="barline">
+                    <div id="timebar" class="gridbar"></div>
+                </td>
+            </tr>
+            {{#each tracks }}
+                {{> track }}
+            {{/each }}
+        </table>
+    </div>
+    <button type="button" class="btn btn-primary" style="width:100%;" data-toggle="modal" data-target="#myModal">Ajouter une ligne</button>
+    <p>
+        New track :
+        <input type="hidden" id="samplename">
+        <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
+        <button data-toggle="modal" data-target="#myModal">choose sample</button>
+    </p>
+</div>
