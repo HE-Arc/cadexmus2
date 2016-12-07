@@ -93,6 +93,7 @@ $(function () {
         $("#repr").html(repr_template(repr));
         placeNotes();
         drawTimeBars();
+        makeDraggableAndResizable();
     }
 
 
