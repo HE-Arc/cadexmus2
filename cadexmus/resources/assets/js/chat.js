@@ -14,8 +14,6 @@ $(document).ready(function()
         sendMessage();
     });
 
-    $("#text").blur(notTyping);
-
 function pullData()
 {
     retrieveChatMessages();
@@ -61,13 +59,14 @@ function sendMessage()
   $('#chatDisplayMessages').append(messageElement);
   scrollBotChat();
     var text = $('#text').val();
-    $('#text').prop("disabled",true);        
+    $('#text').prop("disabled",true);
+
 
     if (text.length > 0)
     {
         $.post(urlSendMessage, {text: text}, function()
         {
-           $('#text').val('').prop("disabled",false);   
+           $('#text').val('').prop("disabled",false).focus();
             retrieveChatMessages();
         });
     }

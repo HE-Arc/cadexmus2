@@ -136,4 +136,20 @@ $(function () {
     }
 
     resetTimebarSize();
+
+
+    /* Note positions */
+
+    function placeNotes(){
+        $('.note').each(function(){
+            placeNote($(this));
+        });
+    }
+    function placeNote(n){
+        var left = n.attr('pos')*100/32;
+        var width= n.attr('len')*100/32;
+        n.css({'left':left+'%','width':width+'%'})
+    }
+    placeNotes();
+
 });
