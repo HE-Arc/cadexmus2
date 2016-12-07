@@ -48,6 +48,7 @@
 
             $.get("{{ route('projet.index') }}").done(function(data){
                 $("#nav-projects").html(data);
+                $("#projet_{{$projet->id}}").addClass('active');
             });
         });
     </script>
