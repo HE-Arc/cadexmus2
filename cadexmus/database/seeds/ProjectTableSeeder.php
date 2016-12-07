@@ -51,5 +51,9 @@ class ProjectTableSeeder extends Seeder
             ],
         ];
         $project->versions()->create(["numero" => 0, "repr" => $repr]);
+
+        $projet2 = Projet::create(["nom"=>"Yolo"]);
+        $projet2->users()->attach(User::all());
+        $projet2->versions()->create(["numero" => 0, "repr" => ['tempo'=>90]]);
     }
 }

@@ -357,3 +357,7 @@ p.message{
 input, button{
   color: #555;
 }
+
+input[type="text"]:disabled{
+  background-color: black;
+}

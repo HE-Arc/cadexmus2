@@ -5,17 +5,8 @@
 
     <header class="column column-left">
         <button id="toggle_nav" class="btn">Projets</button>
-        <nav class="hideable">
-            <h3>Mes projets</h3>
-            <ul class="nav  nav-stacked" >
-                <li class="active"><a href="">Projet Yolo</a></li>
-                <li><a href="">Les hommes crabes</a></li>
-                <li><a href="">René la taupe remix</a></li>
-                <li><a href="">DJ Pépé</a></li>
-                <li><a href="">Schnitzel mit pommes</a></li>
-                <li><a href="">Renaud 2.0</a></li>
-            </ul>
-            <button class="btn btn-primary">Créer un projet</button>
+        <nav class="hideable" id="nav-projects">
+            <span><img src="{{asset('images/ajax-loader.gif')}}"></span>
         </nav>
 
         <div>
@@ -53,6 +44,11 @@
 
             $("#toggle_nav").click(function(){
                 $("header > nav").toggleClass("hideable");
+            });
+
+            $.get("{{ route('projet.index') }}").done(function(data){
+                $("#nav-projects").html(data);
+                $("#projet_{{$projet->id}}").addClass('active');
             });
         });
     </script>

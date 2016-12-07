@@ -1,11 +1,8 @@
 
-<p>
-    <a href="{{ route('projet.create')}}">create</a>
-
-    <ul>
+<h3>Mes projets</h3>
+<ul class="nav  nav-stacked" >
     @foreach ($projets as $projet)
-        <li><a href="{{ route('projet.show',$projet->id)}}">{{ $projet->nom }}</a></li>
+        <li id="projet_{{$projet->id}}"><a href="{{ route('projet.show',$projet->id)}}">{{ $projet->nom }}</a></li>
     @endforeach
-    </ul>
-</p>
-
+</ul>
+<a href="{{ route('projet.create')}}" class="btn btn-primary">Créer un projet</a>
