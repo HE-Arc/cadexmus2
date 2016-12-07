@@ -10,8 +10,6 @@ $(document).ready(function()
     $(document).keyup(function(e) {
         if (e.keyCode == 13)
             sendMessage();
-        else
-            if(isTypingSent==false) isTyping();
     });
 
     $("#btnSendMsg").click(sendMessage);
@@ -26,26 +24,40 @@ function retrieveChatMessages()
 {
 
       $.ajax({
-      //url: $("#retrieveChatMessages").html(),
       url: urlRetrieveChatMessages,
       type: 'GET',
       cache: false,
       success: function(data){
             $('#chatDisplayMessages').html("");
-        for (var k in data) {
-            var messageElement = '<div class="chatMessage">'+
-                '<p class="sender">'+data[k]['name']+'</p>'+
-                '<p class="message">'+data[k]['body']+'</p>'+
-              '</div>';
-            $('#chatDisplayMessages').append(messageElement);
-
-        }
+            for (i = 0; i < data.length; i++) {
+                var messageElement = '<div class="chatMessage">'+
+                '<p class="sender">'+data[i].user.name+'</p>'+
+                '<p class="message">'+data[i].body+'</p>'+
+                '</div>';
+                $('#chatDisplayMessages').append(messageElement);
+              }
+              scrollBotChat();
       }});
+}
+
+function scrollBotChat()
+{
+  var chatDisplayMessages = $('#chatDisplayMessages'); 
+  var height = chatDisplayMessages[0].scrollHeight;
+   chatDisplayMessages.scrollTop(height);
 }
 
 
 function sendMessage()
 {
+  message = $('#text').val();
+  var messageElement = '<div class="ChatMessage">'+
+                       '<p class="sender">'+username+'</p>'+
+                       '<p class="message">'+message+'</p>'+
+                       '</div>';
+
+  $('#chatDisplayMessages').append(messageElement);
+  scrollBotChat();
     var text = $('#text').val();
     $('#text').prop("disabled",true);        
 
