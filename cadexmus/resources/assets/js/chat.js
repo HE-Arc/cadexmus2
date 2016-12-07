@@ -30,7 +30,7 @@ function retrieveChatMessages()
       cache: false,
       success: function(data){
             $('#chatDisplayMessages').html("");
-            for (i = 0; i < data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 var messageElement = '<div class="chatMessage">'+
                 '<p class="sender">'+data[i].user.name+'</p>'+
                 '<p class="message">'+data[i].body+'</p>'+
@@ -53,8 +53,8 @@ function sendMessage()
 {
   message = $('#text').val();
   var messageElement = '<div class="ChatMessage">'+
-                       '<p class="sender">'+username+'</p>'+
-                       '<p class="message">'+message+'</p>'+
+                       '<p class="sender">{{username}}</p>'+
+                       '<p class="message">{{message}}</p>'+
                        '</div>';
 
   $('#chatDisplayMessages').append(messageElement);

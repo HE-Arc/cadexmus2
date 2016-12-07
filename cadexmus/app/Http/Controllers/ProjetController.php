@@ -143,11 +143,10 @@ class ProjetController extends Controller
 
 
     public function retrieveChatMessages($id){
-        $messages = Message::with(['user'])
-           ->where('messages.projet_id',$id)
-           ->orderBy('messages.created_at','ASC') 
-           ->get();
-        return $messages;
+        $projet = Projet::find($id);
+        $messages = Message::all();
+        $text = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->get();
+        return $text;
     }
 
     public function getUserName(){
