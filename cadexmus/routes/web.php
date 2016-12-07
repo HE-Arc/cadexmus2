@@ -34,7 +34,7 @@ Route::post('projet/{projet}/isTyping',array('uses' => 'ProjetController@isTypin
 Route::post('projet/{projet}/notTyping',array('uses' => 'ProjetController@notTyping'))->name("projet.notTyping");
 Route::get('projet/{projet}/retrieveTypingStatus',array('uses' => 'ProjetController@retrieveTypingStatus'))->name("projet.retrieveTypingStatus");
 Route::post('projet/{projet}/sendMessage',array('uses' => 'ProjetController@sendMessage'))->name("projet.sendMessage");
-Route::post('projet/invite', array('uses' => 'ProjetController@invite'))->name("projet.invite");
+Route::get('projet/{projet}/invite', array('uses' => 'ProjetController@invite'))->name("projet.invite");
 
 Route::get('projet/{projet}/chat',array('uses' => 'ProjetController@getChat'))->name("projet.getChat");
 

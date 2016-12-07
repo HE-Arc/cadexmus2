@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\Message;
+use App\User;
 
 class ProjetController extends Controller
 {
@@ -128,8 +129,7 @@ class ProjetController extends Controller
 
 
 
-       public function sendMessage($id)
-    {
+       public function sendMessage($id){
         $username = Auth::user()->name;
         $text = Input::get('text');
         $text = htmlentities($text);
@@ -141,69 +141,32 @@ class ProjetController extends Controller
         $message->save();
     }
 
-    public function isTyping($id)
-    {
-
-        $tabTyping = DB::table('users')
-        ->select('projet_user.user_id','projet_user.projet_id','projet_user.isTyping')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('users.name','=',Auth::user()->name)
-        ->where('projet_user.isTyping','=',false)
-        ->update(['projet_user.isTyping' => true]);
-
-     //  return "isTyping";
-
-    }
-
-
-    public function notTyping($id)
-    {
-        $tabTyping = DB::table('users')
-        ->select('projet_user.user_id','projet_user.projet_id','projet_user.isTyping')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('users.name','=',Auth::user()->name)
-        ->where('projet_user.isTyping','=',true)
-        ->update(['projet_user.isTyping' => false]);
-
-     //   return "notTyping";
-    }
-
-    public function retrieveChatMessages($id)
-    {
-
-         $messages = DB::table('messages')
-        ->select('messages.body','users.name')
-        ->join('users','users.id', '=', 'messages.user_id')
-        ->where('messages.projet_id', '=', $id)->get();
-
-        //$messages = Message::where('projet_id','=',$id)->get();
-
+    public function retrieveChatMessages($id){
+        $messages = Message::with(['user'])
+           ->where('messages.projet_id',$id)
+           ->orderBy('messages.created_at','ASC')
+           ->get();
         return $messages;
     }
 
-    public function retrieveTypingStatus($id)
-    {
-
-         $tabTyping = DB::table('users')
-        ->select('users.name')
-        ->join('projet_user','projet_user.user_id', '=', 'users.id')
-        ->join('projets','projets.id', '=', 'projet_user.projet_id')
-        ->where('projets.id', '=', $id)
-        ->where('projet_user.isTyping','=',true)
-        ->get();
-
-        return $tabTyping;
-
-
+    public function getUserName(){
+        return Auth::user()->name;
     }
 
-    public function getUserName()
-    {
-     //return json_encode(Auth::user->name);
-        return Auth::user()->name;
+    public function invite($id){
+        $user = Input::get('userToInvite');
+        $isUserExist = User::where('users.name', $user)
+                             ->get();
+        if(empty($isUserExist[0]['name'])) return "User does not exist";
+        $isUserInProjet = User::whereHas('projets', function($q)
+        {
+         $user = Input::get('userToInvite');
+         $q->whereName($user);
+        })->get();
+        if(!empty($isUserInProjet[0]['name'])) return "User is already in projet";
+
+        User::find($isUserExist[0]['id'])->projets()->attach($id);
+        return "User added to the projet";
+
     }
 }
