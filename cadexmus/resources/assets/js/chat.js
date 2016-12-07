@@ -48,15 +48,14 @@ $(document).ready(function () {
     function sendMessage() {
         message = $('#text').val();
         var messageElement = '<div class="ChatMessage">' +
-            '<p class="sender">' + username + '</p>' +
-            '<p class="message">' + message + '</p>' +
+            '<p class="sender">{{username}}</p>' +
+            '<p class="message">{{message}}</p>' +
             '</div>';
 
         $('#chatDisplayMessages').append(messageElement);
         scrollBotChat();
         var text = $('#text').val();
         $('#text').prop("disabled", true);
-
 
         if (text.length > 0) {
             $.post(urlSendMessage, {text: text}, function () {
