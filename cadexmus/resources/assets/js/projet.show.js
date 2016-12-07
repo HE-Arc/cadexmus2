@@ -134,7 +134,7 @@ $(function () {
 
     /* create and remove tracks and notes */
 
-    $("#grid").on("dblclick",".line",function(e){
+    $("#container").on("dblclick",".line",function(e){
         var pw = $(this).width();
         var pos = parseInt(32*e.offsetX/pw);
         var newNote= note_template({
@@ -147,7 +147,7 @@ $(function () {
         makeDraggableAndResizable();
     });
 
-    $("#grid").on("dblclick",".note",function(e){
+    $("#container").on("dblclick",".note",function(e){
         $(this).remove();
         e.stopPropagation();
     });
@@ -163,7 +163,7 @@ $(function () {
         resetTimebarSize();
     }
 
-    $("#grid").on("click",".remove_track",function () {
+    $("#container").on("click",".remove_track",function () {
         $(this).parent().parent().remove();
         resetTimebarSize();
     });
