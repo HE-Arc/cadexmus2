@@ -12,15 +12,19 @@
 */
 
 Route::get('/', function () {
-
-    return view('welcome');
+    if(Auth::guest()){
+        return redirect()->route('login');
+    }else{
+        $projets = Auth::user()->projets;
+        $projet = $projets[0];
+        return redirect()->route('projet.show',compact('projet'));
+    }
 });
 
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->middleware('auth');
 Route::resource('sample', 'SampleController');
 Route::resource('projet', 'ProjetController');
 Route::resource('message', 'MessageController');
@@ -38,4 +42,3 @@ Route::get('getUserName',array('uses' => 'ProjetController@getUserName'))->name(
 
 
 Route::get('projet/{projet}/{version}', array('uses' => 'ProjetController@getUpdate'))->name('projet.getUpdates');
-
