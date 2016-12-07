@@ -209,11 +209,8 @@ $(function () {
     /* UI */
 
     // au survol du nom du sample, afficher le bouton de suppression de la ligne
-    $("td.track_header").hover(function(){
+    $("#container").on("mouseenter mouseleave", "td.track_header", function(){
         // la propriété display:none est inversée sur les 2 enfants
-        $(this).children().toggle();
-    },function(){
-        // pareil à la sortie du hover
         $(this).children().toggle();
     });
 
