@@ -9,14 +9,11 @@ $(document).ready(function()
     retrieveChatMessages();
     var isTypingSent = false;
 
-    $(document).keyup(function(e) {
-        if (e.keyCode == 13)
-            sendMessage();
-        else
-            if(isTypingSent==false) isTyping();
+    $('#sendMsgForm').submit(function(event){
+        event.preventDefault();
+        sendMessage();
     });
 
-    $("#btnSendMsg").click(sendMessage);
     $("#text").blur(notTyping);
 
 function pullData()

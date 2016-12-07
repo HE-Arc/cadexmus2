@@ -4,8 +4,9 @@
 </div>
 <div id="chatWriteMessage">
     <hr>
-    <input class="form-control" id="text" type="text" placeholder="message">
-    <button id="btnSendMsg">Envoyer</button>
+    <form id="sendMsgForm">
+        <input class="form-control" id="text" type="text" placeholder="message">
+    </form>
 </div>  
 <script src="{{ asset('js/chat.js')}}"></script>
 <script>
