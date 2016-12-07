@@ -116,7 +116,7 @@ $(function () {
 
 
 
-    
+
 
     /* Time bars */
     for(var i=0;i<100;i+=100/32){
@@ -141,13 +141,13 @@ $(function () {
     function placeNote(n){
         var left = n.attr('pos')*100/32;
         var width= n.attr('len')*100/32;
-        n.css({'left':left+'%','width':width+'%'})
+        n.css({'left':left+'%','width':width+'%','top':0})
     }
     placeNotes();
 
-    /* create notes */
+    /* create and remove notes */
 
-    $("#grid").on("dblclick","td.line",function(e){
+    $("#grid").on("dblclick",".line",function(e){
         var pw = $(this).width();
         var pos = parseInt(32*e.offsetX/pw);
         var newNote= note_template({
@@ -157,4 +157,40 @@ $(function () {
         // todo: placeNote(newNote) avec newNote un élément dom
         placeNotes();
     });
+
+    $("#grid").on("dblclick",".note",function(e){
+        $(this).remove();
+        e.stopPropagation();
+    });
+
+
+    /* jquery.ui draggable and resisable */
+
+    function makeDraggableAndResizable(){
+        $( ".note" ).draggable({
+            axis:"x",
+            //snap: true,
+            //snap: ".gridbar",
+            //snapTolerance: 5,
+            stop:function(event,ui){
+                var pw = $(this).parent().width();
+                var x=ui.position.left;
+                var pos = parseInt((32*x/pw)+0.5);
+                $(this).attr('pos',pos);
+                if(x<0 || x>= pw)
+                    $(this).remove();
+                placeNotes();
+            }
+        }).resizable({
+            handles: "e", // ne prend en charge que le côté droit (east)
+            stop:function(event,ui){
+                var pw = $(this).parent().width();
+                var len = parseInt((32*ui.size.width/pw)+.5);
+                if(len==0)len=1;
+                $(this).attr("len",len);
+                placeNotes();
+            }
+        });
+    }
+    makeDraggableAndResizable();
 });

@@ -11,14 +11,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="{{asset('src/jquery-ui.css')}}" rel="stylesheet">
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
 
     <!-- Scripts -->
-    <script>
-    </script>
-
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js')}}"></script>
+
+    <!-- Libraries -->
+    <script src="{{asset('src/jquery-ui.js')}}"></script>
+    <script src="{{asset('src/jquery.ui.touch-punch.js')}}"></script>
 </head>
 <body>
 <div id="app">
