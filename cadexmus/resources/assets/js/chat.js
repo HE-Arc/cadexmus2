@@ -5,8 +5,10 @@ $(document).ready(function()
 
     username = $('#username').html();
 
-    pullData();
+    //pullData();
+    retrieveChatMessages();
     var isTypingSent = false;
+
     $(document).keyup(function(e) {
         if (e.keyCode == 13)
             sendMessage();
@@ -49,6 +51,7 @@ function retrieveChatMessages()
 
 function retrieveTypingStatus()
 {
+    /*
       $.ajax({
       url: urlGetUserName,
       type: 'GET',
@@ -106,7 +109,7 @@ function retrieveTypingStatus()
         
         });
       }});
-
+    */
 }
 
 function sendMessage()

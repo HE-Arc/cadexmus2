@@ -25,8 +25,6 @@ Route::resource('sample', 'SampleController');
 Route::resource('projet', 'ProjetController');
 Route::resource('message', 'MessageController');
 
-
-Route::get('projet',array('uses' => 'ProjetController@index'));
 Route::get('projet/{projet}/retrieveChatMessages',array('uses' => 'ProjetController@retrieveChatMessages'))->name("projet.retrieveChatMessages");
 Route::post('projet/{projet}/isTyping',array('uses' => 'ProjetController@isTyping'))->name("projet.isTyping");
 Route::post('projet/{projet}/notTyping',array('uses' => 'ProjetController@notTyping'))->name("projet.notTyping");
