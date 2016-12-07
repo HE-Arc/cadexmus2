@@ -156,6 +156,8 @@ $(function () {
         $(this).append(newNote);
         // todo: placeNote(newNote) avec newNote un élément dom
         placeNotes();
+        // todo: idem, ne pas faire ça sur toutes les notes mais que les nouvelles
+        makeDraggableAndResizable();
     });
 
     $("#grid").on("dblclick",".note",function(e){
@@ -167,7 +169,7 @@ $(function () {
     /* jquery.ui draggable and resisable */
 
     function makeDraggableAndResizable(){
-        $( ".note" ).draggable({
+        $(".note").draggable({
             axis:"x",
             //snap: true,
             //snap: ".gridbar",
@@ -179,7 +181,7 @@ $(function () {
                 $(this).attr('pos',pos);
                 if(x<0 || x>= pw)
                     $(this).remove();
-                placeNotes();
+                placeNote($(this));
             }
         }).resizable({
             handles: "e", // ne prend en charge que le côté droit (east)
@@ -188,7 +190,7 @@ $(function () {
                 var len = parseInt((32*ui.size.width/pw)+.5);
                 if(len==0)len=1;
                 $(this).attr("len",len);
-                placeNotes();
+                placeNote($(this));
             }
         });
     }
