@@ -39,7 +39,7 @@
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                Logout
+                                Logout ({{Auth::user()->name}})
                             </a>
 
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

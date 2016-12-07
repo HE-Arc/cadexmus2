@@ -19,12 +19,13 @@ body{
   background-image: url('../images/bg2.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   height: 100vh;
 }
 
 #app{
   display: flex;
-  height:100vh;
+  height:100%;
   flex-direction: column;
   justify-content: space-between;
 }

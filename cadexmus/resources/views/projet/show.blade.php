@@ -11,10 +11,7 @@
 
         <div>
             <hr>
-            <h3>Inviter un collaborateur</h3>
-            <form style="margin: 0 10px 0 0">
-                <input type="text"  class="form-control" placeholder="pseudo du collaborateur">
-            </form>
+            @include('projet.invite')
         </div>
     </header>
 
