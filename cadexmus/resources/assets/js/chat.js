@@ -15,12 +15,10 @@ $(document).ready(function()
     });
 
     $("#btnSendMsg").click(sendMessage);
-    $("#text").blur(notTyping);
 
 function pullData()
 {
     retrieveChatMessages();
-    retrieveTypingStatus();
     setTimeout(pullData,5000);
 }
 
@@ -46,69 +44,6 @@ function retrieveChatMessages()
 }
 
 
-
-function retrieveTypingStatus()
-{
-      $.ajax({
-      url: urlGetUserName,
-      type: 'GET',
-      cache: false,
-      success: function(text){
-        // console.log(text);
-        $.get(urlRetrieveTypingStatus, {username: text}, function(data)
-        {
-
-          isMeTyping = false;
-            if (data.length > 0)
-            {
-                for (var i = 0; i < data.length; i++) {
-
-                    if(text == data[i]['name'])
-                    {
-                        isMeTyping = true;
-                    }
-                    else
-                    {
-                        if(i==data.length-1)
-                        {
-                            typingStatus += data[i]['name'];
-                        }
-                        else
-                        {
-                           typingStatus += data[i]['name'] + ', '; 
-                        }   
-                    }
-                                    
-                }
-            }
-            else
-            {
-                typingStatus = "";
-            }
-
-            dataLengh = data.length;
-            if(isMeTyping&&dataLengh>0) dataLengh--;
-
-            switch(dataLengh) {
-             case 0:
-                typingStatus = '';
-             break;
-             case 1:
-                typingStatus += ' is typing';
-             break;
-             default:
-                typingStatus +=' are typing';
-
-            } 
-            $('#typingStatus').html(typingStatus);
-            typingStatus = '';
-
-        
-        });
-      }});
-
-}
-
 function sendMessage()
 {
     var text = $('#text').val();
@@ -119,34 +54,11 @@ function sendMessage()
         $.post(urlSendMessage, {text: text}, function()
         {
            $('#text').val('').prop("disabled",false);   
-            notTyping();
             retrieveChatMessages();
         });
     }
 }
 
-function isTyping()
-{
-  isTypingSent = true;
-
-      $.ajax({
-      url: urlIsTyping,
-      type: 'POST',
-      cache: false,
-      });
-}
-
-
-
-function notTyping()
-{
-  isTypingSent = false;
-       $.ajax({
-      url: urlNotTyping,
-      type: 'POST',
-      cache: false,
-      });
-}
 
 
 });
