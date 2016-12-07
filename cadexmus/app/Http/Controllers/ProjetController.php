@@ -49,7 +49,7 @@ class ProjetController extends Controller
         ];
         $projet->versions()->create(["numero" => 0, "repr" => $repr]);
         $projet->users()->attach(Auth::user());
-        return redirect()->route('projet.index');
+        return redirect()->route('projet.show',compact('projet'));
     }
 
     /**
@@ -180,7 +180,7 @@ class ProjetController extends Controller
         ->join('users','users.id', '=', 'messages.user_id')
         ->where('messages.projet_id', '=', $id)->get();
 
-        //$messages = Message::where('projet_id','=',$id)->get(); 
+        //$messages = Message::where('projet_id','=',$id)->get();
 
         return $messages;
     }
@@ -203,7 +203,7 @@ class ProjetController extends Controller
 
     public function getUserName()
     {
-     //return json_encode(Auth::user->name); 
+     //return json_encode(Auth::user->name);
         return Auth::user()->name;
     }
 }
