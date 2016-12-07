@@ -5,14 +5,15 @@ $(function () {
     var note_template = require("../../views/projet/note.hbs");
     var repr_template = require("../../views/projet/repr.hbs");
 
-    function addSample(name, url){
+    function addTrack(name, url){
         var newTrack = track_template({
             sample: {
                 name: name,
                 url: url
             }
         });
-        $("#tracks").append(newTrack);
+        $("#grid").append(newTrack);
+        resetTimebarSize();
     }
 
     // $("addnote").click() ne fonctionne que sur les éléments qui existent déjà
@@ -30,7 +31,7 @@ $(function () {
     });
 
     $(".modal-body").on("click",".sample",function () {
-        addSample($(this).attr("sampleName"),$(this).attr("sampleUrl"));
+        addTrack($(this).attr("sampleName"),$(this).attr("sampleUrl"));
         $("#myModal").modal("hide");
     });
 
@@ -138,7 +139,7 @@ $(function () {
     resetTimebarSize();
 
 
-    /* Note positions */
+    /* Notes positions */
 
     function placeNotes(){
         $('.note').each(function(){
