@@ -5,25 +5,25 @@ $(function () {
     var note_template = require("../../views/projet/note.hbs");
     var repr_template = require("../../views/projet/repr.hbs");
 
+    var repr;
 
+    /* tools */
 
-    /* persistance */
-
-    $(".save").click(function () {
-        var repr ={
+    function makeRepr() {
+        repr = {
             tempo: $("#tempo").val(),
-            tracks:[]
+            tracks: []
         };
-        $(".track").each(function(i) {
+        $(".track").each(function (i) {
             var track = {
-                sample:{
-                    name:$(this).find(".sample_name").text(),
-                    url:$(this).find("audio").attr('data-url')
+                sample: {
+                    name: $(this).find(".sample_name").text(),
+                    url: $(this).find("audio").attr('data-url')
                 },
-                notes:[]
+                notes: []
             };
 
-            $(this).find(".note").each(function(j){
+            $(this).find(".note").each(function (j) {
                 var note = {
                     pos: $(this).attr("pos"),
                     len: $(this).attr("len")
@@ -33,6 +33,12 @@ $(function () {
 
             repr.tracks.push(track);
         });
+    }
+
+    /* persistance */
+
+    $(".save").click(function () {
+        makeRepr();
 
         $.ajax({
             type: "PUT",
@@ -214,5 +220,12 @@ $(function () {
         // la propriété display:none est inversée sur les 2 enfants
         $(this).children().toggle();
     });
+
+
+
+
+    /* Player */
+
+
 
 });
