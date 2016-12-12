@@ -8,7 +8,7 @@ $(function () {
     var repr;
 
     /* tools */
-
+    makeRepr();
     function makeRepr() {
         repr = {
             tempo: $("#tempo").val(),
@@ -226,6 +226,119 @@ $(function () {
 
     /* Player */
 
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var context = new AudioContext();
 
+    var timeout;
+    var currentTime;
+
+    // memento
+    var bpm=120; // ==tempo
+    var beatLen = 60.0 / bpm; // ==seconds per beat
+    var barLen = 240/bpm; //sec // ==beatLen*4
+    var unit = barLen/32; // ==beatLen/8
+    var fade = 1/128; // arbitraire
+
+
+    $(".btnPausePlay").click(function(){
+        if (context.state === "running") {
+            context.suspend().then(function() {
+                clearTimeout(timeout)
+            })
+        } else {
+            // todo : makeRepr ici mais faut loader les sons
+            context.resume().then(function() {
+                play(currentTime)
+            })
+        }
+        $(".btnPausePlay").toggle();
+    });
+
+    function loadSound(url) {
+        return new Promise(function(resolve, reject){
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+            request.responseType = 'arraybuffer';
+            request.onload = function() {
+                // Asynchronously decode the audio file data in request.response
+                context.decodeAudioData(
+                    request.response,
+                    function(buffer) {
+                        if (buffer) {
+                            resolve(buffer)
+                        } else {
+                            reject('error decoding file data: ' + url)
+                        }
+                    },
+                    function(error) {
+                        reject('decodeAudioData error: ' + error)
+                    }
+                )
+            };
+            request.send()
+        })
+    }
+
+    // init buffers
+    (function(){
+        var nbSonsCharges=0;
+        repr.tracks.forEach(function(track){
+            loadSound("../uploads/" + track.sample.url).then(function(buffer){
+                console.log(track.sample.url, "is loaded")
+                track.buffer = buffer
+            }, function(error) {
+                console.error(track.sample.url, error)
+            }).then(function() {
+                nbSonsCharges++;
+                if(nbSonsCharges==repr.tracks.length)
+                    init();
+            })
+        })
+    })();
+
+    function init(){
+
+        context.suspend().then(function() {
+            currentTime = context.currentTime
+        })
+    }
+
+    function play(){
+        var now = currentTime;
+
+        repr.tracks.forEach(function(track){
+            track.notes.forEach(function(note){
+                // on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même source
+                s = sound(track.buffer);
+                s.source.start(now + unit*note.pos);
+                end = now + unit*note.pos + unit*note.len;
+                s.source.stop(end);
+                s.gain.gain.linearRampToValueAtTime(1, end - fade);
+                s.gain.gain.linearRampToValueAtTime(0, end)
+            });
+        });
+
+        if (context.state === "running") {
+            var avance = now - (context.currentTime);
+
+            // fait en sorte que l'avance reste autour de 100ms
+            currentTime = now + barLen
+            timeout = setTimeout(play, (barLen - (.1 - avance)) * 1000)
+        }
+    }
+
+    // todo
+    function stop(){
+        //context.suspend()
+    }
+
+    function sound(buffer) {
+        var source = context.createBufferSource()
+        var gain = context.createGain()
+        source.buffer = buffer
+        source.connect(gain)
+        gain.connect(context.destination)
+        return {source: source, gain: gain}
+    }
 
 });
