@@ -239,17 +239,22 @@ $(function () {
     var unit = barLen/32; // ==beatLen/8
     var fade = 1/128; // arbitraire
 
-
     $(".btnPausePlay").click(function(){
         if (context.state === "running") {
+            // todo: faire stop plutot que pause
             context.suspend().then(function() {
                 clearTimeout(timeout)
             })
         } else {
-            // todo : makeRepr ici mais faut loader les sons
-            context.resume().then(function() {
-                play(currentTime)
-            })
+            makeRepr();
+            // todo : ne pas à chaque fois loader tous les sons, mais comment ?... makeRepr enlève le buffer du track créé dans loadSound
+            initBuffers().then(function () {
+                context.resume().then(function() {
+                    play(currentTime);
+                })
+            },function (error) {
+                console.log(error);
+            });
         }
         $(".btnPausePlay").toggle();
     });
@@ -280,21 +285,26 @@ $(function () {
     }
 
     // init buffers
-    (function(){
-        var nbSonsCharges=0;
-        repr.tracks.forEach(function(track){
-            loadSound("../uploads/" + track.sample.url).then(function(buffer){
-                console.log(track.sample.url, "is loaded")
-                track.buffer = buffer
-            }, function(error) {
-                console.error(track.sample.url, error)
-            }).then(function() {
-                nbSonsCharges++;
-                if(nbSonsCharges==repr.tracks.length)
-                    init();
+    function initBuffers(){
+        return new Promise(function(resolve,reject){
+            var nbSonsCharges=0;
+            repr.tracks.forEach(function(track){
+                loadSound("../uploads/" + track.sample.url).then(function(buffer){
+                    console.log(track.sample.url, "is loaded")
+                    track.buffer = buffer;
+                    nbSonsCharges++;
+                    if(nbSonsCharges==repr.tracks.length){
+                        //init();
+                        resolve();
+                    }
+                }, function(error) {
+                    //console.error(track.sample.url, error);
+                    reject(error);
+                });
             })
         })
-    })();
+    }
+    initBuffers().then(function(){init();},function(error){console.log(error)})
 
     function init(){
 
