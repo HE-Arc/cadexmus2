@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     function invite(){
     	userToInvite = $('#userToInvite').val();
-    	console.log(userToInvite);
+    //	console.log(userToInvite);
         
     	$.ajax({
       	url: urlInvite,
@@ -20,9 +20,15 @@ $(document).ready(function(){
       	},
       	success: function(data){
       		console.log(data);
-          $('#userToInvite').val() = "";
-      		//notif
+          $('#userToInvite').val('');  
+          info(data);
       	}});
 
+    }
+
+    function info(data){
+      $("#infoInvite").text(data);
+      $("#infoInvite").show();
+      $("#infoInvite").fadeOut(5000);
     }
 });

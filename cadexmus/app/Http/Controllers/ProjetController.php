@@ -49,7 +49,7 @@ class ProjetController extends Controller
             'tracks' => [],
         ];
         $projet->versions()->create(["numero" => 0, "repr" => $repr]);
-        $projet->users()->attach(Auth::user());
+        $projet->users()->attach(Auth::user(), array("couleur" => 1));
         return redirect()->route('projet.show',compact('projet'));
     }
 
@@ -63,7 +63,7 @@ class ProjetController extends Controller
     {
         $projet = Projet::with(['versions' => function($query){
             $query->orderBy('numero', 'desc')->first();
-        }])->find($id);
+        }])->with('users')->find($id);
 
         return view('projet.show', compact('projet'));
     }
@@ -153,14 +153,20 @@ class ProjetController extends Controller
         $user = Input::get('userToInvite');
         $isUserExist = User::where('users.name', $user)->get();
         if(empty($isUserExist[0]['name'])) return "User does not exist";
-        $isUserInProjet = Projet::Where('id',$id)
-        ->whereHas('users', function($q)
+
+        $nbUserInProjet = User::whereHas('projets', function($q) use ($id)
         {
-         $user = Input::get('userToInvite');
-         $q->whereName($user);
-        })->get();
+            $q->where("id",$id);
+        })->count();
+
+        $isUserInProjet = User::whereHas('projets', function($q) use ($id)
+        {
+            $q->where("id",$id);
+        })->where("name",$user)->get();
+
         if(!empty($isUserInProjet[0]['name'])) return "User is already in projet";
-        User::find($isUserExist[0]['id'])->projets()->attach($id);
+
+        User::find($isUserExist[0]['id'])->projets()->attach($id, array("couleur"=>++$nbUserInProjet));
         return "User added to the projet";
 
     }
