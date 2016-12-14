@@ -36,6 +36,7 @@
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
                     @else
+                            @yield('profile_picture')
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

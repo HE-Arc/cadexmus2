@@ -21,7 +21,6 @@ class UserTableSeeder extends Seeder
         $emails=["arnaud"=>"arnaud.droxler@he-arc.ch",
             "joaquim"=>"joaquim.perez@he-arc.ch",
             "bastien"=>"bastien.burri@he-arc.ch",
-            "picture" => "default.jpg",
             ];
 
         foreach ($emails as $user => $email){
@@ -29,7 +28,7 @@ class UserTableSeeder extends Seeder
                 "name"=>$user,
                 "email"=>$email,
                 "password"=>bcrypt($user),
-                "picture" => "default.jpg",
+                "picture" => "fouine.jpg",
             ]);
         }
     }

@@ -12,7 +12,6 @@
 <script src="{{ asset('js/chat.js')}}"></script>
 <script>
     var urlRetrieveChatMessages = "{{ route('projet.retrieveChatMessages',$projet) }}";
-    var urlGetUserName = "{{ route('projet.getUserName') }}";
     var urlSendMessage = "{{ route('projet.sendMessage',$projet) }}";
 </script>
 

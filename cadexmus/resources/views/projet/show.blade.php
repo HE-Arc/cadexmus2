@@ -51,3 +51,7 @@
     </script>
 
 @endsection
+
+@section('profile_picture')
+<!-- <img alt="fouine" class="img-circle img-user1" src="../uploads/picture/profile/default.jpg" style="border-color:var(--u1)">--> 
+@endsection

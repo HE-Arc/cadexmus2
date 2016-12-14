@@ -1,9 +1,9 @@
 var username;
 
-$(document).ready(function()
-{
+$(document).ready(function(){
 
     username = $('#username').html();
+    var message_template = require("../../views/chat/message.hbs");
 
     pullData();
     retrieveChatMessages();
@@ -15,45 +15,39 @@ $(document).ready(function()
     });
 
 
-function pullData()
-{
+function pullData(){
     retrieveChatMessages();
     setTimeout(pullData,5000);
 }
 
-function retrieveChatMessages()
-{
+function retrieveChatMessages(){
 
       $.ajax({
       url: urlRetrieveChatMessages,
       type: 'GET',
       cache: false,
       success: function(data){
-            $('#chatDisplayMessages').html("");
-            for (var i = 0; i < data.length; i++) {
-                var message_template = require("../../views/chat/message.hbs");
-                var messageElement = message_template({
+        var messageElement="";
+          for (var i = 0; i < data.length; i++) {
+              messageElement += message_template({
                 name:  data[i].user.name,
                 body: data[i].body
-                });
-                $('#chatDisplayMessages').append(messageElement);
-              }
-              scrollBotChat();
+              });
+          }
+        $('#chatDisplayMessages').html(messageElement);
+        scrollBotChat();
       }});
 }
 
-function scrollBotChat()
-{
+function scrollBotChat(){
   var chatDisplayMessages = $('#chatDisplayMessages'); 
   var height = chatDisplayMessages[0].scrollHeight;
    chatDisplayMessages.scrollTop(height);
 }
 
 
-function sendMessage()
-{
+function sendMessage(){
   message = $('#text').val();
-  var message_template = require("../../views/chat/message.hbs");
   var messageElement = message_template({
   name: username,
   body: message
@@ -72,7 +66,7 @@ function sendMessage()
             retrieveChatMessages();
         });
     }
-}
+  }
 
 
 
