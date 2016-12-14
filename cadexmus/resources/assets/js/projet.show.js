@@ -272,6 +272,14 @@ $(function () {
 
     $(".btnDivide").click(function(){
         multSequence(1/2);
+        // supprime les notes qui sont en dehors
+        $('.note').each(function(){
+            if ($(this).attr('pos') >= totalLen){
+                $(this).remove();
+            }
+        });
+        // il faut remakerepr
+        makeRepr();
     });
 
     function multSequence(factor){
