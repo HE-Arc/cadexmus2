@@ -12,7 +12,8 @@ $(function () {
     function makeRepr() {
         repr = {
             tempo: $("#tempo").val(),
-            tracks: []
+            tracks: [],
+            nbMesures: $("#nbMesures").val()
         };
         $(".track").each(function (i) {
             var track = {
@@ -34,6 +35,7 @@ $(function () {
             repr.tracks.push(track);
         });
     }
+    var totalLen = 32*repr.nbMesures;
 
     /* persistance */
 
@@ -57,7 +59,6 @@ $(function () {
         }).fail(function() {
             console.log("request failed");
         });
-        //location.reload();
     });
 
     $(".refresh").click(refresh);
@@ -110,7 +111,7 @@ $(function () {
     /* Time bars */
 
     function drawTimeBars() {
-        for(var i=0;i<100;i+=100/32){
+        for(var i=0;i<100;i+=100/totalLen){
             var type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
             $(".barline").append('<div class="gridbar '+type+'" style="left:'+i+'%"></div>')
         }
@@ -132,8 +133,8 @@ $(function () {
         });
     }
     function placeNote(n){
-        var left = n.attr('pos')*100/32;
-        var width= n.attr('len')*100/32;
+        var left = n.attr('pos')*100/totalLen;
+        var width= n.attr('len')*100/totalLen;
         n.css({'left':left+'%','width':width+'%','top':0})
     }
     placeNotes();
@@ -145,7 +146,7 @@ $(function () {
 
     $("#container").on("dblclick",".line",function(e){
         var pw = $(this).width();
-        var pos = parseInt(32*e.offsetX/pw);
+        var pos = parseInt(totalLen*e.offsetX/pw);
         var newNote= note_template({
             pos:pos,len:defaultLen
         });
@@ -210,7 +211,7 @@ $(function () {
             stop:function(event,ui){
                 var pw = $(this).parent().width();
                 var x=ui.position.left;
-                var pos = parseInt((32*x/pw)+0.5);
+                var pos = parseInt((totalLen*x/pw)+0.5);
                 $(this).attr('pos',pos);
                 if(x<0 || x>= pw)
                     $(this).remove();
@@ -220,7 +221,7 @@ $(function () {
             handles: "e", // ne prend en charge que le côté droit (east)
             stop:function(event,ui){
                 var pw = $(this).parent().width();
-                var len = parseInt((32*ui.size.width/pw)+.5);
+                var len = parseInt((totalLen*ui.size.width/pw)+.5);
                 if(len==0)len=1;
                 defaultLen = len;
                 $(this).attr("len",len);
@@ -379,8 +380,8 @@ $(function () {
             var avance = now - (context.currentTime);
 
             // fait en sorte que l'avance reste autour de 500ms
-            currentTime = now + barLen;
-            timeout = setTimeout(play, (barLen - (.5 - avance)) * 1000);
+            currentTime = now + barLen*repr.nbMesures;
+            timeout = setTimeout(play, (repr.nbMesures*barLen - (.5 - avance)) * 1000);
         }
     }
 
@@ -399,8 +400,8 @@ $(function () {
         window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
     function animation(timestamp) {
-        var progress = context.currentTime%barLen;
-        var percentage = 100*progress/barLen;
+        var progress = context.currentTime%(barLen*repr.nbMesures);
+        var percentage = 100*progress/(barLen*repr.nbMesures);
 
         $("#timebar").css('left',percentage+'%');
 
