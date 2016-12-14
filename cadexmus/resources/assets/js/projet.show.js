@@ -141,11 +141,13 @@ $(function () {
 
     /* create and remove tracks and notes */
 
+    var defaultLen=1;
+
     $("#container").on("dblclick",".line",function(e){
         var pw = $(this).width();
         var pos = parseInt(32*e.offsetX/pw);
         var newNote= note_template({
-            pos:pos,len:1
+            pos:pos,len:defaultLen
         });
         $(this).append(newNote);
         // todo: placeNote(newNote) avec newNote un élément dom
@@ -169,11 +171,20 @@ $(function () {
         $("#grid").append(newTrack);
         resetTimebarSize();
         makeRepr();
-        context.suspend().then(function () {
-            initBuffers().then(function(){
-                context.resume();
+
+        // si une track est ajoutée alors qu'on est en lecture
+        if (context.state === "running"){
+            // pause
+            context.suspend().then(function () {
+                // charge les AudioBuffers
+                initBuffers().then(function(){
+                    // play
+                    context.resume();
+                })
             })
-        })
+        }else{
+            initBuffers().then(init);
+        }
     }
 
     $("#container").on("click",".remove_track",function () {
@@ -211,6 +222,7 @@ $(function () {
                 var pw = $(this).parent().width();
                 var len = parseInt((32*ui.size.width/pw)+.5);
                 if(len==0)len=1;
+                defaultLen = len;
                 $(this).attr("len",len);
                 placeNote($(this));
             }
@@ -240,17 +252,19 @@ $(function () {
 
     context.suspend();
 
-    // tableau association clé: url du sample, valeur: objet buffer retourné par sound()
+    // tableau associatif clé: url du sample, valeur: objet AudioBuffer retourné par loadSound()
     var buffers = [];
 
     var timeout;
     var currentTime;
 
     // memento
+    /*
     var bpm=120; // ==tempo
     var beatLen = 60.0 / bpm; // ==seconds per beat
-    var barLen = 240/bpm; //sec // ==beatLen*4
     var unit = barLen/32; // ==beatLen/8
+    */
+    var barLen = 240/repr.tempo;; //sec // ==beatLen*4
     var fade = 1/128; // arbitraire
 
     $(".btnPausePlay").click(function(){
@@ -261,6 +275,7 @@ $(function () {
         } else {
             context = new AudioContext();
             currentTime = context.currentTime;
+            requestAnimationFrame(animation);
             play();
         }
         $(".btnPausePlay").toggle();
@@ -305,10 +320,11 @@ $(function () {
                         resolve();
                     }
                 }, function(error) {
-                    //console.error(track.sample.url, error);
+                    console.error(track.sample.url, error);
                     reject(error);
                 });
             })
+            resolve();
         })
     }
 
@@ -322,16 +338,18 @@ $(function () {
         var now = currentTime;
 
         makeRepr();
+        barLen = 240/repr.tempo;
+        var unit = barLen/32;
 
         repr.tracks.forEach(function(track){
             track.notes.forEach(function(note){
                 // on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même source
                 s = sound(buffers[track.sample.url]);
                 s.source.start(now + unit*note.pos);
-                end = now + unit*note.pos + unit*note.len;
+                end = now +unit*note.pos + unit*note.len;
                 s.source.stop(end);
                 s.gain.gain.linearRampToValueAtTime(1, end - fade);
-                s.gain.gain.linearRampToValueAtTime(0, end)
+                s.gain.gain.linearRampToValueAtTime(0, end);
             });
         });
 
@@ -339,8 +357,8 @@ $(function () {
             var avance = now - (context.currentTime);
 
             // fait en sorte que l'avance reste autour de 500ms
-            currentTime = now + barLen
-            timeout = setTimeout(play, (barLen - (.5 - avance)) * 1000)
+            currentTime = now + barLen;
+            timeout = setTimeout(play, (barLen - (.5 - avance)) * 1000);
         }
     }
 
@@ -351,6 +369,23 @@ $(function () {
         source.connect(gain)
         gain.connect(context.destination)
         return {source: source, gain: gain}
+    }
+
+    /* animation */
+
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    function animation(timestamp) {
+        var progress = context.currentTime%barLen;
+        var percentage = 100*progress/barLen;
+
+        $("#timebar").css('left',percentage+'%');
+
+        if (context.state === "running")
+            requestAnimationFrame(animation);
+        else
+            $("#timebar").css('left','0%');
     }
 
 });

@@ -1,25 +1,43 @@
+<h4 class="modal-title">Or upload your custom sample</h4>
 
-
+<br>
 <form class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
     {{ csrf_field() }}
 
-	<input type="file" id="fileInput" accept="audio/*" style="display:none" name="url">
-	<label for="fileInput">Select file</label><br>
-	
-    <label for="name">nom : </label>
-	<input id="fileName" type="text" name="nom">
-	<br>
-    
-	<label for="type">type : </label>
-	<select name="type">
-		<option>default</option>
-		<option>instrument</option>
-		<option>fx</option>
-		<option>drums</option>
-	</select>
-	<br>
-	
-    <input type="submit">
+    <div class="form-group">
+        <label for="fileInput" class="col-md-4 control-label">Select file : </label>
+
+        <div class="col-md-6">
+            <label for="fileInput" class="form-control btn">Choose a file from your computer</label>
+            <input type="file" id="fileInput" accept="audio/*" name="url" style="display:none">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="fileName" class="col-md-4 control-label">Name : </label>
+
+        <div class="col-md-6">
+            <input id="fileName" type="text" class="form-control" name="nom" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label">Type : </label>
+
+        <div class="col-md-6">
+            <select name="type" class="form-control">
+        		<option>default</option>
+        		<option>instrument</option>
+        		<option>fx</option>
+        		<option>drums</option>
+        	</select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-4">
+            <input type="submit" class="btn btn-default" value="Upload and choose">
+        </div>
+    </div>
 
     @if (count($errors) > 0)
         <div class="alert alert-danger">

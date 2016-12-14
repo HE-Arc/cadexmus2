@@ -5,7 +5,7 @@ $(document).ready(function(){
     username = $('#username').html();
     var message_template = require("../../views/chat/message.hbs");
 
-    pullData();
+    //pullData();
     retrieveChatMessages();
     var isTypingSent = false;
 

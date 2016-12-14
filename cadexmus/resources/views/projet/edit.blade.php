@@ -35,6 +35,9 @@
             <div class="modal-body" style="max-height:50vh;overflow: auto">
                 liste de samples ici
             </div>
+            <div class="modal-footer" style="text-align:initial">
+                @include('sample.create')
+            </div>
         </div>
 
     </div>
@@ -45,7 +48,6 @@
     var projectUrl = "{{ route('projet.show',$projet->id) }}";
 
     $(function () {
-
         // charge le contenu de la boîte modale
         $.get("{{ route('sample.index') }}").done(function(data){
             $(".modal-body").html(data);
