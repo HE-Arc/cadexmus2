@@ -1,18 +1,20 @@
+<h4 class="modal-title">Or upload your custom sample</h4>
 
-
+<br>
 <form class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
     {{ csrf_field() }}
 
     <div class="form-group">
-        <label for="password-confirm" class="col-md-4 control-label" for="fileInput">Select file : </label>
+        <label for="fileInput" class="col-md-4 control-label">Select file : </label>
 
         <div class="col-md-6">
-            <input type="file" id="fileInput" accept="audio/*" id="input-1a" class="file" data-show-preview="false" name="url">
+            <label for="fileInput" class="form-control btn">Choose a file from your computer</label>
+            <input type="file" id="fileInput" accept="audio/*" name="url" style="display:none">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="password-confirm" class="col-md-4 control-label">Name : </label>
+        <label for="fileName" class="col-md-4 control-label">Name : </label>
 
         <div class="col-md-6">
             <input id="fileName" type="text" class="form-control" name="nom" required>
@@ -20,10 +22,10 @@
     </div>
 
     <div class="form-group">
-        <label for="password-confirm" class="col-md-4 control-label">Type : </label>
+        <label class="col-md-4 control-label">Type : </label>
 
         <div class="col-md-6">
-            <select name="type" class="selectpicker">
+            <select name="type" class="form-control">
         		<option>default</option>
         		<option>instrument</option>
         		<option>fx</option>
@@ -33,11 +35,9 @@
     </div>
     <div class="form-group">
         <div class="col-md-6 col-md-offset-4">
-            <input type="submit" class="btn btn-default" value="Validate">
+            <input type="submit" class="btn btn-default" value="Upload and choose">
         </div>
     </div>
-
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
     @if (count($errors) > 0)
         <div class="alert alert-danger">
