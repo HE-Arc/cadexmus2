@@ -47,6 +47,7 @@ class ProjetController extends Controller
         $repr=[
             'tempo' => 120,
             'tracks' => [],
+            'nbMesures' => 1
         ];
         $projet->versions()->create(["numero" => 0, "repr" => $repr]);
         $projet->users()->attach(Auth::user(), array("couleur" => 1));
