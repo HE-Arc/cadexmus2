@@ -241,12 +241,19 @@ $(function () {
 
     // zoom
 
+    var zoomLevel = 0;
+    var zoomFactor = 4/3;
+
     $(".btnZoomIn").click(function(){
-        zoom(4/3);
+        zoom(zoomFactor);
+        zoomLevel++;
     });
 
     $(".btnZoomOut").click(function(){
-        zoom(3/4);
+        if (zoomLevel > 0){
+            zoom(1/zoomFactor);
+            zoomLevel--;
+        }
     });
 
     function zoom(factor){
