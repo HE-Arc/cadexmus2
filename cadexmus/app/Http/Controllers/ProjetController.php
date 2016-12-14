@@ -50,7 +50,7 @@ class ProjetController extends Controller
         ];
         $projet->versions()->create(["numero" => 0, "repr" => $repr]);
         $projet->users()->attach(Auth::user());
-        return redirect()->route('projet.index');
+        return redirect()->route('projet.show',compact('projet'));
     }
 
     /**
