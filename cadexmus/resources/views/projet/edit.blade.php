@@ -31,7 +31,6 @@
                 @include('sample.create')
             </div>
         </div>
-
     </div>
 </div>
 

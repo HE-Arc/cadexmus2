@@ -141,7 +141,7 @@ $(function () {
 
     /* create and remove tracks and notes */
 
-    var defaultLen=1;
+    var defaultLen = 2;
 
     $("#container").on("dblclick",".line",function(e){
         var pw = $(this).width();

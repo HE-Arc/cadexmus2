@@ -370,3 +370,10 @@ input, button{
 input[type="text"]:disabled{
   background-color: black;
 }
+
+#tempo{
+  height: 25px;
+  width: 60px;
+  padding: 6px;
+  display: inline;
+}
