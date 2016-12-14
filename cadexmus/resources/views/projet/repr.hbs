@@ -1,13 +1,16 @@
-<p>tempo : <input id="tempo" class="form-control" min="20" max="300" type="number" value="{{tempo}}"></p>
-<input id="nbMesures" value="{{nbMesures}}" type="hidden" >
 <p>
-    <img title="play" class="btnPausePlay img-btn" src="../images/playButton.png"/>
-    <img title="stop" class="btnPausePlay img-btn" src="../images/stopButton.png" style="display:none" />
-    <img title="zoom out" class="btnZoomOut img-btn" src="../images/zoomOutButton.png" />
-    <img title="zoom in" class="btnZoomIn img-btn" src="../images/zoomInButton.png" />
-    <span title="divide sequence" class="btnDivide img-btn">&divide;2</span>
-    <span title="duplicate sequence" class="btnDuplicate img-btn">&times;2</span>
+    tempo : <input id="tempo" class="form-control" min="20" max="300" type="number" value="{{tempo}}">
 </p>
+<input id="nbMesures" value="{{nbMesures}}" type="hidden" >
+
+
+<img title="play" class="btnPausePlay img-btn" src="../images/playButton.png"/>
+<img title="stop" class="btnPausePlay img-btn" src="../images/stopButton.png" style="display:none" />
+<img title="zoom out" class="btnZoomOut img-btn" src="../images/zoomOutButton.png" />
+<img title="zoom in" class="btnZoomIn img-btn" src="../images/zoomInButton.png" />
+<span title="divide sequence" class="btnDivide img-btn">&divide;2</span>
+<span title="duplicate sequence" class="btnDuplicate img-btn">&times;2</span>
+
 <div id="box">
     <div>
         <table id="grid">
@@ -26,3 +29,7 @@
     <input type="hidden" id="sampleurl" value="samples/native/kick1.wav">
     <button class="btn btn-primary" style="width:100%;"  data-toggle="modal" data-target="#myModal">Ajouter une ligne</button>
 </div>
+
+<p>
+    <input id="modeMagnetisme" type="checkbox" checked> magnétisme de la grille
+</p>

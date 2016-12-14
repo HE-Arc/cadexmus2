@@ -212,7 +212,10 @@ $(function () {
             stop:function(event,ui){
                 var pw = $(this).parent().width();
                 var x=ui.position.left;
-                var pos = parseInt((totalLen*x/pw)+0.5);
+                if($("#modeMagnetisme").prop('checked'))
+                    var pos = parseInt((totalLen*x/pw)+0.5);
+                else
+                    var pos = totalLen*x/pw
                 $(this).attr('pos',pos);
                 if(x<0 || x>= pw)
                     $(this).remove();
@@ -222,7 +225,10 @@ $(function () {
             handles: "e", // ne prend en charge que le côté droit (east)
             stop:function(event,ui){
                 var pw = $(this).parent().width();
-                var len = parseInt((totalLen*ui.size.width/pw)+.5);
+                if($("#modeMagnetisme").prop('checked'))
+                    var len = parseInt((totalLen*ui.size.width/pw)+.5);
+                else
+                    var len = totalLen*ui.size.width/pw;
                 if(len==0)len=1;
                 defaultLen = len;
                 $(this).attr("len",len);
