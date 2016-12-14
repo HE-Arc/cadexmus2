@@ -111,6 +111,7 @@ $(function () {
     /* Time bars */
 
     function drawTimeBars() {
+        $(".gridbar").not("#timebar").remove();
         for(var i=0;i<100;i+=100/totalLen){
             var type= (i%(100/8)==0?(i%(100/4)==0?"gridbar4":"gridbar8"):"gridbar32");
             $(".barline").append('<div class="gridbar '+type+'" style="left:'+i+'%"></div>')
@@ -261,6 +262,26 @@ $(function () {
         $('#grid').css('width',function( index, value ) {
             return parseFloat(value)*factor;
         })
+    }
+
+    // duplicate
+
+    $(".btnDuplicate").click(function(){
+        multSequence(2);
+    });
+
+    $(".btnDivide").click(function(){
+        multSequence(1/2);
+    });
+
+    function multSequence(factor){
+        $("#nbMesures").val(function( i, val ) {
+            return val*factor;
+        });
+        makeRepr();
+        totalLen = 32*repr.nbMesures;
+        drawTimeBars();
+        placeNotes();
     }
 
 
