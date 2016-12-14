@@ -278,15 +278,19 @@ table .lineuser3 td:first-child{
 /****
 Divers
 *****/
-
-
+.panel{
+    border-radius: 0px
+}
+label{
+    color: black;
+}
 
 .btn-primary{
   border:none;
 }
 
 a{
-  color:white;
+  color: white;
 }
 
 .btn {

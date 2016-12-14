@@ -37,6 +37,4 @@ Route::get('projet/{projet}/invite', array('uses' => 'ProjetController@invite'))
 
 Route::get('projet/{projet}/chat',array('uses' => 'ProjetController@getChat'))->name("projet.getChat");
 
-
-
 Route::get('projet/{projet}/{version}', array('uses' => 'ProjetController@getUpdate'))->name('projet.getUpdates');
