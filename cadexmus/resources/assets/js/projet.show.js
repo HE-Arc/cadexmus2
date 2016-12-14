@@ -229,6 +229,8 @@ $(function () {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var context = new AudioContext();
 
+    context.suspend();
+
     var timeout;
     var currentTime;
 
@@ -240,18 +242,18 @@ $(function () {
     var fade = 1/128; // arbitraire
 
     $(".btnPausePlay").click(function(){
+        console.log(context.state);
         if (context.state === "running") {
-            // todo: faire stop plutot que pause
-            context.suspend().then(function() {
+            context.close().then(function() {
                 clearTimeout(timeout)
             })
         } else {
             makeRepr();
             // todo : ne pas à chaque fois loader tous les sons, mais comment ?... makeRepr enlève le buffer du track créé dans loadSound
             initBuffers().then(function () {
-                context.resume().then(function() {
-                    play(currentTime);
-                })
+                context = new AudioContext();
+                currentTime = context.currentTime;
+                play();
             },function (error) {
                 console.log(error);
             });
@@ -304,13 +306,9 @@ $(function () {
             })
         })
     }
-    initBuffers().then(function(){init();},function(error){console.log(error)})
 
     function init(){
-
-        context.suspend().then(function() {
-            currentTime = context.currentTime
-        })
+        console.log("ready");
     }
 
     function play(){
@@ -335,11 +333,6 @@ $(function () {
             currentTime = now + barLen
             timeout = setTimeout(play, (barLen - (.1 - avance)) * 1000)
         }
-    }
-
-    // todo
-    function stop(){
-        //context.suspend()
     }
 
     function sound(buffer) {
