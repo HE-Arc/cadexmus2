@@ -1,4 +1,12 @@
-<?php $version = $projet->versions[0] ?>
+<?php 
+    $version = $projet->versions[0];
+    $users = $projet->users;
+
+?>
+@foreach ($users as $user)
+    <img title="{{ $user->name }}" alt="fouine" class="img-circle img-user{{$user->pivot->couleur%8}}" src="../uploads/picture/profile/{{$user->picture}}">
+@endforeach
+
 <h1>{{ $projet->nom }}</h1>
 <h2>Version <span id="version">{{$version->numero}}</span></h2>
 

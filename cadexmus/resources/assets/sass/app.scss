@@ -173,6 +173,23 @@ Main
   border: 4px solid;
 }
 
+.img-circle{
+  width:50px;
+  height:50px;
+  float:right;
+  margin-left:15px;
+  border: 4px solid;
+}
+ $uall: $u1, $u2, $u3, $u4, $u5, $u6, $u7, $u8;
+ @for $i from 1 through length($uall) {   
+
+    .img-user#{$i - 1}{
+    border-color: nth($uall, $i);
+    }
+}
+  
+
+
 table{
   background-color:#1b1b1b;
   overflow-x: auto;

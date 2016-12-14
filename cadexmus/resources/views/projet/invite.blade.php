@@ -3,6 +3,7 @@
 <form id="inviteForm" style="margin: 0 10px 0 0">
 <input id="userToInvite" type="text"  class="form-control" placeholder="pseudo du collaborateur">
 </form>
+<span id="infoInvite"></span>
 </div>
 <script src="{{ asset('js/invite.js')}}"></script>
 <script>
