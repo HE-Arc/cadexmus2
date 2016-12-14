@@ -141,11 +141,13 @@ $(function () {
 
     /* create and remove tracks and notes */
 
+    var defaultLen=1;
+
     $("#container").on("dblclick",".line",function(e){
         var pw = $(this).width();
         var pos = parseInt(32*e.offsetX/pw);
         var newNote= note_template({
-            pos:pos,len:1
+            pos:pos,len:defaultLen
         });
         $(this).append(newNote);
         // todo: placeNote(newNote) avec newNote un élément dom
@@ -220,6 +222,7 @@ $(function () {
                 var pw = $(this).parent().width();
                 var len = parseInt((32*ui.size.width/pw)+.5);
                 if(len==0)len=1;
+                defaultLen = len;
                 $(this).attr("len",len);
                 placeNote($(this));
             }
