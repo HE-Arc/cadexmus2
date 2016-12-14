@@ -169,11 +169,20 @@ $(function () {
         $("#grid").append(newTrack);
         resetTimebarSize();
         makeRepr();
-        context.suspend().then(function () {
-            initBuffers().then(function(){
-                context.resume();
+
+        // si une track est ajoutée alors qu'on est en lecture
+        if (context.state === "running"){
+            // pause
+            context.suspend().then(function () {
+                // charge les AudioBuffers
+                initBuffers().then(function(){
+                    // play
+                    context.resume();
+                })
             })
-        })
+        }else{
+            initBuffers().then(init);
+        }
     }
 
     $("#container").on("click",".remove_track",function () {
@@ -308,10 +317,11 @@ $(function () {
                         resolve();
                     }
                 }, function(error) {
-                    //console.error(track.sample.url, error);
+                    console.error(track.sample.url, error);
                     reject(error);
                 });
             })
+            resolve();
         })
     }
 
