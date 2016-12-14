@@ -16,8 +16,10 @@ Route::get('/', function () {
         return redirect()->route('login');
     }else{
         $projets = Auth::user()->projets;
-        $projet = $projets[0];
-        return redirect()->route('projet.show',compact('projet'));
+        if(count($projets)==0)
+            return redirect()->route('projet.index');
+        // todo : redirect sur le projet le plus récemment modifié plutôt que le premier projet
+        return redirect()->route('projet.show',['projet'=>$projets[0]]);
     }
 });
 
