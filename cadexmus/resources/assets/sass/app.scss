@@ -110,6 +110,7 @@ nav > ul{
 #container{
   width:85%;
   margin:auto;
+  margin-top:50px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -154,23 +155,9 @@ nav > ul{
 Main
 *****/
 
-.projecthead{
-  padding-top:50px;
-  padding-bottom:50px;
-}
 
-.projecthead > h1{
-  float:left;
-  padding:0;
-  margin:0;
-}
-
-.projecthead .img-circle{
-  width:50px;
-  height:50px;
-  float:right;
-  margin-left:15px;
-  border: 4px solid;
+#container > h1{
+  margin-bottom: 30px;
 }
 
 .img-circle{
@@ -180,7 +167,8 @@ Main
   margin-left:15px;
   border: 4px solid;
 }
- $uall: $u1, $u2, $u3, $u4, $u5, $u6, $u7, $u8;
+
+$uall: $u1, $u2, $u3, $u4, $u5, $u6, $u7, $u8;
  @for $i from 1 through length($uall) {   
 
     .img-user#{$i - 1}{
@@ -393,4 +381,9 @@ input[type="text"]:disabled{
   width: 60px;
   padding: 6px;
   display: inline;
+}
+
+.img-btn{
+  cursor:pointer;
+  margin-right: 5px;
 }

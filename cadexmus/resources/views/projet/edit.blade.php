@@ -8,7 +8,7 @@
 @endforeach
 
 <h1>{{ $projet->nom }}</h1>
-<h2>Version <span id="version">{{$version->numero}}</span></h2>
+<!--<h2>Version <span id="version">{{$version->numero}}</span></h2>-->
 
 <div id="repr">
     @include("projet.repr", $version->repr)
