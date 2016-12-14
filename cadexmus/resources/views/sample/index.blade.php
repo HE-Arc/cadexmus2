@@ -6,4 +6,3 @@
     </li>
 @endforeach
 </ul>
-@include('sample.create')

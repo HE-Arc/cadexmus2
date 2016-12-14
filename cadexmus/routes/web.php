@@ -23,8 +23,6 @@ Route::get('/', function () {
     }
 });
 
-
-
 Auth::routes();
 
 Route::resource('sample', 'SampleController');
@@ -36,7 +34,5 @@ Route::post('projet/{projet}/sendMessage',array('uses' => 'ProjetController@send
 Route::get('projet/{projet}/invite', array('uses' => 'ProjetController@invite'))->name("projet.invite");
 
 Route::get('projet/{projet}/chat',array('uses' => 'ProjetController@getChat'))->name("projet.getChat");
-
-
 
 Route::get('projet/{projet}/{version}', array('uses' => 'ProjetController@getUpdate'))->name('projet.getUpdates');
