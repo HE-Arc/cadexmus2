@@ -148,9 +148,6 @@ class ProjetController extends Controller
         return $text;
     }
 
-    public function getUserName(){
-        return Auth::user()->name;
-    }
 
     public function invite($id){
         $user = Input::get('userToInvite');
