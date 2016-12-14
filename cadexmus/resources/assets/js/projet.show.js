@@ -168,6 +168,12 @@ $(function () {
         });
         $("#grid").append(newTrack);
         resetTimebarSize();
+        makeRepr();
+        context.suspend().then(function () {
+            initBuffers().then(function(){
+                context.resume();
+            })
+        })
     }
 
     $("#container").on("click",".remove_track",function () {
@@ -224,12 +230,18 @@ $(function () {
 
 
 
+
+
+
     /* Player */
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var context = new AudioContext();
 
     context.suspend();
+
+    // tableau association clé: url du sample, valeur: objet buffer retourné par sound()
+    var buffers = [];
 
     var timeout;
     var currentTime;
@@ -242,21 +254,14 @@ $(function () {
     var fade = 1/128; // arbitraire
 
     $(".btnPausePlay").click(function(){
-        console.log(context.state);
         if (context.state === "running") {
             context.close().then(function() {
                 clearTimeout(timeout)
             })
         } else {
-            makeRepr();
-            // todo : ne pas à chaque fois loader tous les sons, mais comment ?... makeRepr enlève le buffer du track créé dans loadSound
-            initBuffers().then(function () {
-                context = new AudioContext();
-                currentTime = context.currentTime;
-                play();
-            },function (error) {
-                console.log(error);
-            });
+            context = new AudioContext();
+            currentTime = context.currentTime;
+            play();
         }
         $(".btnPausePlay").toggle();
     });
@@ -293,7 +298,7 @@ $(function () {
             repr.tracks.forEach(function(track){
                 loadSound("../uploads/" + track.sample.url).then(function(buffer){
                     console.log(track.sample.url, "is loaded")
-                    track.buffer = buffer;
+                    buffers[track.sample.url] = buffer;
                     nbSonsCharges++;
                     if(nbSonsCharges==repr.tracks.length){
                         //init();
@@ -307,6 +312,8 @@ $(function () {
         })
     }
 
+    initBuffers().then(init);
+
     function init(){
         console.log("ready");
     }
@@ -314,10 +321,12 @@ $(function () {
     function play(){
         var now = currentTime;
 
+        makeRepr();
+
         repr.tracks.forEach(function(track){
             track.notes.forEach(function(note){
                 // on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même source
-                s = sound(track.buffer);
+                s = sound(buffers[track.sample.url]);
                 s.source.start(now + unit*note.pos);
                 end = now + unit*note.pos + unit*note.len;
                 s.source.stop(end);
@@ -329,9 +338,9 @@ $(function () {
         if (context.state === "running") {
             var avance = now - (context.currentTime);
 
-            // fait en sorte que l'avance reste autour de 100ms
+            // fait en sorte que l'avance reste autour de 500ms
             currentTime = now + barLen
-            timeout = setTimeout(play, (barLen - (.1 - avance)) * 1000)
+            timeout = setTimeout(play, (barLen - (.5 - avance)) * 1000)
         }
     }
 
