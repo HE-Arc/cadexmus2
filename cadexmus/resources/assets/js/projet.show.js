@@ -267,6 +267,19 @@ $(function () {
     // duplicate
 
     $(".btnDuplicate").click(function(){
+
+        // crée des double des notes
+        $('.note').each(function(){
+            var newPos = parseInt($(this).attr('pos'))+totalLen;
+            var newLen = $(this).attr('len');
+            $(this).parent().append(
+                $('<div></div>')
+                    .attr({ pos : newPos })
+                    .attr({ len : newLen })
+                    .addClass("note")
+            );
+        });
+
         multSequence(2);
     });
 
