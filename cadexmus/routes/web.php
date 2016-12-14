@@ -39,3 +39,4 @@ Route::get('getUserName',array('uses' => 'ProjetController@getUserName'))->name(
 
 Route::get('projet/{projet}/{version}', array('uses' => 'ProjetController@getUpdate'))->name('projet.getUpdates');
 
+

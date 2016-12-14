@@ -31,10 +31,11 @@ function retrieveChatMessages()
       success: function(data){
             $('#chatDisplayMessages').html("");
             for (var i = 0; i < data.length; i++) {
-                var messageElement = '<div class="chatMessage">'+
-                '<p class="sender">'+data[i].user.name+'</p>'+
-                '<p class="message">'+data[i].body+'</p>'+
-                '</div>';
+                var message_template = require("../../views/chat/message.hbs");
+                var messageElement = message_template({
+                name:  data[i].user.name,
+                body: data[i].body
+                });
                 $('#chatDisplayMessages').append(messageElement);
               }
               scrollBotChat();
@@ -52,10 +53,11 @@ function scrollBotChat()
 function sendMessage()
 {
   message = $('#text').val();
-  var messageElement = '<div class="ChatMessage">'+
-                       '<p class="sender">{{username}}</p>'+
-                       '<p class="message">{{message}}</p>'+
-                       '</div>';
+  var message_template = require("../../views/chat/message.hbs");
+  var messageElement = message_template({
+  name: username,
+  body: message
+  });
 
   $('#chatDisplayMessages').append(messageElement);
   scrollBotChat();

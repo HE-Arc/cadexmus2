@@ -6,6 +6,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Request;
 
 class RegisterController extends Controller
 {
@@ -62,10 +63,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+       // dd($data);
+        $picturename = "default.jpg";
+      //  $file = $data['file'];
+            if(Request::hasFile('picture')){
+
+                $uniqid = uniqid();
+                $picture = Request::file('picture');
+                $array_picture = array($uniqid , $picture->getClientOriginalExtension());
+                $picturename =  implode('.', $array_picture);
+                $picture->move('uploads/picture/profile', $picturename);       
+
+               // $imgsrc = array('<img src="uploads/picture/profile', $imploded, '"/>');
+               // echo implode('' ,$imgsrc);
+            }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'picture' => $picturename,
         ]);
     }
 }

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}"  enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -58,11 +58,18 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
+                            <div class="form-group">
+                            <label for="picture" class="col-md-4 control-label">Upload a picture</label>
+
+                            <div class="col-md-6">
+                                <input id="picture" type="file" class="form-control" name="picture" accept="image/*">
+                            </div>
+
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="registerSubmit" type="submit" class="btn btn-primary">
                                     Register
                                 </button>
                             </div>
