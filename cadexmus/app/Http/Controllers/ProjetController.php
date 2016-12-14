@@ -151,16 +151,15 @@ class ProjetController extends Controller
 
     public function invite($id){
         $user = Input::get('userToInvite');
-        $isUserExist = User::where('users.name', $user)
-                             ->get();
+        $isUserExist = User::where('users.name', $user)->get();
         if(empty($isUserExist[0]['name'])) return "User does not exist";
-        $isUserInProjet = User::whereHas('projets', function($q)
+        $isUserInProjet = Projet::Where('id',$id)
+        ->whereHas('users', function($q)
         {
          $user = Input::get('userToInvite');
          $q->whereName($user);
         })->get();
         if(!empty($isUserInProjet[0]['name'])) return "User is already in projet";
-
         User::find($isUserExist[0]['id'])->projets()->attach($id);
         return "User added to the projet";
 

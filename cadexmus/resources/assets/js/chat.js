@@ -20,6 +20,7 @@ function pullData(){
     setTimeout(pullData,5000);
 }
 
+//alert("test");
 function retrieveChatMessages(){
 
       $.ajax({
@@ -28,13 +29,18 @@ function retrieveChatMessages(){
       cache: false,
       success: function(data){
         var messageElement="";
-          for (var i = 0; i < data.length; i++) {
-              messageElement += message_template({
+         var messageConcat = [];
+
+          for (var i = 0; i < data.length; i++) {        
+              messageElement = message_template({
                 name:  data[i].user.name,
                 body: data[i].body
               });
+              messageConcat.push(messageElement);
           }
-        $('#chatDisplayMessages').html(messageElement);
+          message = messageConcat.join('');
+
+        $('#chatDisplayMessages').html(message);
         scrollBotChat();
       }});
 }

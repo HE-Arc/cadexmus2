@@ -20,6 +20,7 @@ $(document).ready(function(){
       	},      	
       	success: function(data){
       		console.log(data);
+          $('#userToInvite').val() = "";
       		//notif
       	}});
 
