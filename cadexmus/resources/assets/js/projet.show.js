@@ -247,10 +247,12 @@ $(function () {
     var currentTime;
 
     // memento
+    /*
     var bpm=120; // ==tempo
     var beatLen = 60.0 / bpm; // ==seconds per beat
     var barLen = 240/bpm; //sec // ==beatLen*4
     var unit = barLen/32; // ==beatLen/8
+    */
     var fade = 1/128; // arbitraire
 
     $(".btnPausePlay").click(function(){
@@ -322,16 +324,18 @@ $(function () {
         var now = currentTime;
 
         makeRepr();
+        var barLen = 240/repr.tempo;
+        var unit = barLen/32;
 
         repr.tracks.forEach(function(track){
             track.notes.forEach(function(note){
                 // on recrée la source à chaque fois car on ne peux pas appeler start() plusieurs fois sur la même source
                 s = sound(buffers[track.sample.url]);
                 s.source.start(now + unit*note.pos);
-                end = now + unit*note.pos + unit*note.len;
+                end = now +unit*note.pos + unit*note.len;
                 s.source.stop(end);
                 s.gain.gain.linearRampToValueAtTime(1, end - fade);
-                s.gain.gain.linearRampToValueAtTime(0, end)
+                s.gain.gain.linearRampToValueAtTime(0, end);
             });
         });
 
@@ -339,8 +343,8 @@ $(function () {
             var avance = now - (context.currentTime);
 
             // fait en sorte que l'avance reste autour de 500ms
-            currentTime = now + barLen
-            timeout = setTimeout(play, (barLen - (.5 - avance)) * 1000)
+            currentTime = now + barLen;
+            timeout = setTimeout(play, (barLen - (.5 - avance)) * 1000);
         }
     }
 
