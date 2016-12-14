@@ -27,15 +27,15 @@ function retrieveChatMessages(){
       type: 'GET',
       cache: false,
       success: function(data){
-            $('#chatDisplayMessages').html("");
-            for (var i = 0; i < data.length; i++) {
-                var messageElement = message_template({
+        var messageElement="";
+          for (var i = 0; i < data.length; i++) {
+              messageElement += message_template({
                 name:  data[i].user.name,
                 body: data[i].body
-                });
-                $('#chatDisplayMessages').append(messageElement);
-              }
-              scrollBotChat();
+              });
+          }
+        $('#chatDisplayMessages').html(messageElement);
+        scrollBotChat();
       }});
 }
 
