@@ -19,12 +19,13 @@ body{
   background-image: url('../images/bg2.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   height: 100vh;
 }
 
 #app{
   display: flex;
-  height:100vh;
+  height:100%;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -191,20 +192,24 @@ table tr{
 }
 
 
-td.samplename{
+td.track_header{
   border-bottom-width: 1px;
   border-right-width: 1px;
   width: 100px;
+  /* empèche la cellule de s'aggrandir verticalement */
+  max-width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-td.samplename:hover{
+td.track_header:hover{
   /*
   width:200px;
   */
 }
 
 
-table .lineuser1 .samplename{
+table .lineuser1 .track_header{
   border-left: 6px solid $u1;
 }
 
@@ -219,7 +224,7 @@ table .lineuser3 td:first-child{
 .barline, .line{
   position: relative;
 }
-/*
+
 .note{
   background-color: $c1b;
   border-right: 4px solid $darker;
@@ -233,7 +238,7 @@ table .lineuser3 td:first-child{
 .note:active{
   background-color:$c1c;
 }
-*/
+
 
 .gridbar{
   position: absolute;
@@ -263,7 +268,7 @@ table .lineuser3 td:first-child{
   overflow: visible;
 }
 
-.samplename{
+.track_header{
   padding:4px;
 }
 

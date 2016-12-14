@@ -50,7 +50,7 @@ class ProjetController extends Controller
         ];
         $projet->versions()->create(["numero" => 0, "repr" => $repr]);
         $projet->users()->attach(Auth::user());
-        return redirect()->route('projet.index');
+        return redirect()->route('projet.show',compact('projet'));
     }
 
     /**
@@ -141,12 +141,13 @@ class ProjetController extends Controller
         $message->save();
     }
 
-
     public function retrieveChatMessages($id){
-        $projet = Projet::find($id);
-        $messages = Message::all();
-        $text = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->get();
-        return $text;
+        $messages = Message::with(['user'])
+           ->where('messages.projet_id',$id)
+           ->orderBy('messages.created_at','ASC')
+           ->get();
+        return $messages;
+
     }
 
     public function getUserName(){

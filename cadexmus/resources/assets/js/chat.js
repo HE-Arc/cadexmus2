@@ -1,7 +1,6 @@
 var username;
 
-$(document).ready(function()
-{
+$(document).ready(function () {
 
     username = $('#username').html();
 
@@ -9,11 +8,15 @@ $(document).ready(function()
     retrieveChatMessages();
     var isTypingSent = false;
 
-    $('#sendMsgForm').submit(function(event){
+    $('#sendMsgForm').submit(function (event) {
         event.preventDefault();
         sendMessage();
     });
 
+    function pullData() {
+        retrieveChatMessages();
+        setTimeout(pullData, 5000);
+    }
 
 function pullData()
 {
@@ -59,21 +62,26 @@ function sendMessage()
   body: message
   });
 
-  $('#chatDisplayMessages').append(messageElement);
-  scrollBotChat();
-    var text = $('#text').val();
-    $('#text').prop("disabled",true);        
 
-    if (text.length > 0)
-    {
-        $.post(urlSendMessage, {text: text}, function()
-        {
-           $('#text').val('').prop("disabled",false);   
-            retrieveChatMessages();
-        });
+    function sendMessage() {
+        message = $('#text').val();
+        var messageElement = '<div class="ChatMessage">' +
+            '<p class="sender">{{username}}</p>' +
+            '<p class="message">{{message}}</p>' +
+            '</div>';
+
+        $('#chatDisplayMessages').append(messageElement);
+        scrollBotChat();
+        var text = $('#text').val();
+        $('#text').prop("disabled", true);
+
+        if (text.length > 0) {
+            $.post(urlSendMessage, {text: text}, function () {
+                $('#text').val('').prop("disabled", false).focus();
+                retrieveChatMessages();
+            });
+        }
     }
-}
-
 
 
 });
