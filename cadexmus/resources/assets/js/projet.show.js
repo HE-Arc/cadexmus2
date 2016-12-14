@@ -240,7 +240,7 @@ $(function () {
 
     context.suspend();
 
-    // tableau association clé: url du sample, valeur: objet buffer retourné par sound()
+    // tableau associatif clé: url du sample, valeur: objet AudioBuffer retourné par loadSound()
     var buffers = [];
 
     var timeout;
@@ -250,9 +250,9 @@ $(function () {
     /*
     var bpm=120; // ==tempo
     var beatLen = 60.0 / bpm; // ==seconds per beat
-    var barLen = 240/bpm; //sec // ==beatLen*4
     var unit = barLen/32; // ==beatLen/8
     */
+    var barLen = 240/repr.tempo;; //sec // ==beatLen*4
     var fade = 1/128; // arbitraire
 
     $(".btnPausePlay").click(function(){
@@ -263,6 +263,7 @@ $(function () {
         } else {
             context = new AudioContext();
             currentTime = context.currentTime;
+            requestAnimationFrame(animation);
             play();
         }
         $(".btnPausePlay").toggle();
@@ -324,7 +325,7 @@ $(function () {
         var now = currentTime;
 
         makeRepr();
-        var barLen = 240/repr.tempo;
+        barLen = 240/repr.tempo;
         var unit = barLen/32;
 
         repr.tracks.forEach(function(track){
@@ -355,6 +356,23 @@ $(function () {
         source.connect(gain)
         gain.connect(context.destination)
         return {source: source, gain: gain}
+    }
+
+    /* animation */
+
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+    function animation(timestamp) {
+        var progress = context.currentTime%barLen;
+        var percentage = 100*progress/barLen;
+
+        $("#timebar").css('left',percentage+'%');
+
+        if (context.state === "running")
+            requestAnimationFrame(animation);
+        else
+            $("#timebar").css('left','0%');
     }
 
 });
