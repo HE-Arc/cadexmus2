@@ -239,6 +239,21 @@ $(function () {
         $(this).children().toggle();
     });
 
+    // zoom
+
+    $(".btnZoomIn").click(function(){
+        zoom(4/3);
+    });
+
+    $(".btnZoomOut").click(function(){
+        zoom(3/4);
+    });
+
+    function zoom(factor){
+        $('#grid').css('width',function( index, value ) {
+            return parseFloat(value)*factor;
+        })
+    }
 
 
 
