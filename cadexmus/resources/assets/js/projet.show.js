@@ -435,7 +435,7 @@ $(function () {
 
             // fait en sorte que l'avance reste autour de 500ms
             currentTime = now + barLen*repr.nbMesures;
-            timeout = setTimeout(play, (repr.nbMesures*barLen - (.5 - avance)) * 1000);
+            setTimeout(play, (repr.nbMesures*barLen - (.5 - avance)) * 1000);
         }
     }
 
