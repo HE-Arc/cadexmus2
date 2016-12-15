@@ -147,7 +147,9 @@ $(function () {
 
     $("#container").on("dblclick",".line",function(e){
         var pw = $(this).width();
-        var pos = parseInt(totalLen*e.offsetX/pw);
+        var pos = totalLen*e.offsetX/pw;
+        if($("#modeMagnetisme").prop('checked'))
+			pos = parseInt(pos);
         var newNote= note_template({
             pos:pos,len:defaultLen
         });
@@ -212,10 +214,9 @@ $(function () {
             stop:function(event,ui){
                 var pw = $(this).parent().width();
                 var x=ui.position.left;
+				var pos = totalLen*x/pw;
                 if($("#modeMagnetisme").prop('checked'))
-                    var pos = parseInt((totalLen*x/pw)+0.5);
-                else
-                    var pos = totalLen*x/pw
+                    pos = parseInt(pos+.5);
                 $(this).attr('pos',pos);
                 if(x<0 || x>= pw)
                     $(this).remove();
@@ -225,10 +226,9 @@ $(function () {
             handles: "e", // ne prend en charge que le côté droit (east)
             stop:function(event,ui){
                 var pw = $(this).parent().width();
+				var len = totalLen*ui.size.width/pw;
                 if($("#modeMagnetisme").prop('checked'))
-                    var len = parseInt((totalLen*ui.size.width/pw)+.5);
-                else
-                    var len = totalLen*ui.size.width/pw;
+                    var len = parseInt(len+.5);
                 if(len==0)len=1;
                 defaultLen = len;
                 $(this).attr("len",len);
@@ -276,7 +276,7 @@ $(function () {
 
         // crée des double des notes
         $('.note').each(function(){
-            var newPos = parseInt($(this).attr('pos'))+totalLen;
+            var newPos = parseFloat($(this).attr('pos'))+totalLen;
             var newLen = $(this).attr('len');
             $(this).parent().append(
                 $('<div></div>')
@@ -309,6 +309,7 @@ $(function () {
         totalLen = 32*repr.nbMesures;
         drawTimeBars();
         placeNotes();
+		makeDraggableAndResizable();
     }
 
 
