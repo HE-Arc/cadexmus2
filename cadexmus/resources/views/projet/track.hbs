@@ -2,7 +2,10 @@
 <tr class="track">
     <td class="track_header" title="{{sample.name}}">
         <span class="sample_name">{{ sample.name }}</span>
-        <span class="remove_track" style="display: none;cursor:pointer">&#10060;</span>
+        <span style="display: none;">
+            <span class="remove_track" style="cursor:pointer">&#10060;</span>
+            <input type="range" value="{{volume}}" max="1" step="0.01">
+        </span>
     </td>
     <td class="line" id="line1">
         <audio src="../uploads/{{sample.url}}" data-url="{{sample.url}}" preload="auto"></audio>

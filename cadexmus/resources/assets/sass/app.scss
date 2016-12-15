@@ -377,7 +377,7 @@ input[type="text"]:disabled{
 }
 
 #tempo{
-  height: 25px;
+  height: 30px;
   width: 60px;
   padding: 6px;
   display: inline;
@@ -387,4 +387,15 @@ input[type="text"]:disabled{
   cursor:pointer;
   margin-right: 5px;
   font-size: 1.3em;
+}
+
+input[type="range"]{
+  display: inline;
+  width: 64px;
+  vertical-align: middle;
+  float: right;
+}
+
+.remove_track{
+  float: left;
 }

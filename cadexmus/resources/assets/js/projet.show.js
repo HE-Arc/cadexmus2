@@ -21,6 +21,7 @@ $(function () {
                     name: $(this).find(".sample_name").text(),
                     url: $(this).find("audio").attr('data-url')
                 },
+                volume: $(this).find('input[type="range"]').val(),
                 notes: []
             };
 
