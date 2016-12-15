@@ -14,9 +14,11 @@ The Wiki is in french
 
 ## Install
 
+* `git clone https://github.com/HE-Arc/cadexmus2.git`
+* `cd cadexmus2/`
 * `composer install`
-* `.env.example` to `.env`
-* créer ou vider la bdd
+* create a new database
+* open `.env.example`, edit `DB_DATABASE`, `DB_USERNAME` and `DB_PASSWORD`, then save as `.env`
 * `php artisan key:generate`
 * `php artisan migrate:refresh --seed`
 * `npm install`
