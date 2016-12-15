@@ -149,7 +149,7 @@ $(function () {
         var pw = $(this).width();
         var pos = totalLen*e.offsetX/pw;
         if($("#modeMagnetisme").prop('checked'))
-			pos = parseInt(pos);
+            pos = parseInt(pos);
         var newNote= note_template({
             pos:pos,len:defaultLen
         });
@@ -214,7 +214,7 @@ $(function () {
             stop:function(event,ui){
                 var pw = $(this).parent().width();
                 var x=ui.position.left;
-				var pos = totalLen*x/pw;
+                var pos = totalLen*x/pw;
                 if($("#modeMagnetisme").prop('checked'))
                     pos = parseInt(pos+.5);
                 $(this).attr('pos',pos);
@@ -226,7 +226,7 @@ $(function () {
             handles: "e", // ne prend en charge que le côté droit (east)
             stop:function(event,ui){
                 var pw = $(this).parent().width();
-				var len = totalLen*ui.size.width/pw;
+                var len = totalLen*ui.size.width/pw;
                 if($("#modeMagnetisme").prop('checked'))
                     var len = parseInt(len+.5);
                 if(len==0)len=1;
@@ -260,13 +260,18 @@ $(function () {
     $(".btnZoomOut").click(function(){
         if (zoomLevel > 0){
             zoom(1/zoomFactor);
-            zoomLevel--;
-        }
+			zoomLevel--;
+        }else{
+			$('#grid').css('width','100%');
+		}
     });
 
     function zoom(factor){
         $('#grid').css('width',function( index, value ) {
-            return parseFloat(value)*factor;
+            var newWidth = parseFloat(value)*factor;
+            var parentWidth = parseInt($(this).parent().css('width'));
+            var percentage = 100*newWidth/parentWidth;
+            return percentage+'%';
         })
     }
 
@@ -309,7 +314,7 @@ $(function () {
         totalLen = 32*repr.nbMesures;
         drawTimeBars();
         placeNotes();
-		makeDraggableAndResizable();
+        makeDraggableAndResizable();
     }
 
 
