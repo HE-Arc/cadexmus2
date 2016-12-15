@@ -30,6 +30,7 @@ class ProjectTableSeeder extends Seeder
             'nbMesures' => 2,
             'tracks' =>[
                 [
+                    "volume" => 0.2,
                     "sample"=> [
                         "url" => $samples[0]->url,
                         "name" => $samples[0]->nom
@@ -45,6 +46,7 @@ class ProjectTableSeeder extends Seeder
                     ]
                 ],
                 [
+                    "vulume" => 0.8,
                     "sample"=> [
                         "url" => $samples[1]->url,
                         "name" => $samples[1]->nom
@@ -71,7 +73,7 @@ class ProjectTableSeeder extends Seeder
 
        // $project2->users()->attach(User::all(), array('couleur'=> 1));
 
-        $yolorepr = '{"tempo":"90","nbMesures":"1","tracks":[{"sample":{"name":"kick2","url":"samples\/native\/kick2.wav"},"notes":[{"pos":"0","len":"4"},{"pos":"12","len":"4"},{"pos":"28","len":"4"},{"pos":"20","len":"4"},{"pos":"6","len":"2"}]},{"sample":{"name":"snare1","url":"samples\/native\/snare1.wav"},"notes":[{"pos":"8","len":"4"},{"pos":"24","len":"4"}]},{"sample":{"name":"hat1","url":"samples\/native\/hat1.wav"},"notes":[{"pos":"0","len":"2"},{"pos":"4","len":"2"},{"pos":"8","len":"2"},{"pos":"12","len":"2"},{"pos":"20","len":"2"},{"pos":"24","len":"1"},{"pos":"28","len":"1"},{"pos":"16","len":"2"},{"pos":"30","len":"1"},{"pos":"26","len":"1"}]},{"sample":{"name":"hat2","url":"samples\/native\/hat2.wav"},"notes":[{"pos":"14","len":"2"},{"pos":"20","len":"2"}]}]}';
+        $yolorepr = '{"tempo":"90","nbMesures":"1","tracks":[{"volume":"1","sample":{"name":"kick2","url":"samples\/native\/kick2.wav"},"notes":[{"pos":"0","len":"4"},{"pos":"12","len":"4"},{"pos":"28","len":"4"},{"pos":"20","len":"4"},{"pos":"6","len":"2"}]},{"volume":"1","sample":{"name":"snare1","url":"samples\/native\/snare1.wav"},"notes":[{"pos":"8","len":"4"},{"pos":"24","len":"4"}]},{"volume":"1","sample":{"name":"hat1","url":"samples\/native\/hat1.wav"},"notes":[{"pos":"0","len":"2"},{"pos":"4","len":"2"},{"pos":"8","len":"2"},{"pos":"12","len":"2"},{"pos":"20","len":"2"},{"pos":"24","len":"1"},{"pos":"28","len":"1"},{"pos":"16","len":"2"},{"pos":"30","len":"1"},{"pos":"26","len":"1"}]},{"volume":"1","sample":{"name":"hat2","url":"samples\/native\/hat2.wav"},"notes":[{"pos":"14","len":"2"},{"pos":"20","len":"2"}]}]}';
         $project2->versions()->create(["numero" => 0, "repr" => json_decode($yolorepr)]);
     }
 }
