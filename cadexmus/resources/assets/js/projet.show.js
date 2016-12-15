@@ -32,7 +32,6 @@ $(function () {
                 };
                 track.notes.push(note);
             });
-
             repr.tracks.push(track);
         });
     }
@@ -426,7 +425,9 @@ $(function () {
                 s.source.start(now + unit*note.pos);
                 end = now +unit*note.pos + unit*note.len;
                 s.source.stop(end);
-                s.gain.gain.linearRampToValueAtTime(1, end - fade);
+                var vol = parseFloat(track.volume);
+                s.gain.gain.value = vol;
+                s.gain.gain.linearRampToValueAtTime(vol, end - fade);
                 s.gain.gain.linearRampToValueAtTime(0, end);
             });
         });
