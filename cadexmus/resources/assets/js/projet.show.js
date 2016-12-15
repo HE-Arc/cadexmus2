@@ -192,7 +192,7 @@ $(function () {
     }
 
     $("#container").on("click",".remove_track",function () {
-        $(this).parent().parent().remove();
+        $(this).parent().parent().parent().remove();
         resetTimebarSize();
     });
 
