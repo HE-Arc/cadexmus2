@@ -275,7 +275,11 @@ $(function () {
         })
     }
 
-    // duplicate
+    // change clip size
+
+    $("#container").on("click",".btnExpand", function(){
+        multSequence(2);
+    });
 
     $("#container").on("click",".btnDuplicate", function(){
 
@@ -296,6 +300,7 @@ $(function () {
     
     $("#container").on("click",".btnDivide",function(){
         multSequence(1/2);
+        // todo: plutot que supprimer les notes, ne pas les insérer dans makeRepr()
         // supprime les notes qui sont en dehors
         $('.note').each(function(){
             if ($(this).attr('pos') >= totalLen){
