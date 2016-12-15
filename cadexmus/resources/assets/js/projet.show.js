@@ -253,18 +253,18 @@ $(function () {
     var zoomLevel = 0;
     var zoomFactor = 4/3;
 
-    $(".btnZoomIn").click(function(){
+    $("#container").on("click",".btnZoomIn",function(){
         zoom(zoomFactor);
         zoomLevel++;
     });
 
-    $(".btnZoomOut").click(function(){
+    $("#container").on("click",".btnZoomOut",function(){
         if (zoomLevel > 0){
             zoom(1/zoomFactor);
-			zoomLevel--;
+            zoomLevel--;
         }else{
-			$('#grid').css('width','100%');
-		}
+            $('#grid').css('width','100%');
+        }
     });
 
     function zoom(factor){
@@ -278,7 +278,7 @@ $(function () {
 
     // duplicate
 
-    $(".btnDuplicate").click(function(){
+    $("#container").on("click",".btnDuplicate", function(){
 
         // crée des double des notes
         $('.note').each(function(){
@@ -294,8 +294,8 @@ $(function () {
 
         multSequence(2);
     });
-
-    $(".btnDivide").click(function(){
+    
+    $("#container").on("click",".btnDivide",function(){
         multSequence(1/2);
         // supprime les notes qui sont en dehors
         $('.note').each(function(){
@@ -345,7 +345,7 @@ $(function () {
     var barLen = 240/repr.tempo;; //sec // ==beatLen*4
     var fade = 1/128; // arbitraire
 
-    $(".btnPausePlay").click(function(){
+    $("#container").on("click",".btnPausePlay",function(){
         if (context.state === "running") {
             context.close().then(function() {
                 clearTimeout(timeout)
@@ -436,7 +436,7 @@ $(function () {
 
             // fait en sorte que l'avance reste autour de 500ms
             currentTime = now + barLen*repr.nbMesures;
-            setTimeout(play, (repr.nbMesures*barLen - (.5 - avance)) * 1000);
+            timeout = setTimeout(play, (repr.nbMesures*barLen - (.5 - avance)) * 1000);
         }
     }
 
