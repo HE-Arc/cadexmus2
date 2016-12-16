@@ -28,7 +28,8 @@ $(function () {
             $(this).find(".note").each(function (j) {
                 var note = {
                     pos: $(this).attr("pos"),
-                    len: $(this).attr("len")
+                    len: $(this).attr("len"),
+                    color: $(this).attr("color")
                 };
                 track.notes.push(note);
             });
@@ -151,7 +152,9 @@ $(function () {
         if($("#modeMagnetisme").prop('checked'))
             pos = parseInt(pos);
         var newNote= note_template({
-            pos:pos,len:defaultLen
+            pos:pos,
+            len:defaultLen,
+            color:userColor
         });
         $(this).append(newNote);
         // todo: placeNote(newNote) avec newNote un élément dom
@@ -221,6 +224,7 @@ $(function () {
                 if(x<0 || x>= pw)
                     $(this).remove();
                 placeNote($(this));
+                $(this).removeClass().addClass("note note"+userColor);
             }
         }).resizable({
             handles: "e", // ne prend en charge que le côté droit (east)
@@ -233,6 +237,7 @@ $(function () {
                 defaultLen = len;
                 $(this).attr("len",len);
                 placeNote($(this));
+                $(this).removeClass().addClass("note note"+userColor);
             }
         });
     }

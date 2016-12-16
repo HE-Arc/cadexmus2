@@ -1,7 +1,8 @@
 <?php 
     $version = $projet->versions[0];
     $users = $projet->users;
-
+    // récupération de la couleur de l'user dans ce projet
+    $userColor = $projet->users->where("id",Auth::id())->first()->pivot->couleur%8;
 ?>
 @foreach ($users as $user)
     <img title="{{ $user->name }}" alt="fouine" class="img-circle img-user{{$user->pivot->couleur%8}}" src="../uploads/picture/profile/{{$user->picture}}">
@@ -45,6 +46,7 @@
 <script>
     var versionActuelle = {{$version->numero}};
     var projectUrl = "{{ route('projet.show',$projet->id) }}";
+    var userColor = {{$userColor}};
 
     $(function () {
         // charge le contenu de la boîte modale

@@ -174,8 +174,7 @@ $uall: $u1, $u2, $u3, $u4, $u5, $u6, $u7, $u8;
     .img-user#{$i - 1}{
     border-color: nth($uall, $i);
     }
-}
-  
+} 
 
 
 table{
@@ -231,17 +230,35 @@ table .lineuser3 td:first-child{
 }
 
 .note{
+/*
   background-color: $c1b;
+  */
   border-right: 4px solid $darker;
   min-height: 100%;
   position: absolute;
   top: 0;
+  opacity:.9;
 }
 .note:hover{
+/*
   background-color: $c1a;
+  */
+  opacity:1;
 }
 .note:active{
+/*
   background-color:$c1c;
+  */
+  opacity:0.6;
+}
+
+
+$uall: $u1, $u2, $u3, $u4, $u5, $u6, $u7, $u8;
+ @for $i from 1 through length($uall) {   
+
+    .note#{$i - 1}{
+    background-color: nth($uall, $i);
+    }
 }
 
 
