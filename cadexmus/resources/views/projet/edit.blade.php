@@ -33,14 +33,6 @@
     var projectUrl = "{{ route('projet.show',$projet->id) }}";
     var userColor = {{$userColor}};
 
-    var trackToAdd=null;
-    @if (session('newSample'))
-        trackToAdd = {
-                sampleName: "{{session('newSample')->nom}}",
-                sampleUrl: "{{session('newSample')->url}}"
-            }
-    @endif
-
     $(function () {
         // charge le contenu de la boîte modale
         $.get("{{ route('sample.index') }}").done(function(data){

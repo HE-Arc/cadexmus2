@@ -210,8 +210,10 @@ $(function () {
         $("#myModal").modal("hide");
     });
 
-    if(trackToAdd != null)
-        addTrack(trackToAdd.sampleName, trackToAdd.sampleUrl);
+    $("#myModal").on("sampleloaded", function () {
+        addTrack($("#newSampleName").val(), $("#newSampleUrl").val());
+        $("#myModal").modal("hide");
+    });
 
 
 

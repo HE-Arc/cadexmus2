@@ -1,8 +1,11 @@
 <h4 class="modal-title">Or upload your custom sample</h4>
 
 <br>
-<form class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
+<form target="target" class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
     {{ csrf_field() }}
+    <iframe name="target" style="width:0;height:0;border:0 none;"></iframe>
+    <input type="hidden" id="newSampleName">
+    <input type="hidden" id="newSampleUrl">
 
     <div class="form-group">
         <label for="fileInput" class="col-md-4 control-label">Select file : </label>
@@ -50,6 +53,10 @@
     @endif
 </form>
 
+<form>
+
+</form>
+
 <script>
 	document.getElementById("fileInput").addEventListener("change", handleFiles, false);
 	function handleFiles() {
@@ -59,4 +66,11 @@
 			document.getElementById("fileName").focus()
 		}
 	}
+    function callback(sampleName, sampleUrl){
+        document.getElementById("newSampleName").value=sampleName;
+        document.getElementById("newSampleUrl").value=sampleUrl;
+        var event = new Event('sampleloaded');
+        var modal = document.getElementById("myModal");
+        modal.dispatchEvent(event);
+    }
 </script>

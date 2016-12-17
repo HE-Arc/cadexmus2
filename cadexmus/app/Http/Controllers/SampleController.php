@@ -23,6 +23,12 @@ class SampleController extends Controller
         return view('sample.create');
     }
 
+    public function show($id)
+    {
+        return view('sample.show')->withSample(Sample::find($id));
+    }
+
+
     public function store(Request $request)
     {
         // redirect automatique à la page précédente si la validation échoue
@@ -33,9 +39,8 @@ class SampleController extends Controller
 
         if ($request->url->isValid()) {
             $url = $request->url->storeAs("samples/users/$request->type", $request->nom . "_" . uniqid() .".". $request->url->extension());
-            echo("stocké dans : $url");
             $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
-            return redirect()->back()->with(["newSample"=>$s]);
+            return redirect()->route("sample.show",$s->id);
         }
     }
 
