@@ -66,7 +66,10 @@ class ProjetController extends Controller
             $query->orderBy('numero', 'desc')->first();
         }])->with('users')->find($id);
 
-        return view('projet.show', compact('projet'));
+        // récupération de la couleur de l'user dans ce projet
+        $userColor = $projet->users->where("id",Auth::id())->first()->pivot->couleur%8;
+
+        return view('projet.show', ['projet'=>$projet,'userColor'=>$userColor]);
     }
 
     /**
