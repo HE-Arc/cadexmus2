@@ -11,13 +11,6 @@ class SampleController extends Controller
     public function index()
     {
 		$samples = Sample::all();
-		/*
-		foreach ($samples as $s) {
-			echo $s;
-		}
-		*/
-		//dd($samples);
-
 
         //return view('sample.index',compact("samples"));
         //return view('sample.index',['samples' => $samples]);
@@ -42,12 +35,17 @@ class SampleController extends Controller
             $url = $request->url->storeAs("samples/users/$request->type", $request->nom . "_" . uniqid() .".". $request->url->extension());
             echo("stocké dans : $url");
             $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
-            //return redirect()->route('sample.show', $s->id);
-            return redirect()->route("sample.index");
+            return redirect()->back()->with(["newSample"=>$s]);
         }
     }
 
-    public function show($sample) {
-        dd(Sample::where('id', $sample)->get());
+    public function filter($pattern){
+        $samples = Sample::where('nom', 'LIKE', "%$pattern%")->get();
+        return view('sample.list')->withSamples($samples);
+    }
+
+    public function listAll(){
+        $samples = Sample::all();
+        return view('sample.list')->withSamples($samples);
     }
 }

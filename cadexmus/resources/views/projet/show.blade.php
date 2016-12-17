@@ -2,9 +2,9 @@
 
 @section('content')
 
-
     <header class="column column-left">
         <button id="toggle_nav" class="btn">Projets</button>
+
         <nav class="hideable" id="nav-projects">
             <span><img src="{{asset('images/ajax-loader.gif')}}"></span>
         </nav>

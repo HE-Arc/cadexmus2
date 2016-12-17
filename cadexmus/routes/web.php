@@ -25,14 +25,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('sample', 'SampleController');
+/* Projet */
+
 Route::resource('projet', 'ProjetController');
-Route::resource('message', 'MessageController');
 
-Route::get('projet/{projet}/retrieveChatMessages',array('uses' => 'ProjetController@retrieveChatMessages'))->name("projet.retrieveChatMessages");
-Route::post('projet/{projet}/sendMessage',array('uses' => 'ProjetController@sendMessage'))->name("projet.sendMessage");
-Route::get('projet/{projet}/invite', array('uses' => 'ProjetController@invite'))->name("projet.invite");
+Route::get('projet/{projet}/retrieveChatMessages', 'ProjetController@retrieveChatMessages')->name("projet.retrieveChatMessages");
+Route::post('projet/{projet}/sendMessage', 'ProjetController@sendMessage')->name("projet.sendMessage");
+Route::get('projet/{projet}/invite', 'ProjetController@invite')->name("projet.invite");
 
-Route::get('projet/{projet}/chat',array('uses' => 'ProjetController@getChat'))->name("projet.getChat");
+Route::get('projet/{projet}/chat', 'ProjetController@getChat')->name("projet.getChat");
 
-Route::get('projet/{projet}/{version}', array('uses' => 'ProjetController@getUpdate'))->name('projet.getUpdates');
+Route::get('projet/{projet}/{version}', 'ProjetController@getUpdate')->name('projet.getUpdates');
+
+/* Sample */
+
+
+Route::get('sample/filter/{pattern}', 'SampleController@filter')->name('sample.filter');
+Route::get('sample/filter', 'SampleController@listAll');
+Route::resource('sample', 'SampleController');

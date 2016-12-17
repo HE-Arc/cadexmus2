@@ -24,20 +24,7 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content" style="color:#555">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Choose sample</h4>
-            </div>
-            <div class="modal-body" style="max-height:50vh;overflow: auto">
-                liste de samples ici
-            </div>
-            <div class="modal-footer" style="text-align:initial">
-                @include('sample.create')
-            </div>
-        </div>
+        liste de samples ici
     </div>
 </div>
 
@@ -46,10 +33,35 @@
     var projectUrl = "{{ route('projet.show',$projet->id) }}";
     var userColor = {{$userColor}};
 
+    var trackToAdd=null;
+    @if (session('newSample'))
+        trackToAdd = {
+                sampleName: "{{session('newSample')->nom}}",
+                sampleUrl: "{{session('newSample')->url}}"
+            }
+    @endif
+
     $(function () {
         // charge le contenu de la boîte modale
         $.get("{{ route('sample.index') }}").done(function(data){
-            $(".modal-body").html(data);
+            $(".modal-dialog").html(data);
+        });
+
+        $('.modal-dialog').on('submit','#searchSampleForm', function(event){
+            event.preventDefault();
+
+            var pattern = $("#search-pattern").val();
+
+            // petit trick pour palier au bug de
+            // http://localhost/cadexmus2/cadexmus/public/sample/filter/ -> http://localhost/sample/filter
+            // qu'on ne devrait plus avoir en production
+            if(pattern != "")
+                pattern = '/'+pattern;
+
+            $.get("{{ route('sample.index') }}/filter"+pattern).done(function(data){
+                $("#sample-list").html(data);
+            });
+
         });
 
     });

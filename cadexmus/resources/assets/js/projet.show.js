@@ -7,6 +7,12 @@ $(function () {
 
     var repr;
 
+
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var context = new AudioContext();
+
+    context.suspend();
+
     /* tools */
     makeRepr();
     function makeRepr() {
@@ -199,10 +205,13 @@ $(function () {
         resetTimebarSize();
     });
 
-    $(".modal-body").on("click",".sample",function () {
+    $(".modal-dialog").on("click",".sample",function () {
         addTrack($(this).data("sample-name"), $(this).data("sample-url"));
         $("#myModal").modal("hide");
     });
+
+    if(trackToAdd != null)
+        addTrack(trackToAdd.sampleName, trackToAdd.sampleUrl);
 
 
 
@@ -333,11 +342,6 @@ $(function () {
 
 
     /* Player */
-
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    var context = new AudioContext();
-
-    context.suspend();
 
     // tableau associatif clé: url du sample, valeur: objet AudioBuffer retourné par loadSound()
     var buffers = [];

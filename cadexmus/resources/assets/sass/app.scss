@@ -420,3 +420,22 @@ input[type="range"]{
 .remove_track{
   float: left;
 }
+
+// modal box
+
+.modal-body{
+  max-height:50vh;
+  overflow: auto;
+}
+
+.stylish-input-group .form-control{
+  border-right:0;
+  box-shadow:0 0 0;
+  border-color:#ccc;
+  background-color: white;
+  color:#555;
+}
+.stylish-input-group button{
+  border:0;
+  background: transparent;
+}
