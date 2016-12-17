@@ -23,6 +23,7 @@ class SampleController extends Controller
         return view('sample.create');
     }
 
+    // méthode appelée par la route get sample/{sample}
     public function show($id)
     {
         return view('sample.show')->withSample(Sample::find($id));

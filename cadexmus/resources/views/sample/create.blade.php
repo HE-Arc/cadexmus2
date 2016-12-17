@@ -1,9 +1,14 @@
 <h4 class="modal-title">Or upload your custom sample</h4>
 
 <br>
+<!-- Le formulaire ne va pas exécuter l'action dans cette fenêtre mais dans l'iframe #target -->
 <form target="target" class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
     {{ csrf_field() }}
+    <!-- La route sample.store retourne une vue qui va être chargée dans cette iframe cachée -->
+    <!-- La vue contient un code js qui va tenter d'appeler la méthode callback() de cette fenêtre -->
     <iframe name="target" style="width:0;height:0;border:0 none;"></iframe>
+    <!-- callback() va remplir ces champs cachés avec les données récupérées depuis l'iframe -->
+    <!-- on pourra ensuite les lire depuis le jquery pour ajouter la track -->
     <input type="hidden" id="newSampleName">
     <input type="hidden" id="newSampleUrl">
 
@@ -53,10 +58,6 @@
     @endif
 </form>
 
-<form>
-
-</form>
-
 <script>
 	document.getElementById("fileInput").addEventListener("change", handleFiles, false);
 	function handleFiles() {
@@ -66,9 +67,14 @@
 			document.getElementById("fileName").focus()
 		}
 	}
+
+	// la fonction qui est appelée depuis le contenu de l'iframe
     function callback(sampleName, sampleUrl){
         document.getElementById("newSampleName").value=sampleName;
         document.getElementById("newSampleUrl").value=sampleUrl;
+        // on créé un nouvel event custom pour pouvoir le gérer dans le projet.show.js
+        // (on ne peut pas appeler directement addTrack depuis ici)
+        // https://developer.mozilla.org/fr/docs/Web/Guide/DOM/Events/Creating_and_triggering_events
         var event = new Event('sampleloaded');
         var modal = document.getElementById("myModal");
         modal.dispatchEvent(event);

@@ -210,6 +210,7 @@ $(function () {
         $("#myModal").modal("hide");
     });
 
+    // gère l'évènement custom créé dans le script de sample.create
     $("#myModal").on("sampleloaded", function () {
         addTrack($("#newSampleName").val(), $("#newSampleUrl").val());
         $("#myModal").modal("hide");
