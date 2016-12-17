@@ -19,7 +19,7 @@ $(function () {
             var track = {
                 sample: {
                     name: $(this).find(".sample_name").text(),
-                    url: $(this).find("audio").attr('data-url')
+                    url: $(this).find("audio").data('url')
                 },
                 volume: $(this).find('input[type="range"]').val(),
                 notes: []
@@ -27,9 +27,9 @@ $(function () {
 
             $(this).find(".note").each(function (j) {
                 var note = {
-                    pos: $(this).attr("pos"),
-                    len: $(this).attr("len"),
-                    color: $(this).attr("color")
+                    pos: $(this).data("pos"),
+                    len: $(this).data("len"),
+                    color: $(this).data("color")
                 };
                 track.notes.push(note);
             });
@@ -135,8 +135,8 @@ $(function () {
         });
     }
     function placeNote(n){
-        var left = n.attr('pos')*100/totalLen;
-        var width= n.attr('len')*100/totalLen;
+        var left = n.data('pos')*100/totalLen;
+        var width= n.data('len')*100/totalLen;
         n.css({'left':left+'%','width':width+'%','top':0})
     }
     placeNotes();
@@ -200,7 +200,7 @@ $(function () {
     });
 
     $(".modal-body").on("click",".sample",function () {
-        addTrack($(this).attr("sampleName"),$(this).attr("sampleUrl"));
+        addTrack($(this).data("sampleName"),$(this).data("sampleUrl"));
         $("#myModal").modal("hide");
     });
 
@@ -220,7 +220,7 @@ $(function () {
                 var pos = totalLen*x/pw;
                 if($("#modeMagnetisme").prop('checked'))
                     pos = parseInt(pos+.5);
-                $(this).attr('pos',pos);
+                $(this).data('pos',pos);
                 if(x<0 || x>= pw)
                     $(this).remove();
                 placeNote($(this));
@@ -235,7 +235,7 @@ $(function () {
                     var len = parseInt(len+.5);
                 if(len==0)len=1;
                 defaultLen = len;
-                $(this).attr("len",len);
+                $(this).data("len",len);
                 placeNote($(this));
                 $(this).removeClass().addClass("note note"+userColor);
             }
@@ -280,7 +280,7 @@ $(function () {
         })
     }
 
-    // change clip size
+    // change sequence length
 
     $("#container").on("click",".btnExpand", function(){
         multSequence(2);
@@ -290,13 +290,13 @@ $(function () {
 
         // crée des double des notes
         $('.note').each(function(){
-            var newPos = parseFloat($(this).attr('pos'))+totalLen;
-            var newLen = $(this).attr('len');
+            var newPos = parseFloat($(this).data('pos'))+totalLen;
             $(this).parent().append(
                 $('<div></div>')
-                    .attr({ pos : newPos })
-                    .attr({ len : newLen })
-                    .addClass("note")
+                    .data({ pos : newPos })
+                    .data({ len : $(this).data('len') })
+                    .data({ color : $(this).data('color') })
+                    .addClass($(this).attr('class'))
             );
         });
 
@@ -308,7 +308,7 @@ $(function () {
         // todo: plutot que supprimer les notes, ne pas les insérer dans makeRepr()
         // supprime les notes qui sont en dehors
         $('.note').each(function(){
-            if ($(this).attr('pos') >= totalLen){
+            if ($(this).data('pos') >= totalLen){
                 $(this).remove();
             }
         });
