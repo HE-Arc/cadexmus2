@@ -200,7 +200,7 @@ $(function () {
     });
 
     $(".modal-body").on("click",".sample",function () {
-        addTrack($(this).data("sampleName"),$(this).data("sampleUrl"));
+        addTrack($(this).data("sample-name"), $(this).data("sample-url"));
         $("#myModal").modal("hide");
     });
 
