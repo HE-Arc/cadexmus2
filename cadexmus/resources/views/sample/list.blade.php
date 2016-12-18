@@ -14,7 +14,7 @@
         <td class="actions-cell">
             <div class="btn-group" data-sample-url="{{asset("uploads")}}/{{$s->url}}">
                 <button type="button" class="btn previewsample">Preview</button>
-                <button type="button" class="btn btn-primary choosesample" data-sample-name="{{$s->nom}}">Choose</button>
+                <button type="button" class="btn btn-primary choosesample" data-sample-name="{{$s->nom}}" data-asset-url="{{$s->url}}">Choose</button>
             </div>
         </td>
     </tr>

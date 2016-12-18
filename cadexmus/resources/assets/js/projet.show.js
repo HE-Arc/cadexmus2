@@ -206,7 +206,7 @@ $(function () {
     });
 
     $(".modal-dialog").on("click",".choosesample",function () {
-        addTrack($(this).data("sample-name"), $(this).parent().data("sample-url"));
+        addTrack($(this).data("sample-name"), $(this).data("asset-url"));
         $("#myModal").modal("hide");
     });
 
