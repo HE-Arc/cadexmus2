@@ -205,8 +205,8 @@ $(function () {
         resetTimebarSize();
     });
 
-    $(".modal-dialog").on("click",".sample",function () {
-        addTrack($(this).data("sample-name"), $(this).data("sample-url"));
+    $(".modal-dialog").on("click",".choosesample",function () {
+        addTrack($(this).data("sample-name"), $(this).parent().data("sample-url"));
         $("#myModal").modal("hide");
     });
 
@@ -214,6 +214,24 @@ $(function () {
     $("#myModal").on("sampleloaded", function () {
         addTrack($("#newSampleName").val(), $("#newSampleUrl").val());
         $("#myModal").modal("hide");
+    });
+
+    // preview d'un sample
+    $(".modal-dialog").on("click",".previewsample",function () {
+        var btn = $(this);
+        /* si on est déjà en train de préécouter, on arrête, sinon on lit le son */
+        if(btn.hasClass("playing")){
+            // [0] permet d'accéder à l'élément DOM
+            $("#preview")[0].pause();
+            $("#preview")[0].currentTime = 0;
+        }else{
+            var url = btn.parent().data("sample-url");
+            $("#preview").attr('src',url)[0].play();
+            btn.addClass("playing");
+            $("#preview").on("pause",function(){
+                btn.removeClass("playing");
+            });
+        }
     });
 
 

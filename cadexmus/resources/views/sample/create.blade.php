@@ -1,5 +1,4 @@
 <h4 class="modal-title">Or upload your custom sample</h4>
-
 <br>
 <!-- Le formulaire ne va pas exécuter l'action dans cette fenêtre mais dans l'iframe #target -->
 <form target="target" class="form-horizontal" action="{{ route('sample.store')}}" method="post"  enctype="multipart/form-data">
@@ -43,7 +42,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-6 col-md-offset-4">
-            <input type="submit" class="btn btn-default" value="Upload and choose">
+            <input type="submit" class="btn" value="Upload and choose">
         </div>
     </div>
 
