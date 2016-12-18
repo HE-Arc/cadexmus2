@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 
 class SampleTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -13,19 +14,27 @@ class SampleTableSeeder extends Seeder
      */
     public function run()
     {
+        function browseAndCreateSamples($path){
 
-        $path = realpath(public_path('uploads/samples/native'));
-        $type="default";
+            $realPath = realpath(public_path("uploads/samples/native/$path"));
 
-        // http://php.net/manual/fr/class.directoryiterator.php#88459
-        foreach (new DirectoryIterator($path) as $fileInfo) {
-            if($fileInfo->isDot()) continue;
-            $name = explode(".",$fileInfo->getFilename())[0];
-            Sample::create([
-                "nom"=>$name,
-                "url"=>'samples/native/'.$fileInfo->getFilename(),
-                "type"=>$type,
-            ]);
+            foreach (new DirectoryIterator($realPath) as $fileInfo) {
+                if($fileInfo->isDot()) continue;
+                if($fileInfo->isDir()){
+                    browseAndCreateSamples($path."/".$fileInfo->getFilename());
+                }else if($fileInfo->isFile()){
+                    $tags = str_replace("/"," ",$path);
+                    $name = explode(".",$fileInfo->getFilename())[0];
+                    Sample::create([
+                        "nom"=>$name,
+                        "url"=>'samples/native'.$path."/".$fileInfo->getFilename(),
+                        "type"=>$tags,
+                    ]);
+                }
+            }
         }
+
+        browseAndCreateSamples('');
+
     }
 }
