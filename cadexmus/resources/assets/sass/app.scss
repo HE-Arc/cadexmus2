@@ -433,10 +433,6 @@ input[type="range"]{
   margin-bottom: 5px;
 }
 
-.form-horizontal .control-label {
-  padding-top: 0;
-}
-
 .stylish-input-group .form-control{
   border-right:0;
   box-shadow:0 0 0;
@@ -457,6 +453,7 @@ input[type="range"]{
 #sample-list .sample td{
   padding:5px;
 }
+
 #sample-list .sample td.actions-cell{
   padding:0;
 }

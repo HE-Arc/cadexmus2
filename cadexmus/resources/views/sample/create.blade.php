@@ -29,15 +29,10 @@
     </div>
 
     <div class="form-group">
-        <label class="col-md-4 control-label">Type : </label>
+        <label class="col-md-4 control-label">Tags : </label>
 
         <div class="col-md-6">
-            <select name="type" class="form-control">
-        		<option>default</option>
-        		<option>instrument</option>
-        		<option>fx</option>
-        		<option>drums</option>
-        	</select>
+            <input id="tags" type="text" class="form-control" name="type">
         </div>
     </div>
     <div class="form-group">
