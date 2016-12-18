@@ -9,7 +9,7 @@ date_default_timezone_set('UTC');
 require_once "vendor/autoload.php";
 
 $server = new Hoa\Websocket\Server(
-    new Hoa\Socket\Server('tcp://192.168.0.52:8889')
+    new Hoa\Socket\Server('tcp://192.168.0.199:8889')
 );
 
 //Manages the message event to get send data for each client using the broadcast method
