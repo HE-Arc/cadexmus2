@@ -67,7 +67,7 @@ class ProjetController extends Controller
         }])->with('users')->find($id);
 
         // récupération de la couleur de l'user dans ce projet
-        $userColor = $projet->users->where("id",Auth::id())->first()->pivot->couleur%8;
+        $userColor = ($projet->users->where("id",Auth::id())->first()->pivot->couleur-1)%8;
 
         return view('projet.show', ['projet'=>$projet,'userColor'=>$userColor]);
     }

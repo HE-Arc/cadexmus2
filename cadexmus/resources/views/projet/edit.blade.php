@@ -3,7 +3,7 @@
     $users = $projet->users;
 ?>
 @foreach ($users as $user)
-    <img title="{{ $user->name }}" alt="fouine" class="img-circle img-user{{$user->pivot->couleur%8}}" src="../uploads/picture/profile/{{$user->picture}}">
+    <img title="{{ $user->name }}" alt="fouine" class="img-circle img-user{{($user->pivot->couleur-1)%8}}" src="../uploads/picture/profile/{{$user->picture}}">
 @endforeach
 
 <h1>{{ $projet->nom }}</h1>
