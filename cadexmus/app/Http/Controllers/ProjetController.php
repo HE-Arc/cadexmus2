@@ -66,10 +66,15 @@ class ProjetController extends Controller
             $query->orderBy('numero', 'desc')->first();
         }])->with('users')->find($id);
 
-        // récupération de la couleur de l'user dans ce projet
-        $userColor = ($projet->users->where("id",Auth::id())->first()->pivot->couleur-1)%8;
-
-        return view('projet.show', ['projet'=>$projet,'userColor'=>$userColor]);
+        $userInProject = $projet->users->find(Auth::id());
+        if(count($userInProject)){
+            // récupération de la couleur de l'user dans ce projet
+            $userColor = ($userInProject->pivot->couleur -1)%8;
+            
+            return view('projet.show', ['projet'=>$projet,'userColor'=>$userColor]);
+        }else{
+            return redirect()->route('projet.index');
+        }
     }
 
     /**

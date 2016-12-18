@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Projet;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -76,11 +77,22 @@ class RegisterController extends Controller
                // echo implode('' ,$imgsrc);
             }
 
-        return User::create([
+        $newUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'picture' => $picturename,
         ]);
+        
+        $newProject = Projet::create(["nom"=>$data['name']."'s first project"]);
+        $newProject->users()->attach($newUser, ['couleur'=> 1]);
+        $repr=[
+            'tempo' => 120,
+            'nbMesures' => 1,
+            'tracks' =>[]
+        ];
+        $newProject->versions()->create(["numero" => 0, "repr" => $repr]);
+        
+        return $newUser;
     }
 }
