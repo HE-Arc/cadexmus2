@@ -6,7 +6,7 @@
     {{ csrf_field() }}
     <!-- La route sample.store retourne une vue qui va être chargée dans cette iframe cachée -->
     <!-- La vue contient un code js qui va tenter d'appeler la méthode callback() de cette fenêtre -->
-    <iframe name="target" style="width:0;height:0;border:0 none;"></iframe>
+    <iframe name="target" style="display: none"></iframe>
     <!-- callback() va remplir ces champs cachés avec les données récupérées depuis l'iframe -->
     <!-- on pourra ensuite les lire depuis le jquery pour ajouter la track -->
     <input type="hidden" id="newSampleName">
@@ -47,15 +47,7 @@
         </div>
     </div>
 
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div id="errors"></div>
 </form>
 
 <script>
@@ -78,5 +70,10 @@
         var event = new Event('sampleloaded');
         var modal = document.getElementById("myModal");
         modal.dispatchEvent(event);
+    }
+
+    // fonction appelée depuis l'iframe si la validation a échouée
+    function error(errors){
+        document.getElementById("errors").innerHTML = errors;
     }
 </script>

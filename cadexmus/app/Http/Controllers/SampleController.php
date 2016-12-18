@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Sample;
+use Validator;
 
 class SampleController extends Controller
 {
@@ -32,17 +33,22 @@ class SampleController extends Controller
 
     public function store(Request $request)
     {
-        // redirect automatique à la page précédente si la validation échoue
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'url' => 'mimetypes:audio/mpeg,audio/x-wav',
             'nom' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return view("sample.uploaderror")
+                ->withErrors($validator);
+        }
 
         if ($request->url->isValid()) {
             $url = $request->url->storeAs("samples/users/$request->type", $request->nom . "_" . uniqid() .".". $request->url->extension());
             $s = Sample::create(array_merge(['url'=>$url], $request->only('nom', 'type')));
             return redirect()->route("sample.show",$s->id);
         }
+        return view("sample.uploaderror")->with('urlError',"L'URL $request->url n'est pas valide");
     }
 
     public function filter($pattern){
