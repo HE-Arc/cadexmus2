@@ -41,6 +41,7 @@
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 Logout ({{Auth::user()->name}})
+                                <div id="usernamelogged" style="display: none;"">{{Auth::user()->name}}</div>
                             </a>
 
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
