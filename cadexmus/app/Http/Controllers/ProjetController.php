@@ -136,7 +136,7 @@ class ProjetController extends Controller
        public function sendMessage($id){
         $username = Auth::user()->name;
         $text = Input::get('text');
-        $text = htmlentities($text);
+        //$text = htmlentities($text);
 
         $message = new Message();
         $message->user_id = Auth::user()->id;
