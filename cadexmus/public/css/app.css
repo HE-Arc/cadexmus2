@@ -7723,6 +7723,7 @@ body {
   background-color: rgba(0, 0, 0, 0.9);
   padding: 5px;
   font-size: 0.8em;
+  min-height: 28px;
 }
 
 .top-navbar > div:first-child {
@@ -7734,7 +7735,7 @@ body {
 }
 
 .content {
-  height: 100%;
+  height: calc(100% - 28px);
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: justify;
@@ -8072,6 +8073,7 @@ a {
   font-size: small;
   border-left: 4px solid;
   padding: 5px;
+  word-wrap: break-word;
 }
 
 p.sender {

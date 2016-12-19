@@ -43,7 +43,7 @@ $(document).ready(function () {
             //Manages the close event within your client code
             socket.onclose = function () {
                 console.log('Connection Closedl');
-                pullData();
+                //pullData();
                 return;
             };
         } catch (e) {

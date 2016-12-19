@@ -35,6 +35,7 @@ body{
   background-color: rgba(0,0,0,0.9);
   padding:5px;
   font-size: 0.8em;
+  min-height: 28px;
 }
 .top-navbar > div:first-child{
   float:left;
@@ -44,7 +45,7 @@ body{
 }
 
 .content{
-  height:100%;
+  height: calc(100% - 28px);
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
@@ -341,6 +342,7 @@ a{
   font-size:small;
   border-left:4px solid;
   padding:5px;
+  word-wrap: break-word;
 }
 
 p.sender{
