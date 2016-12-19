@@ -15,56 +15,6 @@ class ProjectTableSeeder extends Seeder
      */
     public function run()
     {
-        $project = Projet::create(["nom"=>"Premier Projet"]);
-        $users = User::all();
-        $i = 1;
-        foreach($users as $user)
-        {
-            $project->users()->attach($user, array('couleur'=> $i));
-            $i++;
-        }
-        //$project->users()->attach(User::all(), array('couleur'=> 1));
-        $samples = Sample::take(2)->get();
-        $repr=[
-            'tempo' => 120,
-            'nbMesures' => 2,
-            'tracks' =>[
-                [
-                    "volume" => 0.2,
-                    "sample"=> [
-                        "url" => $samples[0]->url,
-                        "name" => $samples[0]->nom
-                    ],
-                    "notes"=>[
-                        [
-                            "pos"=>0,
-                            "len"=>2,
-                            "color"=>1
-                        ],[
-                            "pos"=>32,
-                            "len"=>4,
-                            "color"=>2
-                        ]
-                    ]
-                ],
-                [
-                    "vulume" => 0.8,
-                    "sample"=> [
-                        "url" => $samples[1]->url,
-                        "name" => $samples[1]->nom
-                    ],
-                    "notes"=>[
-                        [
-                            "pos"=>16,
-                            "len"=>8,
-                            "color"=>0
-                        ]
-                    ],
-                ],
-            ],
-        ];
-        $project->versions()->create(["numero" => 0, "repr" => $repr]);
-
         $project2 = Projet::create(["nom"=>"Demo"]);
         $users = User::all();
         $i = 1;
