@@ -1,6 +1,6 @@
 
 <div id="chatDisplayMessages">
-    <span><img src="{{asset('images/ajax-loader.gif')}}"></span>
+    <span><img src="{{asset('images/ajax-loader.gif')}}" alt="loading messages"></span>
 </div>
 <div id="chatWriteMessage">
     <hr>

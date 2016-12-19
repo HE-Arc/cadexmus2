@@ -74,9 +74,10 @@ class ProjectTableSeeder extends Seeder
             $i++;
         }
 
-       // $project2->users()->attach(User::all(), array('couleur'=> 1));
+        // $project2->users()->attach(User::all(), array('couleur'=> 1));
 
         $yolorepr = '{"tempo":"90","nbMesures":"1","tracks":[{"volume":"1","sample":{"name":"kick2","url":"samples/native/drums/kick/acoustic/kick2.wav"},"notes":[{"color":"1","pos":"0","len":"4"},{"color":"1","pos":"12","len":"4"},{"color":"1","pos":"28","len":"4"},{"color":"1","pos":"20","len":"4"},{"color":"1","pos":"6","len":"2"}]},{"volume":"1","sample":{"name":"snare1","url":"samples/native/drums/snare/electro/snare1.wav"},"notes":[{"color":"1","pos":"8","len":"4"},{"color":"1","pos":"24","len":"4"}]},{"volume":"1","sample":{"name":"hat1","url":"samples/native/drums/hit-hat/closed/hat1.wav"},"notes":[{"color":"1","pos":"0","len":"2"},{"color":"1","pos":"4","len":"2"},{"color":"1","pos":"8","len":"2"},{"color":"1","pos":"12","len":"2"},{"color":"1","pos":"20","len":"2"},{"color":"1","pos":"24","len":"1"},{"color":"1","pos":"28","len":"1"},{"color":"1","pos":"16","len":"2"},{"color":"1","pos":"30","len":"1"},{"color":"1","pos":"26","len":"1"}]},{"volume":"1","sample":{"name":"hat2","url":"samples/native/drums/hit-hat/open/hat2.wav"},"notes":[{"color":"1","pos":"14","len":"2"},{"color":"1","pos":"20","len":"2"}]}]}';
         $project2->versions()->create(["numero" => 0, "repr" => json_decode($yolorepr)]);
+
     }
 }

@@ -7,7 +7,7 @@
             <input type="range" value="{{volume}}" max="1" step="0.01">
         </span>
     </td>
-    <td class="line" id="line1">
+    <td class="line">
         <audio src="../uploads/{{sample.url}}" data-url="{{sample.url}}" preload="auto"></audio>
         {{#each notes }}
             {{> note }}

@@ -6,7 +6,7 @@
         <button id="toggle_nav" class="btn">Projets</button>
 
         <nav class="hideable" id="nav-projects">
-            <span><img src="{{asset('images/ajax-loader.gif')}}"></span>
+            <span><img src="{{asset('images/ajax-loader.gif')}}" alt="loading"></span>
         </nav>
 
         <div>
@@ -50,8 +50,4 @@
         });
     </script>
 
-@endsection
-
-@section('profile_picture')
-<!-- <img alt="fouine" class="img-circle img-user1" src="../uploads/picture/profile/default.jpg" style="border-color:var(--u1)">--> 
 @endsection

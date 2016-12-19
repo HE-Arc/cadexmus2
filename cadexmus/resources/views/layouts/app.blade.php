@@ -36,12 +36,11 @@
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
                     @else
-                            @yield('profile_picture')
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 Logout ({{Auth::user()->name}})
-                                <div id="usernamelogged" style="display: none;"">{{Auth::user()->name}}</div>
+                                <div id="usernamelogged" style="display: none;">{{Auth::user()->name}}</div>
                             </a>
 
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
