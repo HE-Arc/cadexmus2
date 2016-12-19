@@ -1,3 +1,3 @@
 # ignore les fichiers compilés par gulp, faire `gulp` ou `npm run dev` pour les regénérer
-js/
-css/
+# js/
+# css/
