@@ -6,11 +6,11 @@ $(document).ready(function () {
     var message_template = require("../../views/chat/message.hbs");
 
     //pullData();
-    var host = 'ws://192.168.0.199:8889';
+    var host = 'ws://localhost:8889';
     var socket = null;
+    var socketOpen = false;
     webSocket();
     retrieveChatMessages();
-    var isTypingSent = false;
 
     $('#sendMsgForm').submit(function (event) {
         event.preventDefault();
@@ -31,7 +31,7 @@ $(document).ready(function () {
             //Manages the open event within your client code
             socket.onopen = function () {
                 console.log('Connection Opened');
-                // input.focus();
+                socketOpen=true;
                 return;
             };
             //Manages the message event within your client code
@@ -43,6 +43,7 @@ $(document).ready(function () {
             //Manages the close event within your client code
             socket.onclose = function () {
                 console.log('Connection Closedl');
+                pullData();
                 return;
             };
         } catch (e) {
@@ -94,13 +95,17 @@ $(document).ready(function () {
 
 
     function sendMessage() {
-
         var j = {message: $('#text').val(), username: username};
-        var myJson = JSON.stringify(j);
-        socket.send(myJson);
-        appendMessage(j);
-        
+        if(j.message.length > 0){
+            $('#text').val('');
+            $.post(urlSendMessage, {text: j.message}, function(){
+                console.log("message sent");
+                retrieveChatMessages();
+            });
+            appendMessage(j);
+            var myJson = JSON.stringify(j);
+            if(socketOpen)
+                socket.send(myJson);
+        }
     }
-
-
 });

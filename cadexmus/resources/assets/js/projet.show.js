@@ -98,9 +98,8 @@ $(function () {
     });
 
     function info(data){
-        $("#infos").text(data);
-        $("#infos").show();
-        $("#infos").fadeOut(1500);
+        if(!$("#autoRefresh").prop("checked"))
+            $("#infos").text(data).show().fadeOut(1500);
     }
 
     function replaceTracks(repr){
@@ -255,6 +254,7 @@ $(function () {
                     $(this).remove();
                 placeNote($(this));
                 $(this).removeClass().addClass("note note"+userColor);
+                $(this).data("color",userColor);
             }
         }).resizable({
             handles: "e", // ne prend en charge que le côté droit (east)
@@ -268,6 +268,7 @@ $(function () {
                 $(this).data("len",len);
                 placeNote($(this));
                 $(this).removeClass().addClass("note note"+userColor);
+                $(this).data("color",userColor);
             }
         });
     }
@@ -387,8 +388,10 @@ $(function () {
         } else {
             context = new AudioContext();
             currentTime = context.currentTime;
-            requestAnimationFrame(animation);
-            play();
+            context.resume().then(function(){
+                requestAnimationFrame(animation);
+                play();
+            });
         }
         $(".btnPausePlay").toggle();
     });
