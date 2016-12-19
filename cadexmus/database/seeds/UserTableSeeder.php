@@ -12,9 +12,9 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            "name"=>"toot",
-            "email"=>"asd.asd@asd.asd",
-            "password"=>bcrypt("toot"),
+            "name"=>"demo",
+            "email"=>"demo@demo.demo",
+            "password"=>bcrypt("demo"),
             "picture" => "default.jpg",
         ]);
 

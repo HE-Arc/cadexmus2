@@ -8034,8 +8034,8 @@ Divers
   border-radius: 0px;
 }
 
-label {
-  color: black;
+.panel-body {
+  color: #333;
 }
 
 .btn {

@@ -60,6 +60,15 @@
                             </div>
                         </div>
                     </form>
+                    <h3>Welcome guest users</h3>
+                    <p>
+                        You can log with this demo account :
+                    </p>
+                    <p>
+                        Username : demo<br>
+                        E-mail : demo@demo.demo<br>
+                        Password : demo
+                    </p>
                 </div>
             </div>
         </div>
