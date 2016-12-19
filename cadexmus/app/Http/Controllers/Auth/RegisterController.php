@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'picture' => 'mimetypes:image/gif, image/jpeg, image/png'
         ]);
     }
 
@@ -63,19 +64,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       // dd($data);
         $picturename = "default.jpg";
-        $picture = $data['picture'];
-            if($picture->isvalid()){
 
-                $uniqid = uniqid();
-                $array_picture = array($uniqid , $picture->getClientOriginalExtension());
-                $picturename =  implode('.', $array_picture);
-                $picture->move('uploads/picture/profile', $picturename);       
-
-               // $imgsrc = array('<img src="uploads/picture/profile', $imploded, '"/>');
-               // echo implode('' ,$imgsrc);
-            }
+        if(isset($data['picture']) && $data['picture']->isvalid()){
+            $uniqid = uniqid();
+            $array_picture = [$uniqid , $data['picture']->getClientOriginalExtension()];
+            $picturename =  implode('.', $array_picture);
+            $data['picture']->move('uploads/picture/profile', $picturename);
+        }
 
         $newUser = User::create([
             'name' => $data['name'],
