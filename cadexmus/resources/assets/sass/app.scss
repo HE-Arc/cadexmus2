@@ -123,8 +123,9 @@ nav > ul{
 
   .column{
     padding:10px;
+    height:initial;
   }
-  #toggle_nav{
+  #toggle_nav, .content{
     display:initial;
   }
   .hideable, hr, #toggle_chat{

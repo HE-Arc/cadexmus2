@@ -18,17 +18,27 @@ class UserTableSeeder extends Seeder
             "picture" => "default.jpg",
         ]);
 
-        $emails=["arnaud"=>"arnaud.droxler@he-arc.ch",
-            "joaquim"=>"joaquim.perez@he-arc.ch",
-            "bastien"=>"bastien.burri@he-arc.ch",
+        $users=[
+            "arnaud"=>[
+                "email"=>"arnaud.droxler@he-arc.ch",
+                "picture"=>"arnaud.jpg"
+            ],
+            "joaquim"=>[
+                "email"=>"joaquim.perez@he-arc.ch",
+                "picture"=>"joaquim.jpg"
+            ],
+            "bastien"=>[
+                "email"=>"bastien.burri@he-arc.ch",
+                "picture"=>"bastien.jpg"
+            ]
             ];
 
-        foreach ($emails as $user => $email){
+        foreach ($users as $user => $infos){
             User::create([
                 "name"=>$user,
-                "email"=>$email,
+                "email"=>$infos["email"],
                 "password"=>bcrypt($user),
-                "picture" => "fouine.jpg",
+                "picture" => $infos["picture"],
             ]);
         }
     }
