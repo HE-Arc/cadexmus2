@@ -104,6 +104,7 @@ $(function () {
 
     function replaceTracks(repr){
         $("#repr").html(repr_template(repr));
+        reinit();
         placeNotes();
         drawTimeBars();
         makeDraggableAndResizable();
@@ -181,6 +182,10 @@ $(function () {
             }
         });
         $("#grid").append(newTrack);
+        reinit();
+    }
+
+    function reinit(){
         resetTimebarSize();
         makeRepr();
 
@@ -192,6 +197,8 @@ $(function () {
                 initBuffers().then(function(){
                     // play
                     context.resume();
+                },function(e){
+                    console.log(e);
                 })
             })
         }else{
