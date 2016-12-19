@@ -70,10 +70,9 @@ class ProjetController extends Controller
         if(count($userInProject)){
             // récupération de la couleur de l'user dans ce projet
             $userColor = ($userInProject->pivot->couleur -1)%8;
-            
             return view('projet.show', ['projet'=>$projet,'userColor'=>$userColor]);
         }else{
-            return redirect()->route('projet.index');
+            return view('projet.show', ['projet'=>$projet, 'asGuest'=>"true"]);
         }
     }
 
@@ -137,8 +136,7 @@ class ProjetController extends Controller
     }
 
 
-
-       public function sendMessage($id){
+    public function sendMessage($id){
         $username = Auth::user()->name;
         $text = Input::get('text');
         //$text = htmlentities($text);

@@ -47,6 +47,10 @@ $(function () {
     /* persistance */
 
     $(".save").click(function () {
+        if(asGuest){
+            alert("you are not in the project, you can't save");
+            return;
+        }
         makeRepr();
 
         $.ajax({

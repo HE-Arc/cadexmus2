@@ -14,6 +14,10 @@ $(document).ready(function () {
 
     $('#sendMsgForm').submit(function (event) {
         event.preventDefault();
+        if(asGuest){
+            alert("you are not in the project, you can't chat");
+            return;
+        }
         sendMessage();
     });
 

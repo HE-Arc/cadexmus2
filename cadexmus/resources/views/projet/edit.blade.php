@@ -29,7 +29,8 @@
 <script>
     var versionActuelle = {{$version->numero}};
     var projectUrl = "{{ route('projet.show',$projet->id) }}";
-    var userColor = {{$userColor}};
+    var userColor = {{$userColor or 7}};
+    var asGuest = {{$asGuest or "false"}};
 
     $(function () {
         // charge le contenu de la boîte modale

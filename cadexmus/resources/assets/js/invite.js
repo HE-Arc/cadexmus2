@@ -4,6 +4,10 @@ $(document).ready(function(){
 
     $('#inviteForm').submit(function(event){
         event.preventDefault();
+        if(asGuest){
+            alert("you are not in the project, you can't invite");
+            return;
+        }
         invite();
     });
 
