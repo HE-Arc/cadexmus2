@@ -7,9 +7,9 @@ $(function () {
 
     var repr;
 
-    var versionActuelle = $('#title').data('version');
-    var projectUrl = $('#title').attr('href');
-    var userColor = $('#title').data('color');
+    versionActuelle = $('#title').data('version');
+    projectUrl = $('#title').attr('href');
+    userColor = $('#title').data('color');
 
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;

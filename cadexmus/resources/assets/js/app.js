@@ -7,9 +7,12 @@
 
 
 require('./bootstrap');
+require('./projet.show');
+require('./invite');
 
-require('./projet.show')
-require('./invite')
+var versionActuelle;
+var projectUrl;
+var userColor;
 
 
 $(function () {
@@ -27,9 +30,10 @@ $(function () {
 
             var pattern = $("#search-pattern").val();
 
-            $.get($(this).attr('action'), {pattern: pattern}).done(function(data){
+            $.get(projectUrl, {pattern: pattern}).done(function(data){
                 $("#sample-list").html(data);
             });
         });
     }
+
 });
