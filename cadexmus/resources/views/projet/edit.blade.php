@@ -3,13 +3,15 @@
     $users = $projet->users;
 ?>
 @foreach ($users as $user)
-    <img alt="{{ $user->name }}" class="img-circle img-user{{($user->pivot->couleur-1)%8}}"
+    <img title="{{ $user->name }}" alt="{{ $user->name }}" class="img-circle img-user{{($user->pivot->couleur-1)%8}}"
          src="{{ asset('uploads/picture/profile/' . $user->picture) }}">
 @endforeach
 
-<h1><a href="{{ route('projet.show', $projet) }}"
+<h1><a id="title" href="{{ route('projet.show', $projet) }}"
        data-version="{{ $version->numero }}"
-       data-color="{{ $userColor }}">
+       data-color="{{ $userColor or 7 }}"
+	   data-as-guest="{{ $asGuest or "false" }}"
+	   >
     {{ $projet->nom }}</a>
 </h1>
 

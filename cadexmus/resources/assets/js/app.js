@@ -5,10 +5,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 require('./projet.show')
 require('./invite')
+
 
 $(function () {
     $.ajaxSetup({
@@ -17,11 +19,8 @@ $(function () {
         }
     });
 
-    var projet = $('h1 a[data-version]');
+    var projet = $('#title');
     if (projet.length) {
-        var versionActuelle = projet.data('version')|0;
-        var projectUrl = projet.attr('href');
-        var userColor = projet.data('color');
 
         $('.modal-dialog').on('submit','#searchSampleForm', function(event){
             event.preventDefault();

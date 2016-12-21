@@ -4,12 +4,13 @@ $(document).ready(function(){
 
     $('#inviteForm').submit(function(event){
         event.preventDefault();
-        var asGuest = $(this).data('as-guest') === "true";
+        var asGuest = $('#title').data('as-guest') === "true";
         if(asGuest){
             alert("you are not in the project, you can't invite");
             return;
         }
         invite($(this).attr('action'));
+        $('#userToInvite').val("");
     });
 
     function invite(url){
@@ -30,8 +31,6 @@ $(document).ready(function(){
     }
 
     function info(data){
-        $("#infoInvite").text(data);
-        $("#infoInvite").show();
-        $("#infoInvite").fadeOut(5000);
+        $("#infoInvite").text(data).show().fadeOut(5000);
     }
 });

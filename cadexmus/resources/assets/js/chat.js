@@ -3,59 +3,35 @@ var username;
 $(document).ready(function () {
     username = $('#usernamelogged').html();
     var message_template = require("../../views/chat/message.hbs");
-
-    //pullData();
-    var host = 'ws://localhost:8889';
-    var socket = null;
-    var socketOpen = false;
-
-    return; // There is no localhost!
-    webSocket();
+	
     retrieveChatMessages();
 
     $('#sendMsgForm').submit(function (event) {
         event.preventDefault();
-        if(asGuest){
+        if($('#title').data('as-guest') === "true"){
             alert("you are not in the project, you can't chat");
             return;
         }
         sendMessage();
     });
+	
+	
+	/* long polling */
 
-
-    function pullData() {
-        retrieveChatMessages();
-        setTimeout(pullData, 5000);
+	var pullInterval;
+	
+    function changeRefreshMode(){
+        if($("#autoRefresh").prop('checked'))
+            pullInterval = setInterval(retrieveChatMessages, 5000);
+        else
+            clearInterval(pullInterval);
     }
-
-    function webSocket() {
-
-        try {
-            socket = new WebSocket(host);
-
-            //Manages the open event within your client code
-            socket.onopen = function () {
-                console.log('Connection Opened');
-                socketOpen=true;
-                return;
-            };
-            //Manages the message event within your client code
-            socket.onmessage = function (msg) {
-                var objMessage = JSON.parse(msg.data);
-                appendMessage(objMessage);
-                return;
-            };
-            //Manages the close event within your client code
-            socket.onclose = function () {
-                console.log('Connection Closedl');
-                pullData();
-                return;
-            };
-        } catch (e) {
-            console.log(e);
-        }
-
-    }
+	
+	changeRefreshMode();
+	
+	$("#autoRefresh").change(changeRefreshMode);
+	
+	
 
     function appendMessage(msg){
         messageElement = message_template({
@@ -109,8 +85,6 @@ $(document).ready(function () {
             });
             appendMessage(j);
             var myJson = JSON.stringify(j);
-            if(socketOpen)
-                socket.send(myJson);
         }
     }
 });

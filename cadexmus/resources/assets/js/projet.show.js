@@ -7,6 +7,10 @@ $(function () {
 
     var repr;
 
+    var versionActuelle = $('#title').data('version');
+    var projectUrl = $('#title').attr('href');
+    var userColor = $('#title').data('color');
+
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var context = new AudioContext();
@@ -47,7 +51,7 @@ $(function () {
     /* persistance */
 
     $(".save").click(function () {
-        if(asGuest){
+        if($('#title').data('as-guest') == "true"){
             alert("you are not in the project, you can't save");
             return;
         }
@@ -63,7 +67,7 @@ $(function () {
         }).done(function(data) {
             if(data.version != "undefined"){
                 versionActuelle=data.version;
-                $("#version").html(versionActuelle);
+                $("#title").data('version', versionActuelle);
             }
             console.log(data.message);
             info(data.message);
@@ -84,7 +88,7 @@ $(function () {
             } else {
                 versionActuelle = data.numero;
                 replaceTracks(data.repr);
-                $("#version").html(versionActuelle);
+                $("#title").data("version",versionActuelle);
             }
         }).fail(function () {
             console.log("request failed");
