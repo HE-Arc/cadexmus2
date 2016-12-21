@@ -29,7 +29,7 @@ $(function () {
 
             var pattern = $("#search-pattern").val();
 
-            $.get($('#title').data('sample-url'), {pattern: pattern}).done(function(data){
+            $.get($(this).attr("action"), {pattern: pattern}).done(function(data){
                 $("#sample-list").html(data);
             });
         });
