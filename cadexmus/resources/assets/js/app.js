@@ -22,15 +22,14 @@ $(function () {
         }
     });
 
-    var projet = $('#title');
-    if (projet.length) {
+    if ($('#title').length) {
 
         $('.modal-dialog').on('submit','#searchSampleForm', function(event){
             event.preventDefault();
 
             var pattern = $("#search-pattern").val();
 
-            $.get(projectUrl, {pattern: pattern}).done(function(data){
+            $.get($('#title').data('sample-url'), {pattern: pattern}).done(function(data){
                 $("#sample-list").html(data);
             });
         });

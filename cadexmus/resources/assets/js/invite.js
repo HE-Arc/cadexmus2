@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     $('#inviteForm').submit(function(event){
         event.preventDefault();
-        var asGuest = $('#title').data('as-guest') === "true";
+        var asGuest = $('#title').data('as-guest');
         if(asGuest){
             alert("you are not in the project, you can't invite");
             return;

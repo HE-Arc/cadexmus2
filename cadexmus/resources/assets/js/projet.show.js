@@ -51,7 +51,7 @@ $(function () {
     /* persistance */
 
     $(".save").click(function () {
-        if($('#title').data('as-guest') == "true"){
+        if($('#title').data('as-guest')){
             alert("you are not in the project, you can't save");
             return;
         }

@@ -64,18 +64,19 @@ class ProjetController extends Controller
             $query->orderBy('numero', 'desc')->first();
         }])->with('users')->find($id);
 
+        $samples = Sample::orderBy('nom')->get();
+        $userColor = 7;
+        $asGuest = "true";
+
         // FIXME: Faire un count en SQL! -- Yoan
         $userInProject = $projet->users->find(Auth::id());
         if(count($userInProject)){
             // récupération de la couleur de l'user dans ce projet
             $userColor = ($userInProject->pivot->couleur -1)%8;
-            $samples = Sample::orderBy('nom')->get();
-            $asGuest = false;
-
-            return view('projet.show', compact('projet', 'userColor', 'samples', 'asGuest'));
+            $asGuest = "false";
         }
 
-        return view('projet.show', ['projet'=>$projet, 'asGuest'=>"true"]);
+        return view('projet.show', compact('projet', 'userColor', 'asGuest', 'samples'));
     }
 
     /**
