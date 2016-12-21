@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Version;
 use Illuminate\Http\Request;
 use App\Projet;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
+use Auth;
 use App\Message;
 use App\User;
+use App\Sample;
 
 class ProjetController extends Controller
 {
@@ -66,14 +64,18 @@ class ProjetController extends Controller
             $query->orderBy('numero', 'desc')->first();
         }])->with('users')->find($id);
 
+        // FIXME: Faire un count en SQL! -- Yoan
         $userInProject = $projet->users->find(Auth::id());
         if(count($userInProject)){
             // récupération de la couleur de l'user dans ce projet
             $userColor = ($userInProject->pivot->couleur -1)%8;
-            return view('projet.show', ['projet'=>$projet,'userColor'=>$userColor]);
-        }else{
-            return view('projet.show', ['projet'=>$projet, 'asGuest'=>"true"]);
+            $samples = Sample::orderBy('nom')->get();
+            $asGuest = false;
+
+            return view('projet.show', compact('projet', 'userColor', 'samples', 'asGuest'));
         }
+
+        return view('projet.show', ['projet'=>$projet, 'asGuest'=>"true"]);
     }
 
     /**
@@ -136,9 +138,9 @@ class ProjetController extends Controller
     }
 
 
-    public function sendMessage($id){
+    public function sendMessage(Request $request, $id){
         $username = Auth::user()->name;
-        $text = Input::get('text');
+        $text = $request->text;
         //$text = htmlentities($text);
 
         $message = new Message();
@@ -156,9 +158,9 @@ class ProjetController extends Controller
     }
 
 
-    public function invite($id){
-        $user = Input::get('userToInvite');
-        $isUserExist = User::where('users.name', $user)->get();
+    public function invite(Request $request, $id){
+        $user = $request->userToInvite; //Input::get('userToInvite');
+        $isUserExist = User::where('name', $user)->get();
         if(empty($isUserExist[0]['name'])) return "User does not exist";
 
         $nbUserInProjet = User::whereHas('projets', function($q) use ($id)

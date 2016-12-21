@@ -1,11 +1,8 @@
 <h3>Ajouter un collaborateur</h3>
 <div id="invite">
-<form id="inviteForm" style="margin: 0 10px 0 0">
-<input id="userToInvite" type="text"  class="form-control" placeholder="pseudo du collaborateur">
+<form id="inviteForm" action="{{ route('projet.invite',$projet) }}" data-as-guest="{{ $asGuest }}"
+        style="margin: 0 10px 0 0">
+    <input id="userToInvite" type="text" class="form-control" placeholder="pseudo du collaborateur">
 </form>
 <span id="infoInvite"></span>
 </div>
-<script src="{{ asset('js/invite.js')}}"></script>
-<script>
-    var urlInvite = "{{ route('projet.invite',$projet) }}";
-</script>

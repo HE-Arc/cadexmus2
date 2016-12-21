@@ -7,6 +7,9 @@
 
 require('./bootstrap');
 
+require('./projet.show')
+require('./invite')
+
 $(function () {
     $.ajaxSetup({
         headers: {
@@ -14,5 +17,20 @@ $(function () {
         }
     });
 
-});
+    var projet = $('h1 a[data-version]');
+    if (projet.length) {
+        var versionActuelle = projet.data('version')|0;
+        var projectUrl = projet.attr('href');
+        var userColor = projet.data('color');
 
+        $('.modal-dialog').on('submit','#searchSampleForm', function(event){
+            event.preventDefault();
+
+            var pattern = $("#search-pattern").val();
+
+            $.get($(this).attr('action'), {pattern: pattern}).done(function(data){
+                $("#sample-list").html(data);
+            });
+        });
+    }
+});

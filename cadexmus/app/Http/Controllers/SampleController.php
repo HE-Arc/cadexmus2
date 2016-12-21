@@ -11,7 +11,7 @@ class SampleController extends Controller
 {
     public function index()
     {
-		$samples = Sample::orderBy('nom')->get();
+        $samples = Sample::orderBy('nom')->get();
 
         //return view('sample.index',compact("samples"));
         //return view('sample.index',['samples' => $samples]);
@@ -51,20 +51,26 @@ class SampleController extends Controller
         return view("sample.uploaderror")->with('urlError',"L'URL $request->url n'est pas valide");
     }
 
-    public function filter($pattern){
+    public function filter(Request $request) {
+        $pattern = $request->pattern;
         $patterns = explode(" ", $pattern);
 
         // requête de barbare pour un filtrage efficace
         // le nom OU le type contient arg1 ET le nom ou le type contient arg2 ET etc...
         // select * from `samples` where ((`nom` like '%arg1%' or `type` like '%arg1%') and (`nom` like '%arg2%' or `type` like '%arg2%')) order by `nom` asc
-        $samples = Sample::where(function($q) use ($patterns) {
-            foreach ($patterns as $keyword) {
-                $q->where(function($q) use ($keyword){
-                    $q->where('nom', 'like', "%$keyword%")
-                        ->orWhere('type', 'like', "%$keyword%");
-                })->get();
-            }
-        })->orderBy('nom')->get();
+        if (!$pattern) {
+            $query = Sample::all();
+        } else {
+            $query = Sample::where(function($q) use ($patterns) {
+                foreach ($patterns as $keyword) {
+                    $q->where(function($q) use ($keyword){
+                        $q->where('nom', 'like', "%$keyword%")
+                            ->orWhere('type', 'like', "%$keyword%");
+                    })->get();
+                }
+            });
+        }
+        $samples = $query->orderBy('nom')->get();
 
         return view('sample.list')->withSamples($samples);
     }

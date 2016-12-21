@@ -31,7 +31,7 @@ Route::resource('projet', 'ProjetController');
 
 Route::get('projet/{projet}/retrieveChatMessages', 'ProjetController@retrieveChatMessages')->name("projet.retrieveChatMessages");
 Route::post('projet/{projet}/sendMessage', 'ProjetController@sendMessage')->name("projet.sendMessage");
-Route::get('projet/{projet}/invite', 'ProjetController@invite')->name("projet.invite");
+Route::post('projet/{projet}/invite', 'ProjetController@invite')->name("projet.invite");
 
 Route::get('projet/{projet}/chat', 'ProjetController@getChat')->name("projet.getChat");
 
@@ -40,6 +40,5 @@ Route::get('projet/{projet}/{version}', 'ProjetController@getUpdate')->name('pro
 /* Sample */
 
 
-Route::get('sample/filter/{pattern}', 'SampleController@filter')->name('sample.filter');
-Route::get('sample/filter', 'SampleController@listAll');
+Route::get('sample/filter', 'SampleController@filter')->name('sample.filter');
 Route::resource('sample', 'SampleController');

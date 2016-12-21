@@ -4,20 +4,20 @@ $(document).ready(function(){
 
     $('#inviteForm').submit(function(event){
         event.preventDefault();
+        var asGuest = $(this).data('as-guest') === "true";
         if(asGuest){
             alert("you are not in the project, you can't invite");
             return;
         }
-        invite();
+        invite($(this).attr('action'));
     });
 
-    function invite(){
+    function invite(url){
     	userToInvite = $('#userToInvite').val();
-        
+
     	$.ajax({
-            url: urlInvite,
-            type: 'GET',
-            cache: false,
+            url: url,
+            type: 'POST',
             data: {
                 userToInvite: userToInvite
             },

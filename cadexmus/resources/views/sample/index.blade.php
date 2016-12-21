@@ -1,17 +1,14 @@
-
-
-<!-- Modal content-->
+{{-- Modal content --}}
 <div class="modal-content" style="color:#555">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close window">&times;</button>
         <h4 class="modal-title">Choose sample</h4>
-        <br>
-        <form id="searchSampleForm">
+        <form id="searchSampleForm" action="{{ route('sample.filter') }}" method="GET">
             <div class="input-group stylish-input-group">
                 <input id="search-pattern" type="search" class="form-control"  placeholder="Search" >
                 <span class="input-group-addon">
                     <button type="submit">
-                        <span>Search</span>
+                        Search
                     </button>
                 </span>
             </div>

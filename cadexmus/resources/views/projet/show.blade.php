@@ -10,8 +10,7 @@
         </nav>
 
         <div>
-            <hr>
-            @include('projet.invite')
+            @include('projet.invite', ['asGuest' => $asGuest])
         </div>
     </header>
 

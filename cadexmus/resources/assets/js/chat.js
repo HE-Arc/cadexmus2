@@ -1,7 +1,6 @@
 var username;
 
 $(document).ready(function () {
-
     username = $('#usernamelogged').html();
     var message_template = require("../../views/chat/message.hbs");
 
@@ -9,6 +8,8 @@ $(document).ready(function () {
     var host = 'ws://localhost:8889';
     var socket = null;
     var socketOpen = false;
+
+    return; // There is no localhost!
     webSocket();
     retrieveChatMessages();
 

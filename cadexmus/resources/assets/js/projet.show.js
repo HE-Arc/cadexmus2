@@ -344,7 +344,7 @@ $(function () {
 
         multSequence(2);
     });
-    
+
     $("#container").on("click",".btnDivide",function(){
         multSequence(1/2);
         // todo: plutot que supprimer les notes, ne pas les insérer dans makeRepr()
