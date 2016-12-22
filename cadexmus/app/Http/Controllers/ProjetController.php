@@ -68,7 +68,7 @@ class ProjetController extends Controller
 
         $samples = Sample::orderBy('nom')->get();
         $userColor = 7;
-        $asGuest = "true";
+        $asGuest = true;
 
         // FIXME: Faire un count en SQL! -- Yoan
         $userInProject = $projet->users->find(Auth::id());
@@ -76,9 +76,10 @@ class ProjetController extends Controller
             // récupération de la couleur de l'user dans ce projet
             $userColor = ($userInProject->pivot->couleur -1)%8;
 
-            $asGuest = "false";
+            $asGuest = false;
         }
 
+        $asGuest = var_export($asGuest, 1);
         return view('projet.show', compact('projet', 'userColor', 'asGuest', 'samples'));
     }
 
@@ -163,7 +164,7 @@ class ProjetController extends Controller
     }
 
         public function retrieveRecentChatMessages($id){
-    
+
         $projet = Projet::find($id);
         $mytime = Carbon::now()->subSecond(5); //Car le délai de récupération entre les messages est de 5 secondes
         $mytimeStr = $mytime->toDateTimeString();
@@ -172,9 +173,11 @@ class ProjetController extends Controller
 
     }
 
-
+    //TODO:
+    // - Handle the case when the form is NOT sent using AJAX.
+    // - Handle the case where the inviting user is a guest.
     public function invite(Request $request, $id){
-        $user = $request->userToInvite; //Input::get('userToInvite');
+        $user = $request->userToInvite;
         $isUserExist = User::where('name', $user)->get();
         if(empty($isUserExist[0]['name'])) return "User does not exist";
 

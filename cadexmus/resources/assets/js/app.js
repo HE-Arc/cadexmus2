@@ -14,6 +14,9 @@ var versionActuelle;
 var projectUrl;
 var userColor;
 
+require('./projet.show')
+
+import Invite from './invite'
 
 $(function () {
     $.ajaxSetup({
@@ -22,8 +25,9 @@ $(function () {
         }
     });
 
-    if ($('#title').length) {
+    new Invite('.invite')
 
+    if ($('#title').length) {
         $('.modal-dialog').on('submit','#searchSampleForm', function(event){
             event.preventDefault();
 
