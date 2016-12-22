@@ -30,6 +30,7 @@ Auth::routes();
 Route::resource('projet', 'ProjetController');
 
 Route::get('projet/{projet}/retrieveChatMessages', 'ProjetController@retrieveChatMessages')->name("projet.retrieveChatMessages");
+Route::get('projet/{projet}/retrieveRecentChatMessages', 'ProjetController@retrieveRecentChatMessages')->name("projet.retrieveRecentChatMessages");
 Route::post('projet/{projet}/sendMessage', 'ProjetController@sendMessage')->name("projet.sendMessage");
 Route::post('projet/{projet}/invite', 'ProjetController@invite')->name("projet.invite");
 

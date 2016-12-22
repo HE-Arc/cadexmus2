@@ -9,6 +9,8 @@ use Auth;
 use App\Message;
 use App\User;
 use App\Sample;
+use Carbon\Carbon;
+use Session;
 
 class ProjetController extends Controller
 {
@@ -71,7 +73,6 @@ class ProjetController extends Controller
             $userColor = ($userInProject->pivot->couleur -1)%8;
             $samples = Sample::orderBy('nom')->get();
             $asGuest = false;
-
             return view('projet.show', compact('projet', 'userColor', 'samples', 'asGuest'));
         }
 
@@ -152,9 +153,20 @@ class ProjetController extends Controller
 
 
     public function retrieveChatMessages($id){
+
+         $projet = Projet::find($id);
+         $text = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->get();
+         return $text;
+    }
+
+        public function retrieveRecentChatMessages($id){
+    
         $projet = Projet::find($id);
-        $text = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->get();
+        $mytime = Carbon::now()->subSecond(5); //Car le délai de récupération entre les messages est de 5 secondes
+        $mytimeStr = $mytime->toDateTimeString();
+        $text = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->where('messages.created_at','>',$mytimeStr)->get();
         return $text;
+
     }
 
 

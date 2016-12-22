@@ -22,13 +22,14 @@ $(document).ready(function () {
 	
     function changeRefreshMode(){
         if($("#autoRefresh").prop('checked'))
-            pullInterval = setInterval(retrieveChatMessages, 5000);
+            pullInterval = setInterval(retrieveRecentChatMessages, 5000);
         else
             clearInterval(pullInterval);
     }
 	
 	changeRefreshMode();
 	
+    retrieveChatMessages();
 	$("#autoRefresh").change(changeRefreshMode);
 	
 	
@@ -43,8 +44,32 @@ $(document).ready(function () {
     }
 
 
-    function retrieveChatMessages() {
 
+    function retrieveRecentChatMessages() {
+        $.ajax({
+            url: urlRetrieveRecentChatMessages,
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                var messageElement = "";
+                var messageConcat = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    messageElement = message_template({
+                        name: data[i].user.name,
+                        body: data[i].body
+                    });
+                    messageConcat.push(messageElement);
+                }
+                message = messageConcat.join('');
+
+                $('#chatDisplayMessages').append(message);
+                scrollBotChat();
+            }
+        });
+    }    
+
+    function retrieveChatMessages() {
         $.ajax({
             url: urlRetrieveChatMessages,
             type: 'GET',
@@ -81,9 +106,9 @@ $(document).ready(function () {
             $('#text').val('');
             $.post(urlSendMessage, {text: j.message}, function(){
                 console.log("message sent");
-                retrieveChatMessages();
+                //retrieveChatMessages();
             });
-            appendMessage(j);
+            //appendMessage(j);
             var myJson = JSON.stringify(j);
         }
     }
