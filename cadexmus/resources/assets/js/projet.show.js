@@ -7,9 +7,9 @@ $(function () {
 
     var repr;
 
-    var versionActuelle = $('#title').data('version');
-    var projectUrl = $('#title').attr('href');
-    var userColor = $('#title').data('color');
+    versionActuelle = $('#title').data('version');
+    projectUrl = $('#title').attr('href');
+    userColor = $('#title').data('color');
 
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -51,7 +51,7 @@ $(function () {
     /* persistance */
 
     $(".save").click(function () {
-        if($('#title').data('as-guest') == "true"){
+        if($('#title').data('as-guest')){
             alert("you are not in the project, you can't save");
             return;
         }

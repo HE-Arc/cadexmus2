@@ -59,7 +59,7 @@ class SampleController extends Controller
         // le nom OU le type contient arg1 ET le nom ou le type contient arg2 ET etc...
         // select * from `samples` where ((`nom` like '%arg1%' or `type` like '%arg1%') and (`nom` like '%arg2%' or `type` like '%arg2%')) order by `nom` asc
         if (!$pattern) {
-            $query = Sample::all();
+            $samples = Sample::orderBy('nom')->get();
         } else {
             $query = Sample::where(function($q) use ($patterns) {
                 foreach ($patterns as $keyword) {
@@ -69,8 +69,8 @@ class SampleController extends Controller
                     })->get();
                 }
             });
+            $samples = $query->orderBy('nom')->get();
         }
-        $samples = $query->orderBy('nom')->get();
 
         return view('sample.list')->withSamples($samples);
     }

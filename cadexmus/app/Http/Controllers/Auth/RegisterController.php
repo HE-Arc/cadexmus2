@@ -7,6 +7,7 @@ use App\Projet;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class RegisterController extends Controller
 {
@@ -52,7 +53,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'picture' => 'mimetypes:image/gif, image/jpeg, image/png'
+            'picture' => 'mimetypes:image/gif,image/jpeg,image/png'
         ]);
     }
 
@@ -70,7 +71,9 @@ class RegisterController extends Controller
             $uniqid = uniqid();
             $array_picture = [$uniqid , $data['picture']->getClientOriginalExtension()];
             $picturename =  implode('.', $array_picture);
-            $data['picture']->move('uploads/picture/profile', $picturename);
+
+            $path = 'uploads/picture/profile/' . $picturename;
+            Image::make($data['picture'])->fit(42, 42)->save($path);
         }
 
         $newUser = User::create([

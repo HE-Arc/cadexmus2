@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $('#sendMsgForm').submit(function (event) {
         event.preventDefault();
-        if($('#title').data('as-guest') === "true"){
+        if($('#title').data('as-guest')){
             alert("you are not in the project, you can't chat");
             return;
         }

@@ -7,9 +7,12 @@
 
 
 require('./bootstrap');
+require('./projet.show');
+require('./invite');
 
-require('./projet.show')
-require('./invite')
+var versionActuelle;
+var projectUrl;
+var userColor;
 
 
 $(function () {
@@ -19,17 +22,17 @@ $(function () {
         }
     });
 
-    var projet = $('#title');
-    if (projet.length) {
+    if ($('#title').length) {
 
         $('.modal-dialog').on('submit','#searchSampleForm', function(event){
             event.preventDefault();
 
             var pattern = $("#search-pattern").val();
 
-            $.get($(this).attr('action'), {pattern: pattern}).done(function(data){
+            $.get($(this).attr("action"), {pattern: pattern}).done(function(data){
                 $("#sample-list").html(data);
             });
         });
     }
+
 });
