@@ -19,8 +19,8 @@
     @include("projet.repr", $version->repr)
 </div>
 <p>
-<button class="save btn">Save</button>
-<button class="refresh btn">Refresh</button> <span id="infos"></span>
+    <button class="save btn">Save</button>
+    <button class="refresh btn">Refresh</button> <span id="infos"></span>
 
 <p>
     <input type="checkbox" id="autoRefresh"> automatic refresh

@@ -9,9 +9,7 @@
             <span><img src="{{asset('images/ajax-loader.gif')}}" alt="loading"></span>
         </nav>
 
-        <div>
-            @include('projet.invite')
-        </div>
+        @include('projet.invite', ['asGuest' => $asGuest])
     </header>
 
     <main class="column column-center">
