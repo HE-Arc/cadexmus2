@@ -1,10 +1,10 @@
-var username;
-
 $(document).ready(function () {
-    username = $('#usernamelogged').html();
+    var username = $('#usernamelogged').html();
     var message_template = require("../../views/chat/message.hbs");
 	
     retrieveChatMessages();
+    changeRefreshMode();
+    var pullInterval;
 
     $('#sendMsgForm').submit(function (event) {
         event.preventDefault();
@@ -16,9 +16,7 @@ $(document).ready(function () {
     });
 	
 	
-	/* long polling */
-
-	var pullInterval;
+	/* polling */
 	
     function changeRefreshMode(){
         if($("#autoRefresh").prop('checked'))
@@ -26,71 +24,41 @@ $(document).ready(function () {
         else
             clearInterval(pullInterval);
     }
-	
-	changeRefreshMode();
-	
-    retrieveChatMessages();
+
 	$("#autoRefresh").change(changeRefreshMode);
 	
-	
-
-    function appendMessage(msg){
-        messageElement = message_template({
-            name: msg.username,
-            body: msg.message
-        });
-        $('#chatDisplayMessages').append(messageElement);
-        scrollBotChat();
-    }
-
-
-
-    function retrieveRecentChatMessages() {
-        $.ajax({
-            url: urlRetrieveRecentChatMessages,
-            type: 'GET',
-            cache: false,
-            success: function (data) {
-                var messageElement = "";
-                var messageConcat = [];
-
-                for (var i = 0; i < data.length; i++) {
-                    messageElement = message_template({
-                        name: data[i].user.name,
-                        body: data[i].body
-                    });
-                    messageConcat.push(messageElement);
-                }
-                message = messageConcat.join('');
-
-                $('#chatDisplayMessages').append(message);
-                scrollBotChat();
-            }
-        });
-    }    
 
     function retrieveChatMessages() {
-        $.ajax({
-            url: urlRetrieveChatMessages,
-            type: 'GET',
-            cache: false,
-            success: function (data) {
-                var messageElement = "";
-                var messageConcat = [];
-
-                for (var i = 0; i < data.length; i++) {
-                    messageElement = message_template({
-                        name: data[i].user.name,
-                        body: data[i].body
-                    });
-                    messageConcat.push(messageElement);
-                }
-                message = messageConcat.join('');
-
-                $('#chatDisplayMessages').html(message);
-                scrollBotChat();
-            }
+        $.get(urlRetrieveChatMessages, function(data){
+            // enlève le petit ajax-loader
+            $('#chatDisplayMessages').html("");
+            appendMessages(data);
         });
+    }
+
+    function retrieveRecentChatMessages() {
+        $.get(urlRetrieveRecentChatMessages, function(data){
+            if(data.length)
+                appendMessages(data);
+        });
+    }
+
+    function appendMessages(data){
+        console.log("nouveaux messages", data);
+        var messageElement = "";
+        var messageConcat = [];
+
+        for (var i = 0; i < data.length; i++) {
+            messageElement = message_template({
+                name: data[i].user.name,
+                body: data[i].body
+            });
+            messageConcat.push(messageElement);
+        }
+        var messages = messageConcat.join('');
+
+        $('#chatDisplayMessages').append(messages);
+        scrollBotChat();
     }
 
     function scrollBotChat() {
@@ -106,10 +74,19 @@ $(document).ready(function () {
             $('#text').val('');
             $.post(urlSendMessage, {text: j.message}, function(){
                 console.log("message sent");
-                //retrieveChatMessages();
+                if(! $("#autoRefresh").prop('checked'))
+                    retrieveRecentChatMessages();
             });
-            //appendMessage(j);
             var myJson = JSON.stringify(j);
         }
+    }
+
+    function appendMessage(msg){
+        messageElement = message_template({
+            name: msg.username,
+            body: msg.message
+        });
+        $('#chatDisplayMessages').append(messageElement);
+        scrollBotChat();
     }
 });
