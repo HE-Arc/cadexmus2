@@ -71,6 +71,7 @@ class ProjetController extends Controller
         $asGuest = "true";
 
         // FIXME: Faire un count en SQL! -- Yoan
+        // non, on a besoin de l'user pour récupérer sa couleur
         $userInProject = $projet->users->find(Auth::id());
         if(count($userInProject)){
             // récupération de la couleur de l'user dans ce projet
@@ -162,13 +163,13 @@ class ProjetController extends Controller
          return $text;
     }
 
-        public function retrieveRecentChatMessages($id){
+    public function retrieveRecentChatMessages($id){
     
         $projet = Projet::find($id);
         $mytime = Carbon::now()->subSecond(5); //Car le délai de récupération entre les messages est de 5 secondes
         $mytimeStr = $mytime->toDateTimeString();
-        $text = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->where('messages.created_at','>',$mytimeStr)->get();
-        return $text;
+        $messages = $projet->messages()->with('user')->orderBy('messages.created_at','ASC')->where('messages.created_at','>',$mytimeStr)->get();
+        return $messages;
 
     }
 
