@@ -15,9 +15,9 @@ class CreateSamples extends Migration
     {
         Schema::create('samples', function (Blueprint $table) {
 		    $table->increments('id');
-            $table->string('nom');
-            $table->string('type');
-            $table->string('url')->unique();
+            $table->text('nom');
+            $table->text('type');
+            $table->string('url',191)->unique();
             $table->timestamps();
         });
     }
