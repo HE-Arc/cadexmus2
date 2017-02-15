@@ -112,6 +112,8 @@ class ProjetController extends Controller
                 'numero' => $request->version+1,
                 'repr' => $request->repr
             ]);
+            // Update the model's update timestamp.
+            Projet::find($id)->touch();
             return ["message"=>"nouvelle version sauvegardée","version"=>$version->numero];
         }else{
             return ["message"=>"modifications refusées, vous avez $retard versions de retard"];

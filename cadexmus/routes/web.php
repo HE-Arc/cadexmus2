@@ -15,11 +15,10 @@ Route::get('/', function () {
     if(Auth::guest()){
         return redirect()->route('login');
     }else{
-        $projets = Auth::user()->projets;
-        if(count($projets)==0)
-            return redirect()->route('projet.index');
-        // todo : redirect sur le projet le plus récemment modifié plutôt que le premier projet
-        return redirect()->route('projet.show',['projet'=>$projets[0]]);
+        $firstProject = Auth::user()->projets()->orderBy('updated_at', 'desc')->first();
+        if($firstProject)
+            return redirect()->route('projet.show',['projet'=>$firstProject]);
+        return redirect()->route('projet.index');
     }
 });
 
