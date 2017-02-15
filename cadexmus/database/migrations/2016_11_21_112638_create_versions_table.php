@@ -20,6 +20,7 @@ class CreateVersionsTable extends Migration
             $table->timestamps();
             $table->integer('numero');
             $table->text('repr');
+            $table->unique(['numero', 'projet_id']);
         });
     }
 

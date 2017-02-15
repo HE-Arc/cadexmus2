@@ -178,24 +178,23 @@ class ProjetController extends Controller
     // - Handle the case when the form is NOT sent using AJAX.
     // - Handle the case where the inviting user is a guest.
     public function invite(Request $request, $id){
-        $user = $request->userToInvite;
-        $isUserExist = User::where('name', $user)->get();
-        if(empty($isUserExist[0]['name'])) return "User does not exist";
+        $user = User::where('name', $request->userToInvite)->first();
+        if(!$user) return ['status' => "User $request->userToInvite does not exist"];
 
-        $nbUserInProjet = User::whereHas('projets', function($q) use ($id)
-        {
-            $q->where("id",$id);
-        })->count();
+        $nbUserInProject = Projet::withCount('users')->find($id)->users_count;
+        try{
+            $user->projets()->attach($id, ['couleur'=>$nbUserInProject+1]);
+        }catch (\Exception $e){
+            return ['status' => "User $request->userToInvite already in project"];
+        }
 
-        $isUserInProjet = User::whereHas('projets', function($q) use ($id)
-        {
-            $q->where("id",$id);
-        })->where("name",$user)->get();
-
-        if(!empty($isUserInProjet[0]['name'])) return "User is already in projet";
-
-        User::find($isUserExist[0]['id'])->projets()->attach($id, array("couleur"=>++$nbUserInProjet));
-        return "User added to the projet";
-
+        return [
+            'status' => "User $request->userToInvite successfully added to the project",
+            'user' => [
+                'name' => $user->name,
+                'color' => $nbUserInProject%8,
+                'path' => asset('uploads/picture/profile/' . $user->picture)
+            ]
+        ];
     }
 }

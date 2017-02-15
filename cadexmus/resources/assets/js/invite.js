@@ -1,6 +1,7 @@
 import $ from 'jquery'
 
-import template from '../../views/projet/invite-info.hbs'
+import info_template from '../../views/projet/invite-info.hbs'
+import img_template from '../../views/projet/userImg.hbs'
 
 class Invite {
     constructor(elementOrSelector) {
@@ -32,14 +33,17 @@ class Invite {
             type: 'POST',
             data: { userToInvite: userToInvite }
         }).then((data) => {
-            this.info(data)
+            if(data.user)
+                this.addUserImage(data.user);
+            this.info(data.status);
         }).catch((e) => {
             console.error(e)
         })
     }
 
     info(data) {
-        var info = $(template({status: data}))
+        var info = $(info_template({status: data}))
+        this.elem.find('*[name=pseudo]').blur();
         info.appendTo(this.elem)
             .hide()
             .fadeIn(200, () => {
@@ -48,6 +52,17 @@ class Invite {
                         info.remove()
                     })
             })
+    }
+
+    addUserImage(user){
+        this.elem.find('*[name=pseudo]').blur().val("");
+        $("#container").prepend(
+            $(img_template({
+                name: user.name,
+                color: user.color,
+                path: user.path
+            }))
+        )
     }
 }
 

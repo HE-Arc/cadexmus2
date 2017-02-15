@@ -17,6 +17,7 @@ class ProjetUser extends Migration
             $table->integer('user_id');
             $table->integer('projet_id');
             $table->integer('couleur');
+            $table->unique(['projet_id', 'user_id']);
         });
     }
 

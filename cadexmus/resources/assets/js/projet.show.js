@@ -232,6 +232,7 @@ $(function () {
 
     // preview d'un sample
     $(".modal-dialog").on("click",".previewsample",function () {
+        $(".previewsample").removeClass("playing");
         var btn = $(this);
         /* si on est déjà en train de préécouter, on arrête, sinon on lit le son */
         if(btn.hasClass("playing")){
@@ -386,13 +387,7 @@ $(function () {
     var timeout;
     var currentTime;
 
-    // memento
-    /*
-    var bpm=120; // ==tempo
-    var beatLen = 60.0 / bpm; // ==seconds per beat
-    var unit = barLen/32; // ==beatLen/8
-    */
-    var barLen = 240/repr.tempo;; //sec // ==beatLen*4
+    var barLen = 240/repr.tempo; //sec // ==beatLen*4
     var fade = 1/128; // arbitraire
 
     $("#container").on("click",".btnPausePlay",function(){

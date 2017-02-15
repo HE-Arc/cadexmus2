@@ -29,6 +29,6 @@ class User extends Authenticatable
 
     public function projets()
     {
-        return $this->belongsToMany('App\Projet');
+        return $this->belongsToMany('App\Projet')->withPivot('couleur');
     }
 }
