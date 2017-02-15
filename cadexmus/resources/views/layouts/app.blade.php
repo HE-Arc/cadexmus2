@@ -14,6 +14,8 @@
     <link href="{{asset('src/jquery-ui.css')}}" rel="stylesheet">
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
 
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png')}}" />
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js')}}"></script>
 
