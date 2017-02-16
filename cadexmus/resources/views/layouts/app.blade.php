@@ -35,7 +35,7 @@
             <div>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/login') }}">Login</a> -
                         <a href="{{ url('/register') }}">Register</a>
                     @else
                             <a href="{{ url('/logout') }}"
