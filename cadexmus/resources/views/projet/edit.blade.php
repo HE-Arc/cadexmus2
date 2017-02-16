@@ -10,7 +10,8 @@
 <h1><a id="title" href="{{ route('projet.show', $projet) }}"
        data-version="{{ $version->numero }}"
        data-color="{{ $userColor or 7 }}"
-	   data-as-guest="{{ $asGuest or "false" }}"
+       data-as-guest="{{ $asGuest or "false" }}"
+       data-project-id="{{ $projet->id }}"
 	   >
     {{ $projet->nom }}</a>
 </h1>

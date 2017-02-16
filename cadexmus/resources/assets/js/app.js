@@ -10,12 +10,6 @@ require('./bootstrap');
 require('./projet.show');
 require('./invite');
 
-var versionActuelle;
-var projectUrl;
-var userColor;
-
-require('./projet.show')
-
 import Invite from './invite'
 
 $(function () {

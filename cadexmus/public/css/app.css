@@ -7757,13 +7757,6 @@ body {
 
 .column-left, .column-right {
   background-color: rgba(0, 0, 0, 0.4);
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
   width: 20%;
   padding-bottom: 20px;
   overflow-x: hidden;
@@ -7783,7 +7776,7 @@ header h1, header h3, header form {
   overflow: auto;
 }
 
-header > nav {
+.expand-vertical {
   height: 100%;
   min-height: 150px;
   display: -webkit-box;

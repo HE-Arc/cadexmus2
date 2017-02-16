@@ -1,8 +1,20 @@
+@extends('layouts.app')
 
-<h3>Mes projets</h3>
-<ul class="nav  nav-stacked" >
-    @foreach ($projets as $projet)
-        <li id="projet_{{$projet->id}}"><a href="{{ route('projet.show',$projet->id)}}">{{ $projet->nom }}</a></li>
-    @endforeach
-</ul>
-<a href="{{ route('projet.create')}}" class="btn btn-primary">Créer un projet</a>
+@section('content')
+    <main>
+        <h1>My Projects</h1>
+            <ul>
+                @foreach ($myProjects as $projet)
+                    <li><a href="{{ route('projet.show',$projet->id)}}">{{ $projet->nom }}</a></li>
+                @endforeach
+            </ul>
+        <a href="{{ route('projet.create')}}" class="btn btn-primary">Create a project</a>
+        <hr>
+        <h1>Recent Projects</h1>
+            <ul>
+                @foreach ($otherProjects as $projet)
+                    <li><a href="{{ route('projet.show',$projet->id)}}">{{ $projet->nom }}</a></li>
+                @endforeach
+            </ul>
+    </main>
+@endsection

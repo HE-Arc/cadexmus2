@@ -68,11 +68,6 @@ body{
 .column-left, .column-right{
   background-color:$darker;
 
-  display: flex;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  flex-direction: column;
-
   width:20%;
   padding-bottom:20px;
 
@@ -93,10 +88,9 @@ header h1, header h3, header form{
   overflow: auto;
 }
 
-header > nav{
+.expand-vertical{
   height: 100%;
   min-height: 150px;
-
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;

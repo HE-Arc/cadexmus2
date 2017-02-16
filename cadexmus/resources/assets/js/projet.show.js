@@ -7,15 +7,39 @@ $(function () {
 
     var repr;
 
-    versionActuelle = $('#title').data('version');
-    projectUrl = $('#title').attr('href');
-    userColor = $('#title').data('color');
+    var versionActuelle = $('#title').data('version');
+    var projectUrl = $('#title').attr('href');
+    var projectId = $('#title').data('project-id');
+    var userColor = $('#title').data('color');
+    var projectIndexUrl = $("#nav-projects h3 a").attr('href');
 
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     var context = new AudioContext();
 
     context.suspend();
+
+
+    /* UI */
+
+
+    $("#toggle_chat").click(function(){
+        // si <<, affiche >>, sinon, affiche <<
+        $(this).html(
+            $(this).html() == "&lt;&lt;" ? "&gt;&gt;" : "&lt;&lt;"
+        );
+        $(".column-right").toggle();
+    });
+
+    $("#toggle_nav").click(function(){
+        $("#nav-projects").toggleClass("hideable");
+    });
+
+    $.get(projectIndexUrl, {simple: true}, function(data){
+        $("#project-list").html(data);
+        $("#projet_"+projectId).addClass('active');
+    });
+
 
     /* tools */
     makeRepr();

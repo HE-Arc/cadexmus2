@@ -19,10 +19,15 @@ class ProjetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projets = Auth::user()->projets;
-        return view('projet.index',compact('projets'));
+        $myProjects = Auth::user()->projets;
+
+        if($request->simple)
+            return view('projet.list', compact('myProjects'));
+
+        $otherProjects = Projet::all();
+        return view('projet.index', compact(['myProjects', 'otherProjects']));
     }
 
     /**
