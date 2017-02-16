@@ -8024,20 +8024,17 @@ table .lineuser3 td:first-child {
 /****
 Divers
 *****/
-.panel {
-  border-radius: 0px;
-}
-
-.panel-body {
-  color: #333;
-}
-
 .btn {
   border: none;
 }
 
 a {
   color: white;
+}
+
+a:active, a:hover, a:focus {
+  color: #F41F61;
+  text-decoration: none;
 }
 
 .btn {
@@ -8194,6 +8191,12 @@ input[type="range"] {
 
 #sample-list .playing, .playing:hover, .playing:active, .playing:focus {
   background-color: #2ab27b;
+}
+
+.form-signin {
+  max-width: 500px;
+  padding: 15px;
+  margin: 0 auto;
 }
 
 /*# sourceMappingURL=app.css.map */
