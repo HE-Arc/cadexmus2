@@ -8199,4 +8199,47 @@ input[type="range"] {
   margin: 0 auto;
 }
 
+.projects thead {
+  background-color: #1b1b1b;
+  background-color: #F41F61;
+  color: black;
+}
+
+.projects tbody {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.projects tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.projects td.actions-cell {
+  padding: 0;
+}
+
+.projects td.first-cell {
+  padding: 0;
+  height: 100%;
+}
+
+.projects td.first-cell a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin: 5px;
+}
+
+a.btn.quitproject {
+  padding: 0;
+}
+
+a.btn.quitproject img {
+  margin: 0;
+  padding: 4px;
+}
+
+a.btn.quitproject:hover {
+  background-color: darkred;
+}
+
 /*# sourceMappingURL=app.css.map */
