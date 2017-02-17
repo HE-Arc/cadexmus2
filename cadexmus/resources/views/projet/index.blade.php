@@ -36,9 +36,16 @@
                         {{ $projet->updated_at  }}
                     </td>
                     <td class="actions-cell">
-                        <a class="btn quitproject" href="{{ route('projet.destroy', $projet->id) }}">
-                            <img src="{{asset("images/deleteButton.png")}}" alt="quit project button" title="Quit project" class="img-btn"/>
-                        </a>
+                        <form action="{{ route('projet.destroy', $projet->id) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button class="btn quitproject" href="{{ route('projet.destroy', $projet->id) }}">
+                                <img src="{{asset("images/deleteButton.png")}}" alt="quit project button" title="Quit project" class="img-btn"/>
+                            </button>
+                        </form>
+                        {{--<a class="btn quitproject" href="{{ route('projet.destroy', $projet->id) }}">--}}
+                            {{--<img src="{{asset("images/deleteButton.png")}}" alt="quit project button" title="Quit project" class="img-btn"/>--}}
+                        {{--</a>--}}
                     </td>
                 </tr>
             @endforeach

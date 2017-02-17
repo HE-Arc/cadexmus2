@@ -508,15 +508,16 @@ input[type="range"]{
   margin: 5px;
 }
 
-a.btn.quitproject{
+.btn.quitproject{
   padding:0;
+  background-color: transparent;
 }
 
-a.btn.quitproject img{
+.btn.quitproject img{
   margin:0;
   padding:4px;
 }
 
-a.btn.quitproject:hover{
+.btn.quitproject:hover{
   background-color: darkred;
 }

@@ -126,14 +126,22 @@ class ProjetController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * dissociate user and project
+     * if project has no users, remove it from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $projet = Projet::find($id);
+        $projet->users()->detach(Auth::id());
+        if(count($projet->users)==0) {
+            $projet->versions()->delete();
+            $projet->delete();
+
+        }
+        return redirect()->route('projet.index');
     }
 
     public function getChat($projet){
