@@ -8,6 +8,10 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@font-face {
+  font-family: "lazer84";
+  src: url('lazer84.ttf');
+}
 
 html,body, #sidebar{
   margin:0;
@@ -477,6 +481,16 @@ input[type="range"]{
 
 
 // projects index
+
+#about{
+  text-align: center;
+}
+
+#about h1{
+  font-size: 4em;
+  font-family: "lazer84";
+  margin:30px;
+}
 
 .projects thead{
   background-color: #1b1b1b;

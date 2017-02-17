@@ -7693,6 +7693,11 @@ button.close {
   }
 }
 
+@font-face {
+  font-family: "lazer84";
+  src: url("lazer84.ttf");
+}
+
 html, body, #sidebar {
   margin: 0;
   padding: 0;
@@ -8197,6 +8202,16 @@ input[type="range"] {
   max-width: 500px;
   padding: 15px;
   margin: 0 auto;
+}
+
+#about {
+  text-align: center;
+}
+
+#about h1 {
+  font-size: 4em;
+  font-family: "lazer84";
+  margin: 30px;
 }
 
 .projects thead {
