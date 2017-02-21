@@ -6,8 +6,8 @@
             <h1>Cadexmus</h1>
             <p>
                 Cadexmus is a collaborative music creation platform, still under development for now.<br>
-                Feel free to report issues here : <a href="https://github.com/HE-Arc/cadexmus2/issues">github.com/HE-Arc/cadexmus2/issues</a>
-
+                Feel free to report issues here : <a href="https://github.com/HE-Arc/cadexmus2/issues">github.com/HE-Arc/cadexmus2/issues</a><br>
+                Developers, you are welcome to contribute to the project.
             </p>
             <p>Background artwork by Charlie Tapster : <a href="http://nervewax.com/the-grid">nervewax.com/the-grid</a></p>
         </div>

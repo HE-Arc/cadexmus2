@@ -54,6 +54,8 @@ body{
   -webkit-justify-content: space-between;
   justify-content: space-between;
   flex-direction: row;
+
+  overflow: auto;
 }
 
 .column{
