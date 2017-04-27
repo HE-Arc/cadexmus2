@@ -47,6 +47,10 @@
                 Register
             </a>
         </p>
+        <h3>Welcome, guest user !</h3>
+        <p>
+        You can sign in using username: <b>demo</b>, password: <b>demo</b>
+        </p>
     </form>
 </div>
 @endsection
