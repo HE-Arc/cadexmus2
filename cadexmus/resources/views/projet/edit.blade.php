@@ -24,7 +24,7 @@
     <button class="refresh btn">Refresh</button> <span id="infos"></span>
 
 <p>
-    <input type="checkbox" id="autoRefresh"> automatic refresh
+    <input type="checkbox" id="autoRefresh"> Automatic refresh
 
 {{-- Modal --}}
 <div class="modal fade" id="myModal" role="dialog">

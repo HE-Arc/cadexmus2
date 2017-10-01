@@ -3,11 +3,11 @@
 @section('content')
 
     <header class="column column-left expand-vertical">
-        <button id="toggle_nav" class="btn">Projets</button>
+        <button id="toggle_nav" class="btn">Projects</button>
 
         <div id="nav-projects" class="hideable expand-vertical">
             <div  class="expand-vertical">
-                <h3><a href="{{ route('projet.index') }}">Mes projets</a></h3>
+                <h3><a href="{{ route('projet.index') }}">My projects</a></h3>
                 <nav id="project-list" class="expand-vertical">
                     <span><img src="{{asset('images/ajax-loader.gif')}}" alt="loading"></span>
                 </nav>

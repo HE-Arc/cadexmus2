@@ -19,16 +19,24 @@ Auth::routes();
 
 /* Projet */
 
-Route::resource('projet', 'ProjetController');
+Route::resource('projects', 'ProjetController', ['names' => [
+    'index' => 'projet.index',
+    'show' => 'projet.show',
+    'create' => 'projet.create',
+    'store' => 'projet.store',
+    'update' => 'projet.update',
+    'destroy' => 'projet.destroy',
+    'edit' => 'projet.edit',
+]]);
 
-Route::get('projet/{projet}/retrieveChatMessages', 'ProjetController@retrieveChatMessages')->name("projet.retrieveChatMessages");
-Route::get('projet/{projet}/retrieveRecentChatMessages', 'ProjetController@retrieveRecentChatMessages')->name("projet.retrieveRecentChatMessages");
-Route::post('projet/{projet}/sendMessage', 'ProjetController@sendMessage')->name("projet.sendMessage");
-Route::post('projet/{projet}/invite', 'ProjetController@invite')->name("projet.invite");
+Route::get('projects/{project}/retrieveChatMessages', 'ProjetController@retrieveChatMessages')->name("projet.retrieveChatMessages");
+Route::get('projects/{project}/retrieveRecentChatMessages', 'ProjetController@retrieveRecentChatMessages')->name("projet.retrieveRecentChatMessages");
+Route::post('projects/{project}/sendMessage', 'ProjetController@sendMessage')->name("projet.sendMessage");
+Route::post('projects/{project}/invite', 'ProjetController@invite')->name("projet.invite");
 
-Route::get('projet/{projet}/chat', 'ProjetController@getChat')->name("projet.getChat");
+Route::get('projects/{project}/chat', 'ProjetController@getChat')->name("projet.getChat");
 
-Route::get('projet/{projet}/{version}', 'ProjetController@getUpdate')->name('projet.getUpdates');
+Route::get('projects/{project}/{version}', 'ProjetController@getUpdate')->name('projet.getUpdates');
 
 /* Sample */
 

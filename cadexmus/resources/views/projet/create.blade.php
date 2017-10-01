@@ -3,7 +3,11 @@
 @section('content')
 <form class="" action="{{ route('projet.store')}}" method="post">
     {{ csrf_field() }}
-    nom : <input type="text" name="nom"><br>
-    <input type="submit">
+    <p>
+        Name : <input type="text" name="nom">
+    </p>
+    <p>
+        <input type="submit">
+    </p>
 </form>
 @endsection

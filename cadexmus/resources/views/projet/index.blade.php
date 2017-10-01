@@ -62,7 +62,7 @@
         </table>
 
         <h2>Create a new project</h2>
-        form here
+
         <a href="{{ route('projet.create')}}" class="btn btn-lg btn-primary btn-block">Create a new project</a>
 
 
