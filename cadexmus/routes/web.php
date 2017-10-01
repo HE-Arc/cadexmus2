@@ -12,14 +12,7 @@
 */
 
 Route::get('/', function () {
-    if(Auth::guest()){
-        return redirect()->route('login');
-    }else{
-        $firstProject = Auth::user()->projets()->orderBy('updated_at', 'desc')->first();
-        if($firstProject)
-            return redirect()->route('projet.show',['projet'=>$firstProject]);
-        return redirect()->route('projet.index');
-    }
+    return redirect()->route('projet.index');
 });
 
 Auth::routes();
