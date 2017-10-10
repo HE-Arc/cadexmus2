@@ -240,6 +240,7 @@ table .lineuser3 td:first-child{
   position: absolute;
   top: 0;
   opacity:.9;
+  -webkit-backface-visibility: hidden;
 }
 .note:hover{
 /*
@@ -429,6 +430,12 @@ input[type="range"]{
   overflow: auto;
   max-height:50vh;
   padding: 0;
+}
+.samples-modal a{
+  color: $c4;
+}
+.samples-modal a:hover{
+  color: $c1;
 }
 
 .form-group {

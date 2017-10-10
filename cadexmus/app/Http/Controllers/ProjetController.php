@@ -14,6 +14,11 @@ use Session;
 
 class ProjetController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,12 +26,12 @@ class ProjetController extends Controller
      */
     public function index(Request $request)
     {
-        $myProjects = Auth::user()->projets;
+        $otherProjects = Projet::orderBy('updated_at','desc')->get();
+        $myProjects = Auth::check() ? Auth::user()->projets : [];
 
-        if($request->simple)
-            return view('projet.list', compact('myProjects'));
+        if($request->simple=="true")
+            return view('projet.list', compact(['myProjects', 'otherProjects']));
 
-        $otherProjects = Projet::all();
         return view('projet.index', compact(['myProjects', 'otherProjects']));
     }
 
@@ -71,7 +76,7 @@ class ProjetController extends Controller
             $query->orderBy('numero', 'desc')->first();
         }])->with('users')->find($id);
 
-        $samples = Sample::orderBy('nom')->get();
+        $samples = Sample::orderBy('updated_at','desc')->get();
         $userColor = 7;
         $asGuest = true;
 
@@ -119,9 +124,9 @@ class ProjetController extends Controller
             ]);
             // Update the model's update timestamp.
             Projet::find($id)->touch();
-            return ["message"=>"nouvelle version sauvegardée","version"=>$version->numero];
+            return ["message"=>"new version saved","version"=>$version->numero];
         }else{
-            return ["message"=>"modifications refusées, vous avez $retard versions de retard"];
+            return ["message"=>"changes refused, yo are $retard versions late"];
         }
     }
 

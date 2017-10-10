@@ -11,7 +11,7 @@ $(function () {
     var projectUrl = $('#title').attr('href');
     var projectId = $('#title').data('project-id');
     var userColor = $('#title').data('color');
-    var projectIndexUrl = $("#nav-projects h3 a").attr('href');
+    var projectIndexUrl = $("#nav-projects").data('project-index');
 
 
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -34,7 +34,7 @@ $(function () {
     $("#toggle_nav").click(function(){
         $("#nav-projects").toggleClass("hideable");
     });
-
+// alert(projectIndexUrl);
     $.get(projectIndexUrl, {simple: true}, function(data){
         $("#project-list").html(data);
         $("#projet_"+projectId).addClass('active');
@@ -252,6 +252,8 @@ $(function () {
     $("#myModal").on("sampleloaded", function () {
         addTrack($("#newSampleName").val(), $("#newSampleUrl").val());
         $("#myModal").modal("hide");
+        // recharge la liste de sample pour inclure le nouveau
+        $("#searchSampleForm").submit();
     });
 
     // preview d'un sample

@@ -11,37 +11,44 @@
     <input type="hidden" id="newSampleName">
     <input type="hidden" id="newSampleUrl">
 
-    <div class="form-group">
-        <label for="fileInput" class="col-md-4 control-label">Select file : </label>
+    @if(Auth::guest())
+            <div id="errors">
+                Please <a href="{{ route('login') }}">login</a> or <a href="{{ route('register') }}">register</a> to upload your samples
+            </div>
+    @else
+            <div class="form-group">
+                <label for="fileInput" class="col-md-4 control-label">Select file : </label>
 
-        <div class="col-md-6">
-            <label for="fileInput" class="form-control btn">Choose a file from your computer</label>
-            <input type="file" id="fileInput" accept="audio/*" name="url" style="display:none">
-        </div>
-    </div>
+                <div class="col-md-6">
+                    <label for="fileInput"
+                           class="form-control btn">Choose a file from your computer</label>
+                    <input type="file" id="fileInput" accept="audio/*" name="url" style="display:none">
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label for="fileName" class="col-md-4 control-label">Name : </label>
+            <div class="form-group">
+                <label for="fileName" class="col-md-4 control-label">Name : </label>
 
-        <div class="col-md-6">
-            <input id="fileName" type="text" class="form-control" name="nom" required>
-        </div>
-    </div>
+                <div class="col-md-6">
+                    <input id="fileName" type="text" class="form-control" name="nom" required>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <label class="col-md-4 control-label">Tags : </label>
+            <div class="form-group">
+                <label class="col-md-4 control-label">Tags : </label>
 
-        <div class="col-md-6">
-            <input id="tags" type="text" class="form-control" name="type">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-6 col-md-offset-4">
-            <input type="submit" class="btn" value="Upload and choose">
-        </div>
-    </div>
+                <div class="col-md-6">
+                    <input id="tags" type="text" class="form-control" name="type">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-4">
+                    <input type="submit" class="btn" value="Upload and choose">
+                </div>
+            </div>
 
-    <div id="errors"></div>
+            <div id="errors"></div>
+    @endif
 </form>
 
 <script>

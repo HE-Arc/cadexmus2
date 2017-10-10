@@ -9,9 +9,14 @@ use Validator;
 
 class SampleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['listAll','filter','show','index']]);
+    }
+
     public function index()
     {
-        $samples = Sample::orderBy('nom')->get();
+        $samples = Sample::orderBy('updated_at','desc')->get();
 
         //return view('sample.index',compact("samples"));
         //return view('sample.index',['samples' => $samples]);
@@ -59,7 +64,7 @@ class SampleController extends Controller
         // le nom OU le type contient arg1 ET le nom ou le type contient arg2 ET etc...
         // select * from `samples` where ((`nom` like '%arg1%' or `type` like '%arg1%') and (`nom` like '%arg2%' or `type` like '%arg2%')) order by `nom` asc
         if (!$pattern) {
-            $samples = Sample::orderBy('nom')->get();
+            $samples = Sample::orderBy('updated_at','desc')->get();
         } else {
             $query = Sample::where(function($q) use ($patterns) {
                 foreach ($patterns as $keyword) {
@@ -69,14 +74,9 @@ class SampleController extends Controller
                     })->get();
                 }
             });
-            $samples = $query->orderBy('nom')->get();
+            $samples = $query->orderBy('updated_at','desc')->get();
         }
 
-        return view('sample.list')->withSamples($samples);
-    }
-
-    public function listAll(){
-        $samples = Sample::orderBy('nom')->get();
         return view('sample.list')->withSamples($samples);
     }
 }
